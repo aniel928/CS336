@@ -20,7 +20,7 @@ try {
 		return;
 	}
 	else if(temp.equals("viewPopular")) {
-		response.sendRedirect("ViewPopular.jsp");
+		response.sendRedirect("ViewFlights.jsp");
 		return;
 	}
 	else if(temp.equals("viewProfile")) {
