@@ -7,26 +7,48 @@
 	
 	<%
 	try{
+
 		if(request.getParameter("tripType")==null){%>
 	
 		<form method="get" action="MakeReservation.jsp" enctype=text/plain>
-	    
+	    	Trip Type:<br><br>
 	  		<input type="radio" name="tripType" value="round"/> Round-trip
 	  		<br><br>
 	  		<input type="radio" name="tripType" value="oneway"/> One-way
 	  		<br><br>
 	  		<input type="radio" name="tripType" value="multi"/> Multi-city
+	  		<br><br><br><br>
+	  		Type of Travel:<br><br>
+	  		<input type="radio" name="domintl" value="domestic"/> Domestic
+	  		<br><br>
+	  		<input type="radio" name="domintl" value="international"/> International
 	  		<br><br>
 	  		<input type="submit" value="submit" />
+	  		<br><br>
 		</form>
 		
 		<%} 
-		else if(request.getParameter("tripType").equals("round")){%>
+		
+		//check for domestic vs international and set the WHERE clause appropriately
+		else if(request.getParameter("tripType").equals("round")){
+			String country=null;
+			if(request.getParameter("domintl").equals("domestic")){
+				country = "WHERE country = 'United States';";
+			}
+			else{
+				country = "WHERE country <> 'United States';";
+			}
+			
+			
+			%>
 			Starting Airport
 			<select>
 			<% Connection con = dbConnect();
 			Statement stmt = con.createStatement();
-			String str = "SELECT * FROM airports";
+			//for depart, always start in US?
+			String str1 = "SELECT * FROM airports WHERE country = 'United States'";
+			//for arrival
+			String str2 = "SELECT * FROM airports" + country + "'";
 			
 			
 			//Replace below with this one database is setup.  assume airport ID is first column and second is airport name.
@@ -69,7 +91,7 @@
 				<option value="night">Night</option>
 			</select>
 			&emsp;
-			Preferred Return Time
+			Preferred Return Depart Time
 			<select>
 				<option value="anytime">Anytime</option>
 				<option value="morning">Morning</option>
