@@ -1,10 +1,7 @@
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
-<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
+<%@ include file = "header.jsp" %>
+<%@ include file = "functions.jsp" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
 		<title>Registration Page</title>
 	</head>
 	<body>
@@ -13,6 +10,24 @@
 		<div>
 			<form method="post" action="registerMe.jsp">
 				<table>
+					<%try{
+						if(request.getParameter("error").equals("nopass")){				
+							out.println("<tr><td style='color: red'><b>Passwords don't match, please try again.</b></td></tr>");
+						}
+						else if(request.getParameter("error").equals("missing")){
+							out.println("<tr><td style='color: red'><b>Please fill out all applicable fields.</b></td></tr>");
+						}
+						else if(request.getParameter("error").equals("primary")){
+							out.println("<tr><td style='color: red'><b>Missing account number or SSN.</b></td></tr>");
+						}
+						else if(request.getParameter("error").equals("exists")){
+							out.println("<tr><td style='color: red'><b>Username taken, please pick different username.</b></td></tr>");
+						}
+					} 
+					catch(Exception e){
+						
+					}%>
+					
 					<tr>    
 						<td>Account Number (customers only): </td><td><input type="text" name="account_no"></td>
 					</tr>
@@ -23,7 +38,10 @@
 						<td>Username: </td><td><input type="text" name="username"></td>
 					</tr>
 					<tr>
-						<td>Password: </td><td><input type="text" name="password"></td>
+						<td>Password: </td><td><input type="password" name="password"></td>
+					</tr>
+					<tr>
+						<td>Re-type Password: </td><td><input type="password" name="password2"></td>
 					</tr>
 				</table>
 				<br>
