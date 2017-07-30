@@ -1,0 +1,21 @@
+
+form {
+ width: 500px;
+ overflow:hidden;}
+
+label {
+ clear: both;
+ float: left;
+ width: 40%;}
+
+field {
+ float: left;
+ width: 55%;}
+ 
+body {
+    background-color: powderblue;
+}
+
+.inv {
+    display: none;
+}
