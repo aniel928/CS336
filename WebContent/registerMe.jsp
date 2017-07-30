@@ -9,10 +9,12 @@
 		if(!request.getParameter("password").equals(request.getParameter("password2"))){
 			out.println("<form method='post'><input type='hidden' id='errormsg' name = 'error' value='error'></input></form>");
 			response.sendRedirect("register.jsp?error=nopass");
+			return;
 		}	
 		else if((request.getParameter("username")=="") || (request.getParameter("password")=="") || (request.getParameter("password2")=="")){
 			out.println("<form method='post'><input type='hidden' id='errormsg' name = 'error' value='error'></input></form>");
 			response.sendRedirect("register.jsp?error=missing");
+			return;
 		}
 		else{
 	
@@ -81,12 +83,14 @@
 					else{
 						out.println("<form method='post'><input type='hidden' id='errormsg' name = 'error' value='error'></input></form>");
 						response.sendRedirect("register.jsp?error=primary");
+						return;
 					}
 				}
 				else{
 					//record exists in Customer, pick new username.
 					out.println("<form method='post'><input type='hidden' id='errormsg' name = 'error' value='error'></input></form>");
 					response.sendRedirect("register.jsp?error=exists");
+					return;
 				}
 	
 				//close the connection.

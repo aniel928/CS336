@@ -1,6 +1,6 @@
 
 form {
- width: 500px;
+/*  width: 500px; */
  overflow:hidden;}
 
 label {
@@ -13,8 +13,19 @@ field {
  width: 55%;}
  
 body {
+/* 	margin: 50px; */
     background-color: powderblue;
 }
+
+/* table {
+	background-color: #f0f0f0;
+}
+ */
+td {
+	padding: 10px;
+/* 	border-style: ridge;
+	border-color: black;
+ */}
 
 .inv {
     display: none;
