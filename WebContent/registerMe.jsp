@@ -68,7 +68,7 @@
 						statement.setString(4, request.getParameter("first_name"));
 						statement.setString(5, request.getParameter("last_name"));
 						
-						statement.setString(6, request.getParameter("street_adress"));
+						statement.setString(6, request.getParameter("street_address"));
 						statement.setString(7, request.getParameter("city"));
 						statement.setString(8, request.getParameter("state"));
 						statement.setString(9, request.getParameter("zipcode"));
