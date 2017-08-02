@@ -10,8 +10,6 @@
 String tripType = request.getParameter("tripType");
 //roundtrip
 if(tripType.equals("round")){
-	out.println("acocunt" +request.getParameter("account"));
-	
 	
 	if((request.getParameter("startDate").isEmpty()) || (request.getParameter("returnDate").isEmpty()) || (request.getParameter("departTime").isEmpty()) || (request.getParameter("returnTime").isEmpty()) || (request.getParameter("numPass").isEmpty())){
 		response.sendRedirect("MakeReservation.jsp?error=allreq&tripType=round&domintl="+request.getParameter("domintl")+"&account="+request.getParameter("account"));
@@ -24,6 +22,9 @@ if(tripType.equals("round")){
 	startdate = getDate(request.getParameter("startDate"));
 	java.util.Date retdate = new java.util.Date();
 	retdate = getDate(request.getParameter("returnDate"));
+	
+	String startTime = timeOfDay(request.getParameter("departTime"));
+	String returnTime = timeOfDay(request.getParameter("returnTime"));
 	
 	//is it ok that you can't fly in and out on same day?  Very difficult to code otherwise.
 	//if startdate after ret date, return error.
@@ -57,9 +58,14 @@ if(tripType.equals("round")){
 	}*/
 
 	//Pull outgoing flights from DB and create table
-	String str = "SELECT traverses.FLNumber, APIDDeparts, APIDArrives, TraDptDate, TraDptTime, TraArrDate, TraArrTime, FLFare from traverses, flights WHERE TraDptDate='"+ formatDate(startdate)+"' AND APIDDeparts = '"+request.getParameter("startAirport")+"' AND APIDArrives = '"+request.getParameter("destAirport")+"' AND traverses.FLNumber = flights.FLNumber;";
-
-	ResultSet rs = selectRequest(str);%>
+	String str = "SELECT traverses.FLNumber, APIDDeparts, APIDArrives, TraDptDate, TraDptTime, TraArrDate, TraArrTime, FLFare from traverses, flights WHERE TraDptDate='"+ formatDate(startdate)+"' AND APIDDeparts = '"+request.getParameter("startAirport")+"' AND APIDArrives = '"+request.getParameter("destAirport")+"' AND traverses.FLNumber = flights.FLNumber"+startTime+";";
+	
+	ResultSet rs = selectRequest(str);
+	if(!rs.next()){
+		response.sendRedirect("MakeReservation.jsp?error=noneStart&tripType=round&domintl="+request.getParameter("domintl")+"&account="+request.getParameter("account"));
+		con.close();
+		return;
+	} %>
 	
 	<br> <h3>Choose your origin flight:</h3><br>
 	<table class='datatable'>
@@ -78,6 +84,7 @@ if(tripType.equals("round")){
 		<form method="post" action="book.jsp">
 <%
 	int i = 0;
+	rs.beforeFirst();
 	while(rs.next()){
 		String time1 = rs.getString(5);
 		String time2 = rs.getString(7);
@@ -97,9 +104,14 @@ if(tripType.equals("round")){
 		}
 	}
 	
-	str = "SELECT traverses.FLNumber, APIDDeparts, APIDArrives, TraDptDate, TraDptTime, TraArrDate, TraArrTime, FLFare from traverses, flights WHERE TraDptDate='"+ formatDate(retdate)+"' AND APIDDeparts = '"+request.getParameter("destAirport")+"' AND APIDArrives = '"+request.getParameter("startAirport")+"' AND traverses.FLNumber = flights.FLNumber;";
+	str = "SELECT traverses.FLNumber, APIDDeparts, APIDArrives, TraDptDate, TraDptTime, TraArrDate, TraArrTime, FLFare from traverses, flights WHERE TraDptDate='"+ formatDate(retdate)+"' AND APIDDeparts = '"+request.getParameter("destAirport")+"' AND APIDArrives = '"+request.getParameter("startAirport")+"' AND traverses.FLNumber = flights.FLNumber"+returnTime+";";
 	
-	rs = selectRequest(str);%>
+	rs = selectRequest(str);
+	if(!rs.next()){
+		response.sendRedirect("MakeReservation.jsp?error=noneReturn&tripType=round&domintl="+request.getParameter("domintl")+"&account="+request.getParameter("account"));
+		con.close();
+		return;
+	} %>
 	
 	</table>
 	<br><br><h3>Choose your return flight:</h3><br>
@@ -117,7 +129,7 @@ if(tripType.equals("round")){
 			<th>Advance Discount</th>
 		</tr>
 	<%
-
+		rs.beforeFirst();
 		while(rs.next()){
 			String time1 = rs.getString(5);
 			String time2 = rs.getString(7);
@@ -158,6 +170,8 @@ else if(tripType.equals("oneway")){
 		return;
 	}
 	
+	String departTime = timeOfDay(request.getParameter("departTime"));
+	
 	java.util.Date startdate = new java.util.Date();
 	startdate = getDate(request.getParameter("startDate"));
 
@@ -169,11 +183,14 @@ else if(tripType.equals("oneway")){
 	}*/
 	
 	//Pull outgoing flights from DB and create table
-	String str = "SELECT traverses.FLNumber, APIDDeparts, APIDArrives, TraDptDate, TraDptTime, TraArrDate, TraArrTime, FLFare from traverses, flights WHERE TraDptDate='"+ formatDate(startdate)+"' AND APIDDeparts = '"+request.getParameter("startAirport")+"' AND APIDArrives = '"+request.getParameter("destAirport")+"' AND traverses.FLNumber = flights.FLNumber;";
-
-	ResultSet rs = selectRequest(str);%>
-	
-	<br> <h3>Choose your origin flight:</h3><br>
+	String str = "SELECT traverses.FLNumber, APIDDeparts, APIDArrives, TraDptDate, TraDptTime, TraArrDate, TraArrTime, FLFare from traverses, flights WHERE TraDptDate='"+ formatDate(startdate)+"' AND APIDDeparts = '"+request.getParameter("startAirport")+"' AND APIDArrives = '"+request.getParameter("destAirport")+"' AND traverses.FLNumber = flights.FLNumber"+ departTime +";";
+	ResultSet rs = selectRequest(str);
+	if(!rs.next()){
+		response.sendRedirect("MakeReservation.jsp?error=none&tripType=oneway&domintl="+request.getParameter("domintl")+"&account="+request.getParameter("account"));
+		con.close();
+		return;
+	}%>
+	<br> <h3>Choose your flight:</h3><br>
 	<table class='datatable'>
 		<tr>
 			<th>Select Flight</th>
@@ -190,6 +207,7 @@ else if(tripType.equals("oneway")){
 		<form method="post" action="book.jsp">
 <%
 	int i = 0;
+	rs.beforeFirst();
 	while(rs.next()){
 		String time1 = rs.getString(5);
 		String time2 = rs.getString(7);
@@ -218,60 +236,14 @@ else if(tripType.equals("oneway")){
 		<input type="submit" class = "sub" value="Continue to Passenger Information"/>
 	
 	</form>
-	
-	
 
 	<%
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //multicity
 else if(tripType.equals("multi")){
-	out.println("multi<br>");
-	out.println("account: "+request.getParameter("account"));
 	int cities = 0;
-	out.println("city: "+ request.getParameter("numcity")+".");
 	try{cities = Integer.parseInt(request.getParameter("numcity").trim());}catch(Exception e){out.println("Oops");}
-	out.println(cities+" cities (+ starting airport)<br>");
 	
 	int i=1;
 	
@@ -283,7 +255,7 @@ else if(tripType.equals("multi")){
 	//starting info
 	airports[0] =  request.getParameter("startAirport");
 	dates[0] = request.getParameter("startDepart");
-	times[0] = request.getParameter("startTime");
+	times[0] = timeOfDay(request.getParameter("startTime"));
 	
 	//Loop for city info
 	while(i < cities){
@@ -292,9 +264,11 @@ else if(tripType.equals("multi")){
 		String time = "time" + i;
 		airports[i] = request.getParameter(city);
 		dates[i] = request.getParameter(date);
-		times[i] = request.getParameter(time);
+		times[i] = timeOfDay(request.getParameter(time));
 		i++;
 	}
+	
+	
 	
 	//final info
 	airports[cities] = request.getParameter("finalAirport");
@@ -308,29 +282,21 @@ else if(tripType.equals("multi")){
 		}
 	}
 	
+	
 /* 	if(airports[cities].equals("") || times[cities].equals("")){
 		response.sendRedirect("MakeReservation.jsp?error=allreq&tripType=multi&domintl="+request.getParameter("domintl")+"&number="+cities+"&account="+request.getParameter("account"));;
 		con.close();
 		return;
 	}
- */	for(int j=0; j<=cities;j++){
-		out.println(airports[j]);
-		if(j!=cities){
-			out.println(dates[j]);
-			out.println(times[j]);
-		}
-		out.println("<br>");
-	}
-
+ */	
 	
 	for (int j=0; (j<dates.length-1);j++){
 		java.util.Date date = getDate(dates[j]);
 		//Pull outgoing flights from DB and create table
-		String str = "SELECT traverses.FLNumber, APIDDeparts, APIDArrives, TraDptDate, TraDptTime, TraArrDate, TraArrTime, FLFare from traverses, flights WHERE TraDptDate='"+ formatDate(date)+"' AND APIDDeparts = '"+airports[j]+"' AND APIDArrives = '"+airports[j+1]+"' AND traverses.FLNumber = flights.FLNumber;";
-
+		String str = "SELECT traverses.FLNumber, APIDDeparts, APIDArrives, TraDptDate, TraDptTime, TraArrDate, TraArrTime, FLFare from traverses, flights WHERE TraDptDate='"+ formatDate(date)+"' AND APIDDeparts = '"+airports[j]+"' AND APIDArrives = '"+airports[j+1]+"' AND traverses.FLNumber = flights.FLNumber"+times[j]+";";
 		ResultSet rs = selectRequest(str);%>
 		
-		<br> <h3>Choose your flight:</h3><br>
+		<br> <h3>Choose flight<% out.println(" "+(j+1)+":");%></h3><br>
 		<table class='datatable'>
 			<tr>
 				<th>Select Flight</th>
@@ -346,6 +312,14 @@ else if(tripType.equals("multi")){
 			</tr>
 			<form method="post" action="book.jsp">
 	<%
+		if(!rs.next()){
+			response.sendRedirect("MakeReservation.jsp?error="+j+"&tripType=multi&domintl="+request.getParameter("domintl")+"&number="+cities+"&account="+request.getParameter("account"));;
+			con.close();
+			return;	
+		}
+	
+		rs.beforeFirst();
+
 		while(rs.next()){
 			String time1 = rs.getString(5);
 			String time2 = rs.getString(7);
@@ -373,7 +347,8 @@ else if(tripType.equals("multi")){
 			<input type='hidden' id='numPass' name = 'numPass' value= '<%out.println(request.getParameter("numPass"));%>'/>
 			<input type='hidden' id='account' name = 'account' value= '<%out.println(request.getParameter("account"));%>'/>
 			<input type='hidden' id='numcity' name = 'numcity' value= '<%out.println(request.getParameter("numcity"));%>'/>
-			<br><br>
+			<input type='hidden' id='startDate' name = 'startDate' value= '<%out.println(dates[0]);%>'/>
+		<br><br>
 		
 	<% 	
 	}

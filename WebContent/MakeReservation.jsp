@@ -53,6 +53,15 @@
 				else if(request.getParameter("error").equals("long")){
 					out.println("<p style='color: red'><b>Your trip is too long! Trip can be a maximum of 30 days.</b></p>");					
 				}
+				else if(request.getParameter("error").equals("noneStart")){
+					out.println("<p style='color: red'><b>No flights match your origin flight information.  Please select different valeus.</b></p>");					
+				}
+				else if(request.getParameter("error").equals("noneReturn")){
+					out.println("<p style='color: red'><b>No flights match your return flight information.  Please select different valeus.</b></p>");					
+				}
+				else{
+					out.println("<p style='color: red'><b>We've encountered an error.  Please try again later.</b></p>");					
+				}
 			}
 				String country=null;
 			//check for domestic vs international and set the WHERE clause appropriately	
@@ -65,7 +74,6 @@
 			
 			
 			%>
-						<%out.println("account: " + request.getParameter("account"));%>
 		
 			<form method="post" action="pickFlights.jsp">
 		
@@ -146,7 +154,7 @@
 				<br><br>
 				<input type='hidden' id='tripType' name = 'tripType' value='round'></input>
 				<input type='hidden' id='account' name = 'account' value=<% out.println(request.getParameter("account"));%>></input>
-				<input type='hidden' id='domintl' name = 'doimntl' value=<% request.getParameter("domintl");%>></input>
+				<input type='hidden' id='domintl' name = 'doimntl' value=<% out.println(request.getParameter("domintl"));%>></input>
 				<input type="submit"/>
 			</form>
 	<% 	}
@@ -155,6 +163,12 @@
 			if(request.getParameter("error")!=null){
 				if(request.getParameter("error").equals("allreq")){				
 					out.println("<p style='color: red'><b>All fields are required, please try again.</b></p>");
+				}
+				else if(request.getParameter("error").equals("none")){
+					out.println("<p style='color: red'><b>No flights match your origin flight information.  Please select different valeus.</b></p>");					
+				}
+				else{
+					out.println("<p style='color: red'><b>We've encountered an error.  Please try again later.</b></p>");					
 				}
 			}
 			
@@ -165,6 +179,7 @@
 			else{
 				country = "WHERE APCountry <> 'United States'";
 			}
+			
 			
 		%>
 			<form method="post" action="pickFlights.jsp">
@@ -215,8 +230,8 @@
 				<br><br>
 				Number of Passengers:<input type="text" name="numPass"/>
 				<input type='hidden' id='tripType' name = 'tripType' value='oneway'></input>
-				<input type='hidden' id='domintl' name = 'doimntl' value=<% request.getParameter("domintl");%>></input>
-				<input type='hidden' id='account' name = 'account' value=<% request.getParameter("account");%>></input>
+				<input type='hidden' id='domintl' name = 'doimntl' value=<% out.println(request.getParameter("domintl"));%>></input>
+				<input type='hidden' id='account' name = 'account' value=<% out.println(request.getParameter("account"));%>></input>
 				<input type="submit"/>
 			</form>
 			
@@ -227,9 +242,18 @@
 				if(request.getParameter("error").equals("allreq")){				
 					out.println("<p style='color: red'><b>All fields are required, please try again.</b></p>");
 				}
+				else {
+					int errno = 0;
+					try{
+						errno = Integer.parseInt(request.getParameter("error"));
+						errno++;
+					}catch(NumberFormatException e){
+						
+					}
+					out.println("<p style='color: red'><b>No flights match your #"+errno+ " flight. Please try again.</b></p>");					
+				}
 			}
 		
-			out.println(request.getParameter("account"));
 			
 			if(request.getParameter("number")==null){%>
 				<form method="get" action="MakeReservation.jsp">
@@ -252,8 +276,7 @@
 			<%}
 			else{
 				int i = 0;%>
-				<%out.println(".."+request.getParameter("account")); %>
-	
+				
 				<form method="post" action="pickFlights.jsp">
 					
 					<b>Starting Airport</b><br>
