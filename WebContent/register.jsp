@@ -35,10 +35,22 @@
 					</div>
 					<div id = "Customer" class = "inv">
 						<h3>Customer Information</h3>
-						<label>Account Number:</label><input type="text" name='account_no'/>
-						<label>Seat Preference:</label><input type="text" name='seat_preference'/>
-						<label>Meal Preference:</label><input type="text" name='meal_preference'/>
-						<label>Credit Card Number:</label><input type="text" name='CC_number'/>
+						<div>
+							<label>Account Number:</label><input type="text" name='account_no'/>
+						</div>
+						
+						<div>
+							<label>Seat Preference:</label><input type="text" name='seat_preference'/>
+						</div>
+							
+						<div>
+							<label>Meal Preference:</label><input type="text" name='meal_preference'/>
+						</div>
+						
+						<div>
+							<label>Credit Card Number:</label>
+							<input type="text" name='CC_number'/>
+						</div>
 					</div>
 					
 					<h3>Account Basics</h3>
@@ -85,7 +97,7 @@
 					 <h3>Contact</h3>
 					 
 					<div>
-						<label>Email:</label><input id = "field" type="text" name='city'/>
+						<label>Email:</label><input id = "field" type="text" name='email'/>
 					</div> 
 					<div>
 						<label>Phone:</label><input id = "field"  type="tel" pattern='[\(]\d{3}[\)]\d{3}[\-]\d{4}' name='phone'/>
