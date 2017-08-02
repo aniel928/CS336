@@ -14,16 +14,16 @@
 			<form method="post" action="registerMe.jsp">
 					<%try{
 						if(request.getParameter("error").equals("nopass")){				
-							out.println("<tr><td style='color: red'><b>Passwords don't match, please try again.</b></td></tr>");
+							out.println("<p style='color: red'><b>Passwords don't match, please try again.</b></p>");
 						}
 						else if(request.getParameter("error").equals("missing")){
-							out.println("<tr><td style='color: red'><b>Please fill out all applicable fields.</b></td></tr>");
+							out.println("<p style='color: red'><b>Please fill out all applicable fields.</b></p>");
 						}
 						else if(request.getParameter("error").equals("primary")){
-							out.println("<tr><td style='color: red'><b>Missing account number or SSN.</b></td></tr>");
+							out.println("<p style='color: red'><b>Missing registration type, account number, or SSN.</b></p>");
 						}
 						else if(request.getParameter("error").equals("exists")){
-							out.println("<tr><td style='color: red'><b>Username taken, please pick different username.</b></td></tr>");
+							out.println("<p style='color: red'><b>Username taken, please pick different username.</b></p>");
 						}
 					} 
 					catch(Exception e){
