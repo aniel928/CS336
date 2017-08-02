@@ -13,6 +13,7 @@ if(request.getParameter("tripType")==null){
 	out.println(request.getParameter("numpass"));
 return;
 }
+//
 if(request.getParameter("tripType").equals("round")){
 	
 	if(request.getParameter("pass1") == null || request.getParameter("meal1")==null || request.getParameter("seat1")==null){
