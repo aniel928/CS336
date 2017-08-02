@@ -267,6 +267,7 @@ else if(tripType.equals("oneway")){
 //multicity
 else if(tripType.equals("multi")){
 	out.println("multi<br>");
+	out.println("account: "+request.getParameter("account"));
 	int cities = 0;
 	out.println("city: "+ request.getParameter("numcity")+".");
 	try{cities = Integer.parseInt(request.getParameter("numcity").trim());}catch(Exception e){out.println("Oops");}

@@ -395,26 +395,30 @@ else if(request.getParameter("tripType").equals("oneway")){
 		
 		
 		//write to makes
-//		statement = con.prepareStatement("INSERT INTO makes VALUES(?, ?, ? )");
-//		statement.setInt(1,resno);
-//		statement.setString(2,account_no);
-//		if(session.getAttribute("type").equals("employee")){
-//			statement.setString(3,String.valueOf(session.getAttribute("username")));
-//		}else{
-//			statement.setString(3,null);
-//		}
-//		statement.execute();
-//		out.println("Saved to makes");
+		statement = con.prepareStatement("INSERT INTO makes VALUES(?, ?, ? )");
+		statement.setInt(1,resno);
+		statement.setString(2,account_no);
+		if(session.getAttribute("type").equals("employee")){
+			statement.setString(3,String.valueOf(session.getAttribute("ssn")));
+		}else{
+			statement.setString(3,null);
+		}
+		statement.execute();
+		out.println("Saved to makes");
 		
 
 
 
 		//write to passenger
-//		for(int j=0; j < num; k++){
-//		statement = con.prepareStatement("INSERT INTO passenger VALUES(?, ?, ?, ?, ?)");
-//			//not correct in db yet
-//			
-//		}
+		for(int j=0; j < num; j++){
+			statement = con.prepareStatement("INSERT INTO passenger VALUES(?, ?, ?, ?)");
+			statement.setInt(1,resno);
+			statement.setString(2,(request.getParameter("pass"+(j+1))));
+			statement.setString(3,(request.getParameter("seat"+(j+1))));
+			statement.setString(4,(request.getParameter("meal"+(j+1))));
+			statement.execute();
+			out.println("Passengers updated");
+		}
 		
 		
 		

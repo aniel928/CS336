@@ -216,7 +216,7 @@
 				Number of Passengers:<input type="text" name="numPass"/>
 				<input type='hidden' id='tripType' name = 'tripType' value='oneway'></input>
 				<input type='hidden' id='domintl' name = 'doimntl' value=<% request.getParameter("domintl");%>></input>
-				<input type='hidden' id='account' name = 'account' value=<% out.println(request.getParameter("account"));%>></input>
+				<input type='hidden' id='account' name = 'account' value=<% request.getParameter("account");%>></input>
 				<input type="submit"/>
 			</form>
 			
@@ -228,6 +228,8 @@
 					out.println("<p style='color: red'><b>All fields are required, please try again.</b></p>");
 				}
 			}
+		
+			out.println(request.getParameter("account"));
 			
 			if(request.getParameter("number")==null){%>
 				<form method="get" action="MakeReservation.jsp">
@@ -241,15 +243,19 @@
 						<option value="5">5</option>
 					</select>
 					<input type='hidden' id='tripType' name = 'tripType' value='multi'></input>
+					<input type='hidden' id='account' name = 'account' value= '<%out.println(request.getParameter("account")); %>'/>
 					<br><br>
-					<input type="submit">
+					<input type="submit"/>
 				</form>
 				
 			
 			<%}
 			else{
 				int i = 0;%>
+				<%out.println(".."+request.getParameter("account")); %>
+	
 				<form method="post" action="pickFlights.jsp">
+					
 					<b>Starting Airport</b><br>
 					<select name="startAirport">
 					<% 	//for depart, always start in US?
@@ -313,15 +319,16 @@
 						}
 						i++;
 					}
-					%>
 					result.close();
+					%>
+
 					<br>Number of Passengers:<input type="text" name="numPass"/>
 					<br><br>
-	<% 				out.println(request.getParameter("number"));%>
+	<% 				out.println("a"+	request.getParameter("account"));%>
 					
 					<input type='hidden' id='tripType' name = 'tripType' value='multi'></input>
 					<input type='hidden' id='numcity' name = 'numcity' value=<% out.println(request.getParameter("number"));%>/>
-					<input type='hidden' id='account' name = 'account' value=<% out.println(request.getParameter("account"));%>/>
+					<input type='hidden' id='account' name = 'account' value='<% out.println(request.getParameter("account"));%>'/>
 					<input type='hidden' id='domintl' name = 'domintl' value=<% out.println(request.getParameter("domintl"));%>/>
 					<input type='submit'/>
 				</form>	
