@@ -100,7 +100,7 @@
 						<label>Email:</label><input id = "field" type="text" name='email'/>
 					</div> 
 					<div>
-						<label>Phone:</label><input id = "field"  type="tel" pattern='[\(]\d{3}[\)]\d{3}[\-]\d{4}' name='phone'/>
+						<label>Phone:</label><input id = "field"  type="tel" pattern='\d{10}' name='phone'/>
 					</div>
 					
 							

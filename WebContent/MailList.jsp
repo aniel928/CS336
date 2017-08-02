@@ -31,7 +31,7 @@ try {
 	stmt = con.createStatement();
 
 	//build sql query
-	str = "SELECT * FROM airline.users where users.usertype = 'customer'";
+	str = "SELECT username email FROM airline.users where users.usertype = 'customer'";
 	
 	//run query
 	result = stmt.executeQuery(str);
@@ -46,7 +46,7 @@ try {
 	out.println("<table style='width:1000'>");
 
 	//manager page
-		out.println("<tr>");
+			out.println("<tr>");
 			out.println("<td>");
 				out.println("UserName");
 			out.println("</td>");
@@ -58,21 +58,21 @@ try {
 			out.println("</td>");
 			
 			
-		
-		while(result.next()) {
-			out.println("<tr>");
-			while(i <= USER_COL) {
-				
-				out.println("<td>");
-				out.print(result.getString(i));
-				out.println("</td>");
-				
-				i++;
+			
+			while(result.next()) {
+				out.println("<tr>");
+				while(i <= USER_COL) {
+					
+					out.println("<td>");
+					out.print(result.getString(i));
+					out.println("</td>");
+					
+					i++;
+				}
+				i=1;
+				out.println("</tr>");
+				x++;
 			}
-			i=1;
-			out.println("</tr>");
-			x++;
-		}
 	
 	out.println("</table>");
 
