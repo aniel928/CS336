@@ -55,7 +55,7 @@
 						statement.setString(14, request.getParameter("meal_preference"));
 						
 						statement.execute();
-						out.println("Customer created");
+						//out.println("Customer created");
 					}
 					//else if employee is filled out 
 					else if(request.getParameter("ssn")!=""){
@@ -77,7 +77,7 @@
 						statement.setString(11, request.getParameter("phone"));
 						
 						statement.execute();
-						out.println("Employee created");
+						//out.println("Employee created");
 					}
 					//neither filled out.
 					else{
@@ -95,6 +95,7 @@
 	
 				//close the connection.
 				con.close();
+				response.sendRedirect("index.jsp");
 	
 			} catch (Exception e) {
 				out.println(e.getMessage());
