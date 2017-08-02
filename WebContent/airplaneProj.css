@@ -13,20 +13,32 @@ field {
  width: 55%;}
  
 body {
-/* 	margin: 50px; */
+ 	margin: 50px; 
     background-color: powderblue;
 }
 
-/* table {
-	background-color: #f0f0f0;
-}
- */
-td {
-	padding: 10px;
-/* 	border-style: ridge;
+.datatable {
+	background-color: #80c1ca;
+ 	border-style: ridge;
 	border-color: black;
- */}
+ }
+
+table.datatable td{
+	padding: 10px;
+	border-style: solid;
+	border-width: 1px;
+}
+
+table.datatable th{
+	padding: 10px;
+	border-style: solid;
+	border-width: 1px;
+}
 
 .inv {
     display: none;
+}
+
+.sub {
+	font-size: 16px;
 }
