@@ -7,7 +7,7 @@
 	
 	<%
 	try{
-	//Start page - pick a travel type
+		//Start page - pick a travel type
 		if(request.getParameter("tripType")==null){%>
 		
 			<form method="get" action="MakeReservation.jsp" enctype=text/plain>
@@ -24,16 +24,34 @@
 		  		<br><br>
 		  		<input type="radio" name="domintl" value="international"/> International
 		  		<br><br>
+		  		<%
+		  		if(session.getAttribute("type").equals("employee")){
+		  			out.println("Account number: <input name='account' type='text'/>");
+		  		}
+		  		%>
+		  		<br><br>
 		  		<input type="submit" value="submit" />
 		  		<br><br>
 			</form>
 		
 		<%} 
-		
+		//RoundTrip page
 		else if(request.getParameter("tripType").equals("round")){
 			if(request.getParameter("error")!=null){
 				if(request.getParameter("error").equals("allreq")){				
 					out.println("<p style='color: red'><b>All fields are required, please try again.</b></p>");
+				}
+				else if(request.getParameter("error").equals("dates")){
+					out.println("<p style='color: red'><b>Please check your dates.  Return date should be after start date.</b></p>");					
+				}
+				else if(request.getParameter("error").equals("prior")){
+					out.println("<p style='color: red'><b>Please check your dates.  Start date should not be before today.</b></p>");					
+				}
+				else if(request.getParameter("error").equals("short")){
+					out.println("<p style='color: red'><b>Your trip is too short! There ust be at least one day between start date and return date.</b></p>");					
+				}
+				else if(request.getParameter("error").equals("long")){
+					out.println("<p style='color: red'><b>Your trip is too long! Trip can be a maximum of 30 days.</b></p>");					
 				}
 			}
 				String country=null;
@@ -47,89 +65,97 @@
 			
 			
 			%>
+						<%out.println("account: " + request.getParameter("account"));%>
+		
 			<form method="post" action="pickFlights.jsp">
-			<table>
-			<tr><td>Starting Airport
-			<select name="startAirport">
-			<% Connection con = dbConnect();
-			Statement stmt = con.createStatement();
-			//for depart, always start in US?
-			String str1 = "select * from airports where APCountry = 'United States' order by APName;";
-			//for arrival
-			String str2 = "SELECT * FROM airports " + country + " order by APName;";
+		
+				<table style="all:unset">
 				
-			
-			//Replace below with this one database is setup.  assume airport ID is first column and second is airport name.
-			
-			ResultSet result = stmt.executeQuery(str1);
-			
-			while(result.next()){
-				out.println("<option value = '"+ result.getString(1) + "'>"+result.getString(2)+" (" + result.getString(1)+")</option>");
-			}
+				<tr><td>Starting Airport
+				<select name="startAirport">
+				<% 
+				//for depart, always start in US?
+				String str1 = "select * from airports where APCountry = 'United States' order by APName;";
+				//for arrival
+				String str2 = "SELECT * FROM airports " + country + " order by APName;";
+					
 				
-				
-				%>
-			</select>
-			
-			</td>
-			<td>&emsp;</td>
-			<td>
-			Destination Airport
-			<select name="destAirport">
-				<%result = stmt.executeQuery(str2);
-				
+				//pull starting airports
+				ResultSet result = selectRequest(str1);
+				//print airports
 				while(result.next()){
 					out.println("<option value = '"+ result.getString(1) + "'>"+result.getString(2)+" (" + result.getString(1)+")</option>");
-				}%>
-			
+				}	
+				result.close();
+				%>
 				</select>
-			</td></tr>
-			<tr><td>
-			Depart Date
-			<input type="date" name="startDate"/>
-			</td>
-			<td>&emsp;</td>
-			<td>
-			Return Date
-			<input type="date" name="returnDate"/>
-			</td>
-			</tr>
-			<tr>
-			<td>
-			Preferred Depart Time
-			<select name="departTime">
-				<option value="anytime">Anytime</option>
-				<option value="morning">Morning</option>
-				<option value="afternoon">Afternoon</option>
-				<option value="night">Night</option>
-			</select>
-			</td>
-			<td>&emsp;</td>
-			<td>
-			Preferred Return Depart Time
-			<select name = "returnTime">
-				<option value="anytime">Anytime</option>
-				<option value="morning">Morning</option>
-				<option value="afternoon">Afternoon</option>
-				<option value="night">Night</option>
-			</select>
-			</td>
-			</tr>
-			<tr><td>Number of Passengers:<input type="text"/ name="numPass"></td><td>&emsp;</td><td>
-			&emsp;</td>
-			</tr>
-			</table>
-			<br><br>
-			<input type='hidden' id='tripType' name = 'tripType' value='round'></input>
-			<input type='hidden' id='domintl' name = 'doimntl' value=<% request.getParameter("domintl");%>></input>
-			<input type="submit"/>
+				
+				</td>
+				<td>&emsp;</td>
+				<td>
+				Destination Airport
+				<select name="destAirport">
+					<%//pull destination airports
+					result = selectRequest(str2);
+					//print airports
+					while(result.next()){
+						out.println("<option value = '"+ result.getString(1) + "'>"+result.getString(2)+" (" + result.getString(1)+")</option>");
+					}
+					result.close();
+					%>
+				</select>
+				</td></tr>
+				<tr><td>
+				Depart Date
+				<input type="date" name="startDate"/>
+				</td>
+				<td>&emsp;</td>
+				<td>
+				Return Date
+				<input type="date" name="returnDate"/>
+				</td>
+				</tr>
+				<tr>
+				<td>
+				Preferred Depart Time
+				<select name="departTime">
+					<option value="anytime">Anytime</option>
+					<option value="early">Early Morning (12:00a - 4:59a)</option>
+					<option value="morning">Morning (5:00a - 11:59a)</option>
+					<option value="afternoon">Afternoon (12:00p - 5:59p)</option>
+					<option value="night">Evening (6:00p - 11:59p)</option>
+					
+				</select>
+				</td>
+				<td>&emsp;</td>
+				<td>
+				Preferred Return Depart Time
+				<select name = "returnTime">
+					<option value="anytime">Anytime</option>
+					<option value="early">Early Morning (12:00a - 4:59a)</option>
+					<option value="morning">Morning (5:00a - 11:59a)</option>
+					<option value="afternoon">Afternoon (12:00p - 5:59p)</option>
+					<option value="night">Evening (6:00p - 11:59p)</option>
+				</select>
+				</td>
+				</tr>
+				<tr><td>Number of Passengers:<input type="text" name="numPass"></td><td>&emsp;</td><td>
+				&emsp;</td>
+				</tr>
+				</table>
+				<br><br>
+				<input type='hidden' id='tripType' name = 'tripType' value='round'></input>
+				<input type='hidden' id='account' name = 'account' value=<% out.println(request.getParameter("account"));%>></input>
+				<input type='hidden' id='domintl' name = 'doimntl' value=<% request.getParameter("domintl");%>></input>
+				<input type="submit"/>
 			</form>
 	<% 	}
+		//Oneway page
 		else if(request.getParameter("tripType").equals("oneway")){
 			if(request.getParameter("error")!=null){
 				if(request.getParameter("error").equals("allreq")){				
 					out.println("<p style='color: red'><b>All fields are required, please try again.</b></p>");
-			}
+				}
 			}
 			
 			String country=null;
@@ -142,62 +168,65 @@
 			
 		%>
 			<form method="post" action="pickFlights.jsp">
-			Starting Airport
-			<select name="startAirport">
-			<% Connection con = dbConnect();
-				Statement stmt = con.createStatement();
-				//for depart, always start in US?
-				String str1 = "select * from airports where APCountry = 'United States' order by APName;";
-				//for arrival
-				String str2 = "SELECT * FROM airports " + country + " order by APName;";
-					
 				
-				//Replace below with this one database is setup.  assume airport ID is first column and second is airport name.
-				
-				ResultSet result = stmt.executeQuery(str1);
-				
-				while(result.next()){
-					out.println("<option value = '"+ result.getString(1) + "'>"+result.getString(2)+" (" + result.getString(1)+")</option>");
-				}
-					
-					
+				Starting Airport
+				<select name="startAirport">
+				<% //for depart, always start in US?
+					String str1 = "select * from airports where APCountry = 'United States' order by APName;";
+					//for arrival
+					String str2 = "SELECT * FROM airports " + country + " order by APName;";
+						
+					//get starting airports
+					ResultSet result = selectRequest(str1);
+					//print airports
+					while(result.next()){
+						out.println("<option value = '"+ result.getString(1) + "'>"+result.getString(2)+" (" + result.getString(1)+")</option>");
+					}
+					result.close();
+						
+						
+						%>
+				</select>
+				<br><br>
+				Destination Airport
+				<select name="destAirport">
+					<%//get destination airports
+					result = selectRequest(str2);
+					//print airports
+					while(result.next()){
+						out.println("<option value = '"+ result.getString(1) + "'>"+result.getString(2)+" (" + result.getString(1)+")</option>");
+					}
+					result.close();
 					%>
-					</select>
-			<br><br>
-			Destination Airport
-			<select name="destAirport">
-					<%result = stmt.executeQuery(str2);
-				
-				while(result.next()){
-					out.println("<option value = '"+ result.getString(1) + "'>"+result.getString(2)+" (" + result.getString(1)+")</option>");
-				}%>
-			
-		</select>
-			<br><br>
-			Depart Date
-			<input type="date" name="startDate"/>
-			<br><br>
-			Preferred Depart Time
-			<select name="departTime">
-				<option value="anytime">Anytime</option>
-				<option value="morning">Morning</option>
-				<option value="afternoon">Afternoon</option>
-				<option value="night">Night</option>
-			</select>
-			<br><br>
-			Number of Passengers:<input type="text"/ name="numPass">
-			<input type='hidden' id='tripType' name = 'tripType' value='oneway'></input>
-			<input type='hidden' id='domintl' name = 'doimntl' value=<% request.getParameter("domintl");%>></input>
-			<input type="submit"/>
+					
+				</select>
+				<br><br>
+				Depart Date
+				<input type="date" name="startDate"/>
+				<br><br>
+				Preferred Depart Time
+				<select name="departTime">
+					<option value="anytime">Anytime</option>
+					<option value="early">Early Morning (12:00a - 4:59a)</option>
+					<option value="morning">Morning (5:00a - 11:59a)</option>
+					<option value="afternoon">Afternoon (12:00p - 5:59p)</option>
+					<option value="night">Evening (6:00p - 11:59p)</option>
+				</select>
+				<br><br>
+				Number of Passengers:<input type="text" name="numPass"/>
+				<input type='hidden' id='tripType' name = 'tripType' value='oneway'></input>
+				<input type='hidden' id='domintl' name = 'doimntl' value=<% request.getParameter("domintl");%>></input>
+				<input type='hidden' id='account' name = 'account' value=<% out.println(request.getParameter("account"));%>></input>
+				<input type="submit"/>
 			</form>
 			
 		<%}
-		
+		//Multi-City Page
 		else if(request.getParameter("tripType").equals("multi")){
 			if(request.getParameter("error")!=null){
 				if(request.getParameter("error").equals("allreq")){				
 					out.println("<p style='color: red'><b>All fields are required, please try again.</b></p>");
-			}
+				}
 			}
 			
 			if(request.getParameter("number")==null){%>
@@ -221,50 +250,53 @@
 			else{
 				int i = 0;%>
 				<form method="post" action="pickFlights.jsp">
-				<b>Starting Airport</b><br>
-				<select name="startAirport">
-					<% 	Connection con = dbConnect();
-						Statement stmt = con.createStatement();
-						//for depart, always start in US?
+					<b>Starting Airport</b><br>
+					<select name="startAirport">
+					<% 	//for depart, always start in US?
 						String str1 = "select * from airports where APCountry = 'United States' order by APName;";
 						//for arrival
 						String str2 = "SELECT * FROM airports order by APName;";
 							
-						
-						//Replace below with this one database is setup.  assume airport ID is first column and second is airport name.
-						
-						ResultSet result = stmt.executeQuery(str1);
-						
+						//get starting airports
+						ResultSet result = selectRequest(str1);
+						//print airports
 						while(result.next()){
 							out.println("<option value = '"+ result.getString(1) + "'>"+result.getString(2)+" (" + result.getString(1)+")</option>");
 						}
+						result.close();
 				%>
 				
-						</select><br>Depart Date<br><input name="startDepart" type="date"/><br>
-						
-						Preferred Depart Time<br>
-						<select name="startTime">
-							<option value="anytime">Anytime</option>
-							<option value="morning">Morning</option>
-							<option value="afternoon">Afternoon</option>
-							<option value="night">Night</option>
-						</select>
-						
-				<br>
-				<%	result = stmt.executeQuery(str2);
+					</select><br>Depart Date<br><input name="startDepart" type="date"/><br>
+					
+					Preferred Depart Time<br>
+					<select name="startTime">
+						<option value="anytime">Anytime</option>
+						<option value="early">Early Morning (12:00a - 4:59a)</option>
+						<option value="morning">Morning (5:00a - 11:59a)</option>
+						<option value="afternoon">Afternoon (12:00p - 5:59p)</option>
+						<option value="night">Evening (6:00p - 11:59p)</option>
+					</select>
+					
+					<br>
+				<%	//get ALL airports
+					result = selectRequest(str2);
+					//print everything out for as many cities as chosen
 					while(i < Integer.parseInt(request.getParameter("number"))){
+						//if last airport
 						if( (i == ((Integer.parseInt(request.getParameter("number")))-1))){
 							out.println("<br><b>Final Destination Airport</b><br><select name=\"finalAirport\">");
 							while(result.next()){
 								out.println("<option value = '"+ result.getString(1) + "'>"+result.getString(2)+" (" + result.getString(1)+")</option>");
 							}
 							
-							out.println("</select><br>Depart Date<br><input name = \"finalDepart\" type=\"date\"/><br>Preferred Depart Time<br><select name = \"finalTime\">"
-									+"<option value=\"anytime\">Anytime</option>"
-									+"<option value=\"morning\">Morning</option>"
-									+"<option value=\"afternoon\">Afternoon</option>"
-									+"<option value=\"night\">Night</option></select><br>");
+							out.println("</select>");//"<br>Depart Date<br><input name = \"finalDepart\" type=\"date\"/><br>Preferred Depart Time<br><select name = \"finalTime\">"
+									//+"<option value=\"anytime\">Anytime</option>"
+									//+"<option value=\"early\">Early Morning (12:00a - 4:59a)</option>"
+									//+"<option value=\"morning\">Morning (5:00a - 11:59a)</option>"
+									//+"<option value=\"afternoon\">Afternoon (12:00p - 5:59p)</option>"
+									//+"<option value=\"night\">Evening (6:00p - 11:59p)</option></select><br>");
 						}
+						//otherwise it's in between start and last
 						else{
 							out.println("</select><br><b>City #" + (i+1) + "</b><br><select name=\"airport"+(i+1)+"\")>");
 							while(result.next()){
@@ -272,20 +304,32 @@
 							}
 							out.println("</select><br>Depart Date<br><input name = \"dept"+ (i+1) + "\" type = \"date\"/><br>Preferred Depart Time<br><select name = \"time"+(i+1)+"\">"
 									+"<option value=\"anytime\">Anytime</option>"
-									+"<option value=\"morning\">Morning</option>"
-									+"<option value=\"afternoon\">Afternoon</option>"
-									+"<option value=\"night\">Night</option></select><br>");
+									+"<option value=\"early\">Early Morning (12:00a - 4:59a)</option>"
+									+"<option value=\"morning\">Morning (5:00a - 11:59a)</option>"
+									+"<option value=\"afternoon\">Afternoon (12:00p - 5:59p)</option>"
+									+"<option value=\"night\">Evening (6:00p - 11:59p)</option></select><br>");
 
 							result.beforeFirst();
 						}
 						i++;
 					}
-					out.println("<br>Number of Passengers:<input type=\"text\"/ name=\"numPass\"/>");
-					out.println("<br><br><input type='hidden' id='tripType' name = 'tripType' value='multi'></input><input type='hidden' id='numcity' name = 'numcity' value='"+request.getParameter("number")+"'></input><input type='hidden' id='domintl' name = 'doimntl' value='"+request.getParameter("domintl")+"'></input><input type='submit'/></form>");	
-			}
-			%>
+					%>
+					result.close();
+					<br>Number of Passengers:<input type="text" name="numPass"/>
+					<br><br>
+	<% 				out.println(request.getParameter("number"));%>
+					
+					<input type='hidden' id='tripType' name = 'tripType' value='multi'></input>
+					<input type='hidden' id='numcity' name = 'numcity' value=<% out.println(request.getParameter("number"));%>/>
+					<input type='hidden' id='account' name = 'account' value=<% out.println(request.getParameter("account"));%>/>
+					<input type='hidden' id='domintl' name = 'domintl' value=<% out.println(request.getParameter("domintl"));%>/>
+					<input type='submit'/>
+				</form>	
 			
-		<% 	
+			
+			
+		<%
+			}
 		}
 	}
 	catch(Exception e){
