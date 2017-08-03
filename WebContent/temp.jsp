@@ -51,6 +51,10 @@ try {
 		response.sendRedirect("ViewRevenue.jsp");
 		return;
 	}
+	else if(temp.equals("salesReport")) {
+		response.sendRedirect("SalesReport.jsp");
+		return;
+	}
 	else if(temp.equals("logout")){
 		session.invalidate();
 		response.sendRedirect("index.jsp");

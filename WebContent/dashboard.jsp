@@ -70,7 +70,7 @@ button{width:250px;
 				out.println("<button name='editProfile' value='editProfile' style='Background-color:beige'>Edit Profile</button> <br> <br>");
 				
 				if(session.getAttribute("type").equals("employee")){
-					out.println("<button name='mailList' value='mailList' style='Background-color:beige'>Create Mail List</button> <br> <br>");
+					out.println("<button name='mailList' value='mailList' style='Background-color:beige'>Mail List</button> <br> <br>");
 					//View/Edit customer information
 					//Suggest flights
 				}
@@ -78,6 +78,7 @@ button{width:250px;
 				//buttons for employees and managers
 				if(session.getAttribute("type").equals("employee") || result.getString(18).equals("manager")) {		
 					//View employee information
+					out.println("<button name='salesReport' value='salesReport' >Sales Report</button> <br> <br>");
 				}
 				
 				//buttons for managers

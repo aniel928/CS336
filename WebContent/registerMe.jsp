@@ -23,8 +23,10 @@
 				//connect to database
 				Connection con = dbConnect();
 				Statement stmt = con.createStatement();
-
-				String str = "SELECT * FROM users WHERE username='"+ request.getParameter("username") +"';";
+				
+				String str = "SELECT * FROM users WHERE username='"+ request.getParameter("username") +
+						"' OR account_no='"+ request.getParameter("account_no") + 
+						"' OR ssn='" + request.getParameter("ssn") + "';";
 				//Run the query against the database.
 				ResultSet result = stmt.executeQuery(str);
 				

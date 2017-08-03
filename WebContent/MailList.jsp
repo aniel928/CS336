@@ -3,7 +3,7 @@
 
 <title>Mail List</title>
 <body>
-<h1>Create Mail List</h1>
+<h1>Customer Mail List</h1>
 <style>
 table, th, td {
 	border: 1px solid black;
@@ -15,7 +15,6 @@ td {
 
 <%
 //declare variables
-final int USER_COL=2;
 Connection con;
 Statement stmt;
 String type;
@@ -31,13 +30,11 @@ try {
 	stmt = con.createStatement();
 
 	//build sql query
-	str = "SELECT username email FROM airline.users where users.usertype = 'customer'";
+	str = "SELECT username, first_name, last_name, street_address, city, state, zipcode, email, phone FROM airline.users where users.usertype = 'customer';";
 	
 	//run query
 	result = stmt.executeQuery(str);
 	
-	//move to first line of user table
-	//result.next();
 	
 	//get user type from getAttribute
 	type=session.getAttribute("type").toString();
@@ -46,35 +43,68 @@ try {
 	out.println("<table style='width:1000'>");
 
 	//manager page
-			out.println("<tr>");
-			out.println("<td>");
-				out.println("UserName");
-			out.println("</td>");
-			
-			//insert password???
-					
-			out.println("<td>");
-				out.println("Email");
-			out.println("</td>");
-			
-			
-			
-			while(result.next()) {
-				out.println("<tr>");
-				while(i <= USER_COL) {
-					
-					out.println("<td>");
-					out.print(result.getString(i));
-					out.println("</td>");
-					
-					i++;
-				}
-				i=1;
-				out.println("</tr>");
-				x++;
-			}
 	
-	out.println("</table>");
+	//Top labels
+	out.println("<tr>");
+	out.println("<td>");
+		out.println("UserName");
+	out.println("</td>");
+	
+	out.println("<td>");
+		out.println("Name");  
+	out.println("</td>");
+		
+	out.println("<td>");
+		out.println("Address");
+	out.println("</td>");
+	
+	out.println("<td>");
+		out.println("Email");
+	out.println("</td>");
+	
+	out.println("<td>");
+		out.println("Phone");
+	out.println("</td>");
+out.println("</tr>");
+
+while(result.next()) {
+	
+	out.println("<tr>");
+	
+	out.println("<td>");
+	out.print(result.getString("username"));
+	out.println("</td>");
+	
+	out.println("<td>");
+	out.print(result.getString("first_name"));
+	out.print(" ");
+	out.print(result.getString("last_name"));
+	out.println("</td>");
+	
+	out.println("<td>");
+	out.print(result.getString("street_address"));
+	out.print(", ");
+	out.print(result.getString("city"));
+	out.print(", ");
+	out.print(result.getString("state"));
+	out.print(", ");
+	out.print(result.getString("zipcode"));
+	out.println("</td>");
+	
+	out.println("<td>");
+	out.print(result.getString("email"));
+	out.println("</td>");
+	
+	out.println("<td>");
+	out.print(result.getString("phone"));
+	out.println("</td>");
+	
+	out.println("</tr>");
+
+}
+
+out.println("</table>");
+con.close();
 
 
 } catch (SQLException e) {
