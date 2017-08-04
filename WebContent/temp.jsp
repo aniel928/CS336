@@ -55,6 +55,18 @@ try {
 		response.sendRedirect("SalesReport.jsp");
 		return;
 	}
+	else if(temp.equals("Summary")) {
+		response.sendRedirect("MakeSummary.jsp");
+		return;
+	}
+	else if(temp.equals("viewMine")) {
+		response.sendRedirect("ViewMine.jsp");
+		return;
+	}
+	else if(temp.equals("viewUsers")) {
+		response.sendRedirect("ViewUsers.jsp");
+		return;
+	}
 	else if(temp.equals("logout")){
 		session.invalidate();
 		response.sendRedirect("index.jsp");
