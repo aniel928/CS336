@@ -76,8 +76,8 @@ try {
 		response.sendRedirect("ViewEditUsersDashboard.jsp");
 		return;
 	}
-	else if(temp.equals("")){
-		response.sendRedirect(".jsp");
+	else if(temp.equals("delete")){
+		response.sendRedirect("delete.jsp?user="+session.getAttribute("username"));
 		return;
 	}
 	

@@ -105,8 +105,8 @@ div.panel {
 						out.println("<button class= 'expand' name='viewMine' value='viewMine'>View My Reservations</button> <br> <br>");
 					}
 					
-					if(session.getAttribute("type").equals("employee") || result.getString(18).equals("manager")) {
-						out.println("<button class= 'expand' name='viewRes' value='viewRes'>View All Reservation</button> <br> <br>");
+					if(result.getString(18).equals("manager")) {
+						out.println("<button class= 'expand' name='viewRes' value='viewRes'>View All Reservations</button> <br> <br>");
 					}
 				
 					out.println("</form>");
@@ -114,30 +114,33 @@ div.panel {
 				
 				
 				//customer panel
-					if(session.getAttribute("type").equals("customer")){
-						out.println("<button class='accordion'>My Info</button>");
-						out.println("<div class='panel'>");
-						out.println("<form method=get action='temp.jsp'>");
-						out.println("<button class= 'expand' name='viewProfile' value='editProfile'>View/Edit Profile</button> <br> <br>");
-						out.println("<button class= 'expand' name='logout' value='logout'>Log Out</button><br><br>");
-						out.println("<button class= 'expand' name='delete' value='delete'>Delete Account</button> <br> <br>");
-					}
-					else{
-						out.println("<button class='accordion'>Customer</button>");
-						out.println("<div class='panel'>");
-						out.println("<form method=get action='temp.jsp'>");
-						out.println("<button class= 'expand' name='viewProfile' value='viewProfile'>View Profile</button> <br> <br>");	
-						if(session.getAttribute("type").equals("employee")){
-							out.println("<button class= 'expand' name='mailList' value='mailList'>Mail List</button> <br> <br>");
-						}
-						if(session.getAttribute("type").equals("manager")) {
-							out.println("<button class= 'expand' name='addUser' value='addUser'>Add User </button> <br> <br>");
-							out.println("<button class= 'expand' name='viewUsers' value='viewUsers'>View Users </button> <br> <br>");
-						}
-						out.println("<button class= 'expand' name='editProfile' value='editProfile'>Edit Profile</button> <br> <br>");
-					}							
-					out.println("</form>");
-					out.println("</div>");
+						
+				out.println("<button class='accordion'>My Info</button>");
+				out.println("<div class='panel'>");
+				out.println("<form method=get action='temp.jsp'>");
+				out.println("<button class= 'expand' name='viewProfile' value='editProfile'>View/Edit Profile</button> <br> <br>");
+				out.println("<button class= 'expand' name='logout' value='logout'>Log Out</button><br><br>");
+				if(session.getAttribute("type").equals("customer")){
+					out.println("<button class= 'expand' name='delete' value='delete'>Delete Account</button> <br> <br>");
+				}
+				out.println("</form>");
+				out.println("</div>");
+						
+				if(!session.getAttribute("type").equals("customer")){
+					out.println("<button class='accordion'>Customer Information </button>");
+					out.println("<div class='panel'>");
+					out.println("<form method=get action='temp.jsp'>");
+				}
+				if(session.getAttribute("type").equals("employee")){
+					out.println("<button class= 'expand' name='mailList' value='mailList'>Mail List</button> <br> <br>");
+					out.println("<button class= 'expand' name='viewUsers' value='viewUsers'>View Users </button> <br> <br>");
+				}
+				if(session.getAttribute("type").equals("manager")) {
+					out.println("<button class= 'expand' name='addUser' value='addUser'>Add User </button> <br> <br>");
+					out.println("<button class= 'expand' name='viewUsers' value='viewUsers'>View Users </button> <br> <br>");
+				}
+				out.println("</form>");
+				out.println("</div>");
 				
 				//flight panel
 				
@@ -149,10 +152,11 @@ div.panel {
 					if(session.getAttribute("type").equals("customer")){
 						out.println("<button class= 'expand' name='viewPopular' value='viewPopular'>View Popular Flights</button> <br> <br>");
 					}
+					else if(session.getAttribute("type").equals("manager")){
+						out.println("<button class= 'expand' name='viewFlights' value='viewFlights'>View Flight Info </button> <br> <br>");
+					}
 					else{
-						out.println("<button class= 'expand' name='viewFlights' value='viewFlights'>View All Flights </button> <br> <br>");
-					
-						out.println("<button class= 'expand' name='viewFlights' value='viewFlights'>Flights Lookup</button> <br> <br>");
+						out.println("<button class= 'expand' name='viewFlights' value='viewFlights'>Recommended Flights by User</button> <br> <br>");						
 					}
 					
 					out.println("</form>");
@@ -160,7 +164,7 @@ div.panel {
 				out.println("</div>");
 				
 				//Revenue Panel
-				if(session.getAttribute("type").equals("employee") || result.getString(18).equals("manager")) {	
+				if(session.getAttribute("type").equals("manager")) {	
 					out.println("<button class='accordion'>Revenue</button>");
 					out.println("<div class='panel'>");
 					
