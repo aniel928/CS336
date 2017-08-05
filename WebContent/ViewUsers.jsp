@@ -1,6 +1,6 @@
 <%@ include file = "header.jsp" %>
 <%@ include file = "functions.jsp" %>
-//
+
 <title>View Users</title>
 <style>
 table, th, td {
@@ -164,78 +164,6 @@ catch(NullPointerException e) {
 	out.print("tst" + e.getMessage());
 }
 
-/*
-while(i <= USER_COL) {
-	if(i ==1) {
-		out.println("<td>");
-			out.print(result.getString(i));
-		out.println("</td>");
-	}
-	if(i==3) {
-		out.println("<td>");
-			if(result.getString(i) != null)
-				out.print(result.getString(i));
-	}
-	if(i==4){
-		if(result.getString(i) != null)
-			out.print(result.getString(i));
-		out.println("</td>");
-	}
-	if(i == 5) {
-		out.println("<td>");
-			out.print(result.getString(i) + " ");
-	}
-	if(i == 6){
-			out.print(result.getString(i));
-			out.println("</td>");
-	}
-	if(i == 7){
-		out.println("<td>");
-		out.print(result.getString(i) + " ");
-	}
-	if(i == 8){
-		out.print(result.getString(i) + " ");
-	}
-	if(i == 9){
-		out.print(result.getString(i) + " ");
-	}
-	if(i == 10){
-		out.print(result.getString(i));
-		out.println("</td>");
-	}
-	if(i == 11){
-		out.println("<td>");
-			out.print(result.getString(i));
-		out.println("</td>");
-	}
-	if(i== 12){
-		out.println("<td>");
-			out.print(result.getString(i));
-		out.println("</td>");
-	}
-	if(i == 15) {
-		out.println("<td>");
-			out.print(result.getString(i));
-		out.println("</td>");
-	}
-	if(i == 16){
-		out.println("<td>");
-			out.print(result.getString(i));
-		out.println("</td>");
-	}
-	if(i == 17) {
-		out.println("<td>");
-			out.print(result.getString(i));
-		out.println("</td>");
-	}
-	if(i == 19) {
-		out.println("<td>");
-			out.print(result.getString(i));
-		out.println("</td>");
-	}
-	
-	i++;
-	*/
 %>
 </body>
 </html>

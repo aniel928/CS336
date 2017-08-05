@@ -72,6 +72,10 @@ try {
 		response.sendRedirect("index.jsp");
 		return;
 	}
+	else if(temp.equals("editProfile")){
+		response.sendRedirect("ViewEditUsersDashboard.jsp");
+		return;
+	}
 	else
 		response.sendRedirect("dashboard.jsp");
 
