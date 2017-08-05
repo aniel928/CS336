@@ -118,7 +118,7 @@ div.panel {
 				out.println("<button class='accordion'>My Info</button>");
 				out.println("<div class='panel'>");
 				out.println("<form method=get action='temp.jsp'>");
-				out.println("<button class= 'expand' name='viewProfile' value='editProfile'>View/Edit Profile</button> <br> <br>");
+				out.println("<button class= 'expand' name='editProfile' value='editProfile'>View/Edit Profile</button> <br> <br>");
 				out.println("<button class= 'expand' name='logout' value='logout'>Log Out</button><br><br>");
 				if(session.getAttribute("type").equals("customer")){
 					out.println("<button class= 'expand' name='delete' value='delete'>Delete Account</button> <br> <br>");
