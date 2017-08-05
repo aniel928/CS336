@@ -139,14 +139,14 @@ try {
 			}
 			if(type.equals("customer")) {
 				out.print("<td>" + 
-							"<form method='get' action='ViewEditUsers.jsp'>" +
+							"<form method='get' action='ViewEditUsersUserList.jsp'>" +
 								"<button name='acc' value=" + acc + ">View or Edit</button>" +	
 							"</form>" +
 				        "</td>");
 			}
 			else{
 				out.print("<td>" + 
-						  	"<form method='get' action='ViewEditUsers.jsp'>" +
+						  	"<form method='get' action='ViewEditUsersUserList.jsp'>" +
 								"<button name='ssn' value=" + ssn + ">View or Edit</button>" +	
 							"</form>" +
 			              "</td>");

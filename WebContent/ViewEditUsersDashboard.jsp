@@ -3,7 +3,7 @@
 	<title>View/Edit</title>
 	</head>
 	<body>
-		<h1>View and Edit User Information Below </h1>
+		<h1>View and Edit User Information</h1>
 		<br>
 		<div>
 			<form method="post" action="temp.jsp"> 
