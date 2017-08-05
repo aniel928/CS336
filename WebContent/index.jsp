@@ -16,6 +16,9 @@
 						if(request.getParameter("error") != null){
 							out.println("<tr><td style='color: red'><b>Username or password not found.</b><td><tr>");
 						} 
+						if(request.getParameter("delete") != null){
+							out.println("<tr><td style='color: red'><b>Account has been deleted.</b><td><tr>");							
+						}
 					}
 					catch(Exception e){
 					}

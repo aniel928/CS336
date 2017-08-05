@@ -50,7 +50,7 @@
 						
 						<div>
 							<label>Credit Card Number: (16 digits)</label>
-							<input type="text" pattern='\d{16} name='CC_number'/>
+							<input type="text" pattern='\d{16}' name='CC_number'/>
 						</div>
 					</div>
 					
