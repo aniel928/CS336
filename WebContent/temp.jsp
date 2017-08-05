@@ -76,6 +76,11 @@ try {
 		response.sendRedirect("ViewEditUsersDashboard.jsp");
 		return;
 	}
+	else if(temp.equals("")){
+		response.sendRedirect(".jsp");
+		return;
+	}
+	
 	else
 		response.sendRedirect("dashboard.jsp");
 
