@@ -81,4 +81,23 @@ public int daysBet(java.util.Date d1, java.util.Date d2){
 	return (int)diffDays;
 }
 
+public String timeOfDay(String s){
+	String retS = null;
+	if(s.equals("early")){
+		retS = " AND TraDptTime < 5";
+	}else if(s.equals("morning")){
+		retS = " AND TraDptTime >= 5 AND TraDptTime < 12";
+	}else if(s.equals("afternoon")){
+		retS = " AND TraDptTime >=12 AND TraDptTime < 18";
+	}else if(s.equals("night")){
+		retS = " AND TraDptTime >=18 AND TraDptTime < 24";
+	}else{
+		retS =" ";
+	}
+	return retS;
+}
+
+
+
+
 %>

@@ -1,5 +1,6 @@
 <%@ include file = "header.jsp" %>
 <%@ include file = "functions.jsp" %>
+	<title>Registration</title>
 	</head>
 	<body>
 		<h1>Please register below </h1>
@@ -14,16 +15,16 @@
 			<form method="post" action="registerMe.jsp">
 					<%try{
 						if(request.getParameter("error").equals("nopass")){				
-							out.println("<tr><td style='color: red'><b>Passwords don't match, please try again.</b></td></tr>");
+							out.println("<p style='color: red'><b>Passwords don't match, please try again.</b></p>");
 						}
 						else if(request.getParameter("error").equals("missing")){
-							out.println("<tr><td style='color: red'><b>Please fill out all applicable fields.</b></td></tr>");
+							out.println("<p style='color: red'><b>Please fill out all applicable fields.</b></p>");
 						}
 						else if(request.getParameter("error").equals("primary")){
-							out.println("<tr><td style='color: red'><b>Missing account number or SSN.</b></td></tr>");
+							out.println("<p style='color: red'><b>Missing registration type, account number, or SSN.</b></p>");
 						}
 						else if(request.getParameter("error").equals("exists")){
-							out.println("<tr><td style='color: red'><b>Username taken, please pick different username.</b></td></tr>");
+							out.println("<p style='color: red'><b>Username, Account Number, or SSN taken. Please enter new one.</b></p>");
 						}
 					} 
 					catch(Exception e){
@@ -31,49 +32,49 @@
 					}%>
 					<div id = "Employee" class = "inv">
 						<h3>Employee Information</h3>
-						<label>SSN:</label><input id = "field" type="text" name='ssn'/>
+						<label>SSN: (9 digits)</label><input id = "field" type="text" pattern='\d{9}' name='ssn'/>
 					</div>
 					<div id = "Customer" class = "inv">
 						<h3>Customer Information</h3>
 						<div>
-							<label>Account Number:</label><input type="text" name='account_no'/>
+							<label>Account Number: (10 digits)</label><input type="text" pattern='\d{10}' name='account_no'/>
 						</div>
 						
 						<div>
-							<label>Seat Preference:</label><input type="text" name='seat_preference'/>
+							<label>Seat Preference:</label><input type="text" name='seat_preference' required/>
 						</div>
 							
 						<div>
-							<label>Meal Preference:</label><input type="text" name='meal_preference'/>
+							<label>Meal Preference:</label><input type="text" name='meal_preference' required/>
 						</div>
 						
 						<div>
-							<label>Credit Card Number:</label>
-							<input type="text" name='CC_number'/>
+							<label>Credit Card Number: (16 digits)</label>
+							<input type="text" pattern='\d{16} name='CC_number'/>
 						</div>
 					</div>
 					
 					<h3>Account Basics</h3>
 					
     				<div>
-						<label>First Name:</label><input id = "field" type="text" name='first_name'/>
+						<label>First Name:</label><input id = "field" type="text" name='first_name' required/>
 					</div> 
 					 
 					<div>
-						<label>Last Name:</label><input id = "field" type="text" name='last_name'/>
+						<label>Last Name:</label><input id = "field" type="text" name='last_name' required/>
 					</div> 
 					
 					
 					<div>
-						<label>Username:</label><input id = "field" type="text" name='username'/>
+						<label>Username:</label><input id = "field" type="text" name='username' required/>
 					</div>
 											
 					<div>
-						<label>Password:</label> <input id = "field" type="password" name = "password">
+						<label>Password:</label> <input id = "field" type="password" name = "password" required>
 					</div>
 					
 					<div>
-						<label> Re-Type Password:</label> <input id = "field" type="password" name = "password2">
+						<label> Re-Type Password:</label> <input id = "field" type="password" name = "password2" required>
 					</div>
 					
 		
@@ -81,26 +82,26 @@
 					<h3>Address</h3>
 					
 					<div>
-						<label>Street Address:</label><input id = "field" type="text" name='street_address'/>
+						<label>Street Address:</label><input id = "field" type="text" name='street_address'/ required>
 					</div> 
 					 
 					<div>
-						<label>City:</label><input id = "field" type="text" name='city'/>
+						<label>City:</label><input id = "field" type="text" name='city' required/>
 					</div> 
 					<div>
-						<label>State:</label><input id = "field" type="text" name='state'/>
+						<label>State:(two capital letters)</label><input id = "field" type="text" pattern='[A-Z]{5}' name='state'required/>
 					</div> 
 					<div>
-						<label>Zipcode:</label><input id = "field" type="text" name='zipcode'/>
+						<label>Zipcode: (5 digits)</label><input id = "field" type="text" pattern='\d{5}'name='zipcode'required/>
 					</div> 
 					 
 					 <h3>Contact</h3>
 					 
 					<div>
-						<label>Email:</label><input id = "field" type="text" name='email'/>
+						<label>Email:</label><input id = "field" type="text" name='email'required/>
 					</div> 
 					<div>
-						<label>Phone:</label><input id = "field"  type="tel" pattern='[\(]\d{3}[\)]\d{3}[\-]\d{4}' name='phone'/>
+						<label>Phone: (10 digits, numbers only)</label><input id = "field"  type="tel" pattern='\d{10}' name='phone' required/>
 					</div>
 					
 							

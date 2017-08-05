@@ -65,12 +65,12 @@ button{width:250px;
 				if(session.getAttribute("type").equals("customer")){
 					out.println("<button name='viewPopular' value='viewPopular'>View Popular Flights</button> <br> <br>");
 				}
+				out.println("<button name='viewProfile' value='viewProfile'>View Profile</button> <br> <br>");
 				out.println("<button name='logout' value='logout'>Log Out</button><br><br>");
-				out.println("<button name='viewEditUsers' value='viewEditUsers' style='Background-color:beige'>Edit Profile</button> <br> <br>");
+				out.println("<button name='editProfile' value='editProfile' style='Background-color:beige'>Edit Profile</button> <br> <br>");
 				
 				if(session.getAttribute("type").equals("employee")){
-					out.println("<button name='mailList' value='mailList' style='Background-color:beige'>Create Mail List</button> <br> <br>");
-					out.println("<button name='viewUsers' value='viewUsers' style='Background-color:beige'>View Users</button> <br> <br>");
+					out.println("<button name='mailList' value='mailList' style='Background-color:beige'>Mail List</button> <br> <br>");
 					//View/Edit customer information
 					//Suggest flights
 				}
@@ -78,11 +78,11 @@ button{width:250px;
 				//buttons for employees and managers
 				if(session.getAttribute("type").equals("employee") || result.getString(18).equals("manager")) {		
 					//View employee information
+					out.println("<button name='salesReport' value='salesReport' >Sales Report</button> <br> <br>");
 				}
 				
 				//buttons for managers
 				if(session.getAttribute("type").equals("manager")) {
-					out.println("<button name='viewUsers' value='viewUsers' style='Background-color:blue'>View Users</button> <br> <br>");
 					out.println("<button name='report' value='report' style='Background-color:blue'>Sales Report</button> <br> <br>");
 					out.println("<button name='viewFlights' value='viewFlights' style='Background-color:blue'>View Flights </button> <br> <br>");
 					out.println("<button name='addUser' value='addUser' style='Background-color:blue'>Add User </button> <br> <br>");

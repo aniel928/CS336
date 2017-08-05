@@ -18,11 +18,15 @@ td {
 final int USER_COL=19;
 Connection con;
 Statement stmt;
-String type;
 String str;
 ResultSet result;
 int i=1;
 int x=0;
+
+//used to store the values of certian attributes so they can be correctly sent to ViewEditUsers.jsp
+String type=null;
+String ssn=null;
+String acc=null;
 
 try {
 	//connect to database
@@ -43,7 +47,7 @@ try {
 	type=session.getAttribute("type").toString();
 	
 	
-	out.println("<table style='width:2000'>");
+	out.println("<table class=datatable>");
 
 	//manager page
 		out.println("<tr>");
@@ -103,35 +107,61 @@ try {
 		while(result.next()) {
 			out.println("<tr>");
 			
-			out.print("<td>" + result.getString(1) +  "</td>" +
-					  "<td>" + result.getString(3) +  "</td>" +
-					  "<td>" + result.getString(5) + " " +  result.getString(6) +  "</td>" +
-					  "<td>" + result.getString(7) + " " +  result.getString(8) + result.getString(9) + " " + result.getString(10) +   "</td>" + 
-					  "<td>" + result.getString(11) +  "</td>" +
-					  "<td>" + result.getString(12) +  "</td>" +
-					  "<td>" + result.getString(15) +  "</td>" +
-					  "<td>" + result.getString(16) +  "</td>");
-					  //"<td>" + result.getString(17) +  "</td>");
-					  
-					  if(session.getAttribute("type").equals("manager")) {
-						  out.print("<td>" + result.getString(17) +  "</td>");
-					  }
-					  
-			out.print("<td>" + result.getString(18) +  "</td>" +
-					  "<td>" + result.getString(19) +  "</td>" +
-					  "<td> <form 'method=get action='temp.jsp'> <button name='viewEditUsers' value='viewEditUsers'> Edit/View</button> </form> </td>"
-					);
+			//get values for variables right off the bat
+			type=result.getString(18);
+			acc=result.getString(3); 
+			ssn=result.getString(4);
 			
-			out.println("</tr>");
+	
+			out.print("<td>" + result.getString(1) +  "</td>");
+			out.print("<td> "+ acc + " " + ssn + "</td>");
+			out.print("<td>" + result.getString(5) + " " +  result.getString(6) +  "</td>");
+			
+			out.print("<td>" + result.getString(7) + " " +  result.getString(8) 
+					         + result.getString(9) + " " +  result.getString(10) + "</td>");
+			
+			out.print("<td>" + result.getString(11) +  "</td>");
+			out.print("<td>" + result.getString(12) +  "</td>");
+			out.print("<td>" + result.getString(15) +  "</td>");
+			out.print("<td>" + result.getString(16) +  "</td>"); 
+			
+			
+			//if manager display hourly rate
+			if(session.getAttribute("type").equals("manager")) {
+				out.print("<td>" + result.getString(16) +  "</td>");
+			}		  
+			out.print("<td>" + type +  "</td>");
+			
+			out.print("<td>" + result.getString(19) +  "</td>");
+			
+			if(type == null){
+				type="employee";
+			}
+			if(type.equals("customer")) {
+				out.print("<td>" + 
+							"<form method='get' action='ViewEditUsers.jsp'>" +
+								"<button name='acc' value=" + acc + ">View or Edit</button>" +	
+							"</form>" +
+				        "</td>");
+			}
+			else{
+				out.print("<td>" + 
+						  	"<form method='get' action='ViewEditUsers.jsp'>" +
+								"<button name='ssn' value=" + ssn + ">View or Edit</button>" +	
+							"</form>" +
+			              "</td>");
+			}
+			
+			out.print("</tr>");
 		}
-
+		out.print("</table>");
 } 
 catch (SQLException e) {
 	out.println(e.getMessage());
 	out.println("Uh oh");
 }
 catch(NullPointerException e) {
-	out.print(e.getMessage());
+	out.print("tst" + e.getMessage());
 }
 
 /*
