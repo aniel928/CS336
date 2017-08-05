@@ -25,8 +25,7 @@ if(request.getParameter("tripType").equals("round")){
 		}
 		int i = 0;
 		out.println("<form method='post' action='book.jsp'>");
-		if(session.getAttribute("type").equals("customer")){
-			
+		if(session.getAttribute("type").equals("customer")){			
 			out.println("Passenger#1: <input type='text' name='pass1' value='"+session.getAttribute("fname")+" "+session.getAttribute("lname")+"'/><br>");
 			out.println("Seat preference: <input type='text' name='seat1' value='"+session.getAttribute("seat")+"'/><br>");
 			out.println("Meal preference: <input type='text' name='meal1' value='"+session.getAttribute("meal")+"'/><br>");
@@ -45,6 +44,7 @@ if(request.getParameter("tripType").equals("round")){
 		out.println("<input type='hidden' id='start' name = 'start' value='"+request.getParameter("start")+"'></input>");
 		out.println("<input type='hidden' id='return' name = 'return' value='"+request.getParameter("return")+"'></input>");
 		out.println("<input type='submit' value='Confirm and Book.'></form>");
+		out.println(request.getParameter("return"));
 		
 	}
 	else{
@@ -77,7 +77,6 @@ if(request.getParameter("tripType").equals("round")){
 		}
 		
 		int i=0;
-
 			
 		String str = "SELECT max(ResNumber) from reservations";
 		ResultSet rs = selectRequest(str);
@@ -99,16 +98,32 @@ if(request.getParameter("tripType").equals("round")){
 		rs.close();
 		
 		if(daysBet(new java.util.Date(),getDate(startDept))>30){
-			rest = "Early";
+			rest = "Early; ";
 			fare *= .8;
 		}
 		else{
 			out.println("not early .  "+getDate(startDept)+"\n");
 		}
 		
+		int diffInDays = 0;
+		try{
+			diffInDays = Integer.parseInt(request.getParameter("diffInDays"));
+		}catch(NumberFormatException e){
+			
+		}
+		
+		if(diffInDays >= 5){
+			rest+= "Extended;";
+			fare *= .9;
+		}
+		
+		DecimalFormat decim = new DecimalFormat("0.00");
+		Double fareFormat = Double.parseDouble(decim.format(fare));
+		
 		if(session.getAttribute("type").equals("employee")){
 			booking = 35.00;
 		}
+		
 		try{
 			Connection con = dbConnect();
 			
@@ -116,7 +131,7 @@ if(request.getParameter("tripType").equals("round")){
 			PreparedStatement statement = con.prepareStatement("INSERT INTO reservations VALUES ( ?, ?, ?, ?, ?)");
 			statement.setInt(1, resno);
 			statement.setString(2, formatDate(new java.util.Date()));
-			statement.setDouble(3, fare);
+			statement.setDouble(3, fareFormat);
 			statement.setString(4, rest);
 			statement.setDouble(5, booking);
 			statement.execute();
@@ -243,7 +258,10 @@ else if(request.getParameter("tripType").equals("oneway")){
 		}
 		else{
 //			out.println("not early .  "+getDate(startDept)+"\n");
-	}
+		}
+		
+		DecimalFormat decim = new DecimalFormat("0.00");
+		Double fareFormat = Double.parseDouble(decim.format(fare));
 		
 		if(session.getAttribute("type").equals("employee")){
 			booking = 35.00;
@@ -255,7 +273,7 @@ else if(request.getParameter("tripType").equals("oneway")){
 			PreparedStatement statement = con.prepareStatement("INSERT INTO reservations VALUES ( ?, ?, ?, ?, ?)");
 			statement.setInt(1, resno);
 			statement.setString(2, formatDate(new java.util.Date()));
-			statement.setDouble(3, fare);
+			statement.setDouble(3, fareFormat);
 			statement.setString(4, rest);
 			statement.setDouble(5, booking);
 			statement.execute();
@@ -423,6 +441,9 @@ else if(request.getParameter("tripType").equals("oneway")){
 			return;
 		}
 		
+		DecimalFormat decim = new DecimalFormat("0.00");
+		Double fareFormat = Double.parseDouble(decim.format(fare));
+		
 		double booking = 0;
 		String rest = null;
 		
@@ -450,7 +471,7 @@ else if(request.getParameter("tripType").equals("oneway")){
 		PreparedStatement statement = con.prepareStatement("INSERT INTO reservations VALUES ( ?, ?, ?, ?, ?)");
 		statement.setInt(1, resno);
 		statement.setString(2, formatDate(new java.util.Date()));
-		statement.setDouble(3, fare);
+		statement.setDouble(3, fareFormat);
 		statement.setString(4, rest);
 		statement.setDouble(5, booking);
 		statement.execute();

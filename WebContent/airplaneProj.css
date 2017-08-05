@@ -1,8 +1,8 @@
 
 form {
-/*  width: 500px; */
+ /*width: 500px;*/
  overflow:hidden;}
-
+ 
 label {
  clear: both;
  float: left;
@@ -21,6 +21,7 @@ body {
 	background-color: #80c1ca;
  	border-style: ridge;
 	border-color: black;
+	width: 100%;
  }
 
 table.datatable td{
@@ -41,4 +42,12 @@ table.datatable th{
 
 .sub {
 	font-size: 16px;
+}
+
+div.reservations {
+	background-color: #ddf5f8;
+	padding: 10px;
+	border-style: solid;
+	border-width: 1px;
+	width: 50%;
 }

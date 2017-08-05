@@ -11,12 +11,6 @@ String tripType = request.getParameter("tripType");
 //roundtrip
 if(tripType.equals("round")){
 	
-	if((request.getParameter("startDate").isEmpty()) || (request.getParameter("returnDate").isEmpty()) || (request.getParameter("departTime").isEmpty()) || (request.getParameter("returnTime").isEmpty()) || (request.getParameter("numPass").isEmpty())){
-		response.sendRedirect("MakeReservation.jsp?error=allreq&tripType=round&domintl="+request.getParameter("domintl")+"&account="+request.getParameter("account"));
-		con.close();
-		return;
-	}
-	
 	//pull in as Dates.
 	java.util.Date startdate = new java.util.Date();
 	startdate = getDate(request.getParameter("startDate"));
@@ -65,8 +59,23 @@ if(tripType.equals("round")){
 		response.sendRedirect("MakeReservation.jsp?error=noneStart&tripType=round&domintl="+request.getParameter("domintl")+"&account="+request.getParameter("account"));
 		con.close();
 		return;
-	} %>
+	} 
 	
+	boolean early = false;
+	boolean extended = false;
+	//discount eligible
+	if(daysBet(new java.util.Date(),startdate)>30 || diffInDays>=5){
+		out.println("Congratulations! Your flight is elible for discounts!<br>");
+		if(daysBet(new java.util.Date(),startdate)>30){
+			out.println("&emsp; This flight is eligible for a 20% Early Bird Discount.<br>");
+			early = true;	
+		}
+		if(diffInDays>=5){
+			out.println("&emsp; This flight is eligible for a 10% Extended Stay Discount.<br>");
+			extended = true;
+		}
+	}
+	%>
 	<br> <h3>Choose your origin flight:</h3><br>
 	<table class='datatable'>
 		<tr>
@@ -79,7 +88,9 @@ if(tripType.equals("round")){
 			<th>Arrive Date</th>
 			<th>Arrive Time</th>
 			<th>Fare</th>
-			<th>Advance Discount</th>
+			<% if(early || extended){ %>
+				<th> Your Discounted Fare </th>
+			<% } %>
 		</tr>
 		<form method="post" action="book.jsp">
 <%
@@ -94,14 +105,21 @@ if(tripType.equals("round")){
 		if(time2.length()!=2){
 			time2 = "0"+time2;
 		}
+
+		
+	    DecimalFormat decim = new DecimalFormat("0.00");
+	    Double fare = Double.parseDouble(decim.format(rs.getDouble(8)));
 			
-		out.println("<tr><td><input type='radio' name = 'start' value='"+rs.getString(1)+"_"+rs.getString(2)+"_"+rs.getString(4)+"'/></td><td>"+rs.getString(1) + "</td><td>"+rs.getString(2)+"</td><td>" + rs.getString(3)+"</td><td>" + rs.getString(4)+"</td><td>" + time1+":00:00 Local</td><td>" + rs.getString(6)+"</td><td>" + time2+":00:00 Local</td><td>"+rs.getString(8)+"</td>");
-		if(daysBet(new java.util.Date(),startdate)>30){
-			out.println("<td> Eligible for Discount </td></tr>");					
+		out.println("<tr><td><input type='radio' name = 'start' value='"+rs.getString(1)+"_"+rs.getString(2)+"_"+rs.getString(4)+"'/></td><td>"+rs.getString(1) + "</td><td>"+rs.getString(2)+"</td><td>" + rs.getString(3)+"</td><td>" + rs.getString(4)+"</td><td>" + time1+":00:00 Local</td><td>" + rs.getString(6)+"</td><td>" + time2+":00:00 Local</td><td>$"+fare+"</td>");
+		
+		if(early){
+			fare = Double.parseDouble(decim.format(fare *= .8));
 		}
-		else{
-			out.println("<td></td></tr>");
+		if(extended){
+			fare = Double.parseDouble(decim.format(fare *= .9));
 		}
+		out.println("<th>$"+fare+"</th></tr>");
+		
 	}
 	
 	str = "SELECT traverses.FLNumber, APIDDeparts, APIDArrives, TraDptDate, TraDptTime, TraArrDate, TraArrTime, FLFare from traverses, flights WHERE TraDptDate='"+ formatDate(retdate)+"' AND APIDDeparts = '"+request.getParameter("destAirport")+"' AND APIDArrives = '"+request.getParameter("startAirport")+"' AND traverses.FLNumber = flights.FLNumber"+returnTime+";";
@@ -126,7 +144,9 @@ if(tripType.equals("round")){
 			<th>Arrive Date</th>
 			<th>Arrive Time</th>
 			<th>Fare</th>
-			<th>Advance Discount</th>
+			<% if(early || extended){ %>
+				<th> Your Discounted Fare </th>
+			<% } %>
 		</tr>
 	<%
 		rs.beforeFirst();
@@ -139,13 +159,19 @@ if(tripType.equals("round")){
 			if(time2.length()!=2){
 				time2 = "0"+time2;
 			}
-			out.println("<tr><td><input type='radio' name = 'return' value='"+rs.getString(1)+"_"+rs.getString(2)+"_"+rs.getString(4)+"'/></td><td>"+rs.getString(1) + "</td><td>"+rs.getString(2)+"</td><td>" + rs.getString(3)+"</td><td>" + rs.getString(4)+"</td><td>" + time1+":00:00 Local</td><td>" + rs.getString(6)+"</td><td>" + time2+":00:00 Local</td><td>"+rs.getString(8)+"</td>");
-			if(daysBet(new java.util.Date(),startdate)>30){
-				out.println("<td> Eligible for Discount </td></tr>");					
+		    DecimalFormat decim = new DecimalFormat("0.00");
+		    Double fare = Double.parseDouble(decim.format(rs.getDouble(8)));
+				
+			out.println("<tr><td><input type='radio' name = 'return' value='"+rs.getString(1)+"_"+rs.getString(2)+"_"+rs.getString(4)+"'/></td><td>"+rs.getString(1) + "</td><td>"+rs.getString(2)+"</td><td>" + rs.getString(3)+"</td><td>" + rs.getString(4)+"</td><td>" + time1+":00:00 Local</td><td>" + rs.getString(6)+"</td><td>" + time2+":00:00 Local</td><td>$"+fare+"</td>");
+			
+			if(early){
+				fare = Double.parseDouble(decim.format(fare *= .8));
 			}
-			else{
-				out.println("<td></td></tr>");
+			if(extended){
+				fare = Double.parseDouble(decim.format(fare *= .9));
 			}
+			out.println("<th>$"+fare+"</th></tr>");
+			
 		}
 		rs.close();
 	%>
@@ -153,6 +179,7 @@ if(tripType.equals("round")){
 		<input type='hidden' id='tripType' name = 'tripType' value='round'></input>
 		<input type='hidden' id='numPass' name = 'numPass' value= '<%out.println(request.getParameter("numPass"));%>'/>
 		<input type='hidden' id='account' name = 'account' value= '<%out.println(request.getParameter("account"));%>'/>
+		<input type='hidden' id='diffInDays' name = 'diffInDays' value= '<%out.println(request.getParameter("diffInDays"));%>'/>
 		<br><br>
 		<input type="submit" class = "sub" value="Continue to Passenger Information"/>
 	
@@ -164,11 +191,6 @@ if(tripType.equals("round")){
 
 //oneway
 else if(tripType.equals("oneway")){
-	if((request.getParameter("startAirport").isEmpty()) || (request.getParameter("destAirport").isEmpty()) || (request.getParameter("startDate").isEmpty()) || (request.getParameter("departTime").isEmpty()) || (request.getParameter("numPass").isEmpty())){		
-		response.sendRedirect("MakeReservation.jsp?error=allreq&tripType=oneway&domintl="+request.getParameter("domintl")+"&account="+request.getParameter("account"));
-		con.close();
-		return;
-	}
 	
 	String departTime = timeOfDay(request.getParameter("departTime"));
 	
@@ -189,7 +211,18 @@ else if(tripType.equals("oneway")){
 		response.sendRedirect("MakeReservation.jsp?error=none&tripType=oneway&domintl="+request.getParameter("domintl")+"&account="+request.getParameter("account"));
 		con.close();
 		return;
-	}%>
+	}
+	boolean early = false;
+	//discount eligible
+	if(daysBet(new java.util.Date(),startdate)>30){
+		out.println("Congratulations! Your flight is elible for discounts!<br>");
+		out.println("&emsp; This flight is eligible for a 20% Early Bird Discount.<br>");
+	}
+	
+		
+	%>
+	
+	
 	<br> <h3>Choose your flight:</h3><br>
 	<table class='datatable'>
 		<tr>
@@ -201,9 +234,11 @@ else if(tripType.equals("oneway")){
 			<th>Depart Time</th>
 			<th>Arrive Date</th>
 			<th>Arrive Time</th>
-			<th>Fare</th>
-			<th>Advance Discount</th>
-		</tr>
+				<th>Fare</th>
+			<% if(early){ %>
+				<th> Your Discounted Fare </th>
+			<% } %>
+	</tr>
 		<form method="post" action="book.jsp">
 <%
 	int i = 0;
@@ -218,13 +253,15 @@ else if(tripType.equals("oneway")){
 			time2 = "0"+time2;
 		}
 			
-		out.println("<tr><td><input type='radio' name = 'start' value='"+rs.getString(1)+"_"+rs.getString(2)+"_"+rs.getString(4)+"'/></td><td>"+rs.getString(1) + "</td><td>"+rs.getString(2)+"</td><td>" + rs.getString(3)+"</td><td>" + rs.getString(4)+"</td><td>" + time1+":00:00 Local</td><td>" + rs.getString(6)+"</td><td>" + time2+":00:00 Local</td><td>"+rs.getString(8)+"</td>");
-		if(daysBet(new java.util.Date(),startdate)>30){
-			out.println("<td> Eligible for Discount </td></tr>");					
+		DecimalFormat decim = new DecimalFormat("0.00");
+		Double fare = Double.parseDouble(decim.format(rs.getDouble(8)));
+				
+		out.println("<tr><td><input type='radio' name = 'start' value='"+rs.getString(1)+"_"+rs.getString(2)+"_"+rs.getString(4)+"'/></td><td>"+rs.getString(1) + "</td><td>"+rs.getString(2)+"</td><td>" + rs.getString(3)+"</td><td>" + rs.getString(4)+"</td><td>" + time1+":00:00 Local</td><td>" + rs.getString(6)+"</td><td>" + time2+":00:00 Local</td><td>$"+fare+"</td>");
+			
+		if(early){
+			fare = Double.parseDouble(decim.format(fare *= .8));
 		}
-		else{
-			out.println("<td></td></tr>");
-		}
+		out.println("<th>$"+fare+"</th></tr>");
 	}
 	rs.close();
 	%>
@@ -267,34 +304,25 @@ else if(tripType.equals("multi")){
 		times[i] = timeOfDay(request.getParameter(time));
 		i++;
 	}
-	
-	
+	boolean early = false;
+	if(daysBet(new java.util.Date(),getDate(dates[0]))>30){
+		out.println("Congratulations! Your flight is elible for discounts!<br>");
+		out.println("&emsp; This flight is eligible for a 20% Early Bird Discount.<br>");
+		early = true;
+	}
 	
 	//final info
 	airports[cities] = request.getParameter("finalAirport");
-	
-	//print them all to screen.
-	for(int j=0; j<cities;j++){
-		if(airports[j].equals("") || dates[j].equals("") || times[j].equals("") || request.getParameter("numPass").isEmpty()){
-			response.sendRedirect("MakeReservation.jsp?error=allreq&tripType=multi&domintl="+request.getParameter("domintl")+"&number="+cities+"&account="+request.getParameter("account"));;
-			con.close();
-			return;
-		}
-	}
-	
-	
-/* 	if(airports[cities].equals("") || times[cities].equals("")){
-		response.sendRedirect("MakeReservation.jsp?error=allreq&tripType=multi&domintl="+request.getParameter("domintl")+"&number="+cities+"&account="+request.getParameter("account"));;
-		con.close();
-		return;
-	}
- */	
-	
+		
 	for (int j=0; (j<dates.length-1);j++){
 		java.util.Date date = getDate(dates[j]);
 		//Pull outgoing flights from DB and create table
 		String str = "SELECT traverses.FLNumber, APIDDeparts, APIDArrives, TraDptDate, TraDptTime, TraArrDate, TraArrTime, FLFare from traverses, flights WHERE TraDptDate='"+ formatDate(date)+"' AND APIDDeparts = '"+airports[j]+"' AND APIDArrives = '"+airports[j+1]+"' AND traverses.FLNumber = flights.FLNumber"+times[j]+";";
-		ResultSet rs = selectRequest(str);%>
+		ResultSet rs = selectRequest(str);
+		
+		
+	//discount eligible
+%>
 		
 		<br> <h3>Choose flight<% out.println(" "+(j+1)+":");%></h3><br>
 		<table class='datatable'>
@@ -308,7 +336,9 @@ else if(tripType.equals("multi")){
 				<th>Arrive Date</th>
 				<th>Arrive Time</th>
 				<th>Fare</th>
-				<th>Advance Discount</th>
+				<% if(early){ %>
+					<th> Your Discounted Fare </th>
+				<% } %>
 			</tr>
 			<form method="post" action="book.jsp">
 	<%
@@ -330,13 +360,15 @@ else if(tripType.equals("multi")){
 				time2 = "0"+time2;
 			}
 				
-			out.println("<tr><td><input type='radio' name = 'mid"+(j)+"' value='"+rs.getString(1)+"_"+rs.getString(2)+"_"+rs.getString(4)+"'/></td><td>"+rs.getString(1) + "</td><td>"+rs.getString(2)+"</td><td>" + rs.getString(3)+"</td><td>" + rs.getString(4)+"</td><td>" + time1+":00:00 Local</td><td>" + rs.getString(6)+"</td><td>" + time2+":00:00 Local</td><td>"+rs.getString(8)+"</td>");
-			if(daysBet(new java.util.Date(),getDate(dates[j]))>30){
-				out.println("<td> Eligible for Discount </td></tr>");					
+			DecimalFormat decim = new DecimalFormat("0.00");
+			Double fare = Double.parseDouble(decim.format(rs.getDouble(8)));
+					
+			out.println("<tr><td><input type='radio' name = 'mid"+j+"' value='"+rs.getString(1)+"_"+rs.getString(2)+"_"+rs.getString(4)+"'/></td><td>"+rs.getString(1) + "</td><td>"+rs.getString(2)+"</td><td>" + rs.getString(3)+"</td><td>" + rs.getString(4)+"</td><td>" + time1+":00:00 Local</td><td>" + rs.getString(6)+"</td><td>" + time2+":00:00 Local</td><td>$"+fare+"</td>");
+				
+			if(early){
+				fare = Double.parseDouble(decim.format(fare *= .8));
 			}
-			else{
-				out.println("<td></td></tr>");
-			}
+			out.println("<th>$"+fare+"</th></tr>");
 		}
 		rs.close();
 
