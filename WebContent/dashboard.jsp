@@ -3,10 +3,46 @@
 
 <title>Dashboard</title>
 <style>
-button{width:250px;
-	   text-align:center;
+button.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+
+
+button.expand{
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: center;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+button.accordion.active, button.accordion:hover {
+    background-color: #ddd;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+div.panel {
+    padding: 0 18px;
+    background-color: white;
+    display: none;
 }
 </style>
+
 </head>
 <body>
 	<%
@@ -56,39 +92,92 @@ button{width:250px;
 				
 				out.println("<h1>Welcome, " + session.getAttribute("fname") +"!</h1>");
 				
-				//buttons for everyone
-				out.println("<form method=get action='temp.jsp'>");
-				if(session.getAttribute("type").equals("customer") || session.getAttribute("type").equals("employee")){
-					out.println("<button name='makeRes' value='makeRes'>Make Reservation</button> <br> <br>");
-				}
-				out.println("<button name='viewRes' value='viewRes'>View Reservation</button> <br> <br>");
-				if(session.getAttribute("type").equals("customer")){
-					out.println("<button name='viewPopular' value='viewPopular'>View Popular Flights</button> <br> <br>");
-				}
-				out.println("<button name='viewProfile' value='viewProfile'>View Profile</button> <br> <br>");
-				out.println("<button name='logout' value='logout'>Log Out</button><br><br>");
-				out.println("<button name='editProfile' value='editProfile' style='Background-color:beige'>Edit Profile</button> <br> <br>");
+			
 				
-				if(session.getAttribute("type").equals("employee")){
-					out.println("<button name='mailList' value='mailList' style='Background-color:beige'>Mail List</button> <br> <br>");
-					//View/Edit customer information
-					//Suggest flights
+				//reservation panel
+				
+			
+				out.println("<button class='accordion'>Reservations</button>");
+				out.println("<div class='panel'>");
+				
+					out.println("<form method=get action='temp.jsp'>");
+					
+					if(session.getAttribute("type").equals("customer") || session.getAttribute("type").equals("employee")){
+						out.println("<button class= 'expand' name='makeRes' value='makeRes'>Make Reservation</button> <br> <br>");
+						out.println("<button class= 'expand' name='viewMine' value='viewMine'>View My Reservations</button> <br> <br>");
+					}
+					
+					if(session.getAttribute("type").equals("employee") || result.getString(18).equals("manager")) {
+						out.println("<button class= 'expand' name='viewRes' value='viewRes'>View All Reservation</button> <br> <br>");
+					}
+				
+					out.println("</form>");
+				out.println("</div>");
+				
+				
+				//customer panel
+				
+				out.println("<button class='accordion'>Customer</button>");
+				out.println("<div class='panel'>");
+					
+					out.println("<form method=get action='temp.jsp'>");
+					
+					if(session.getAttribute("type").equals("customer") || session.getAttribute("type").equals("employee")){
+						out.println("<button class= 'expand' name='viewProfile' value='viewProfile'>View Profile</button> <br> <br>");
+						
+					}
+					if(session.getAttribute("type").equals("employee")){
+						out.println("<button class= 'expand' name='mailList' value='mailList'>Mail List</button> <br> <br>");
+					}
+					if(session.getAttribute("type").equals("manager")) {
+						out.println("<button class= 'expand' name='addUser' value='addUser'>Add User </button> <br> <br>");
+						out.println("<button class= 'expand' name='viewUsers' value='viewUsers'>View Users </button> <br> <br>");
+					}
+
+					out.println("<button class= 'expand' name='editProfile' value='editProfile'>Edit Profile</button> <br> <br>");
+					
+					out.println("</form>");
+				out.println("</div>");
+				
+				//flight panel
+				
+				out.println("<button class='accordion'>Flights</button>" );
+				out.println("<div class='panel'>");
+				
+					out.println("<form method=get action='temp.jsp'>");
+					
+					if(session.getAttribute("type").equals("customer")){
+						out.println("<button class= 'expand' name='viewPopular' value='viewPopular'>View Popular Flights</button> <br> <br>");
+					}
+
+					out.println("<button class= 'expand' name='viewFlights' value='viewFlights'>View All Flights </button> <br> <br>");
+					
+					out.println("<button class= 'expand' name='viewFlights' value='viewFlights'>Flights Lookup</button> <br> <br>");
+					
+					out.println("</form>");
+					
+				out.println("</div>");
+				
+				//Revenue Panel
+				if(session.getAttribute("type").equals("employee") || result.getString(18).equals("manager")) {	
+					out.println("<button class='accordion'>Revenue</button>");
+					out.println("<div class='panel'>");
+					
+					out.println("<form method=get action='temp.jsp'>");
+				
+						out.println("<button class= 'expand' name='salesReport' value='salesReport' >Sales Report</button> <br> <br>");
+						out.println("<button class= 'expand' name='Summary' value='Summary'>Summary</button> <br> <br>");
+						out.println("</div>");
+					
+					out.println("</form>");
+					
+					out.println("</div>");
+					
 				}
 				
-				//buttons for employees and managers
-				if(session.getAttribute("type").equals("employee") || result.getString(18).equals("manager")) {		
-					//View employee information
-					out.println("<button name='salesReport' value='salesReport' >Sales Report</button> <br> <br>");
-				}
+				out.println("<button style= 'margin-top:1cm' class='logout' name='logout' value='logout'>Log Out</button><br><br>");
 				
-				//buttons for managers
-				if(session.getAttribute("type").equals("manager")) {
-					out.println("<button name='report' value='report' style='Background-color:blue'>Sales Report</button> <br> <br>");
-					out.println("<button name='viewFlights' value='viewFlights' style='Background-color:blue'>View Flights </button> <br> <br>");
-					out.println("<button name='addUser' value='addUser' style='Background-color:blue'>Add User </button> <br> <br>");
-					//View/Edit Employee Information
-					out.println("<button name='revenue' value='revenue' style='Background-color:blue'>View Revenue </button> <br> <br>");
-				}
+				
 				out.println("</form>");
 				
 				
@@ -104,6 +193,22 @@ button{width:250px;
 			out.println("Uh oh");
 		}
 	%>
-
+	<script>
+	var acc = document.getElementsByClassName("accordion");
+	var i;
+	
+	for (i = 0; i < acc.length; i++) {
+	    acc[i].onclick = function(){
+	        this.classList.toggle("active");
+	
+	        var panel = this.nextElementSibling;
+	        if (panel.style.display === "block") {
+	            panel.style.display = "none";
+	        } else {
+	            panel.style.display = "block";
+	        }
+	    }
+	}
+	</script>
 	</body>
 </html>

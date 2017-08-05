@@ -89,7 +89,7 @@
 						<label>City:</label><input id = "field" type="text" name='city' required/>
 					</div> 
 					<div>
-						<label>State:(two capital letters)</label><input id = "field" type="text" pattern='[A-Z]{5}' name='state'required/>
+						<label>State:(two capital letters)</label><input id = "field" type="text" pattern='[A-Z]{2}' name='state'required/>
 					</div> 
 					<div>
 						<label>Zipcode: (5 digits)</label><input id = "field" type="text" pattern='\d{5}'name='zipcode'required/>

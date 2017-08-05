@@ -1,6 +1,6 @@
 <%@ include file = "header.jsp" %>
 <%@ include file = "functions.jsp" %>
-
+//
 <title>View Users</title>
 <style>
 table, th, td {

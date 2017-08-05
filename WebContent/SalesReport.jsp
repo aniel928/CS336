@@ -5,16 +5,8 @@
 <body>
 <h1>View Sales Report</h1>
 <form method="post" action="ViewRevenue.jsp">
-	<select name = "showby" style= "margin-top: 1cm" id="showby">
-	<option selected = "selected" value="all"> Show All </option>
-	<option value= "month">Month</option>
-	<option value = "flight">Flight</option>
-	<option value = "customer">Customer</option>
-	<option value = "airport">Airport</option>
-	</select>
-	<br>
-	
-	<div style= "margin-top: 1cm" id= month class="inv">
+
+	<div style= "margin-top: 1cm">
 		<select name= "months" id="months">
 			<option value = "'1'">Jan</option>
 			<option value = "'2'">Feb</option>
@@ -35,21 +27,7 @@
 			<option value = "'2019'">2019</option>
 		</select>
 	</div>
-	<script>
-	     	document
-	           	.getElementById('showby')
-	           	.addEventListener('change', function () {
-	           		'use strict';
-	             var vis = document.querySelector('.vis'),   
-	             showby = document.getElementById(this.value);
-	             if (vis !== null) {
-	                vis.className = 'inv';
-	             }
-	             if (showby !== null ) {
-	                 showby.className = 'vis';
-	             }
-	     	});
-	</script>	
+	
 	
 	<div style= "margin-top: 1cm"><input type="submit" value="Submit"></div>
 
