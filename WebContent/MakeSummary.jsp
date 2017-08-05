@@ -7,6 +7,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<select name = "showby" style= "margin-top: 1cm" id="showby">
+	<option selected = "selected" value="all"> Show All </option>
+	<option value= "month">Month</option>
+	<option value = "flight">Flight</option>
+	<option value = "customer">Customer</option>
+	<option value = "airport">Airport</option>
+</select>
+	
 </body>
 </html>
