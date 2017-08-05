@@ -23,12 +23,12 @@ try {
 		response.sendRedirect("ViewFlights.jsp");
 		return;
 	}
-	else if(temp.equals("viewProfile")) {
-		response.sendRedirect("ViewProfile.jsp");
+	else if(temp.equals("viewUsers")) {
+		response.sendRedirect("ViewUsers.jsp");
 		return;
 	}
-	else if(temp.equals("editProfile")) {
-		response.sendRedirect("EditProfile.jsp");
+	else if(temp.equals("viewEditUsers")) {
+		response.sendRedirect("ViewEditUsers.jsp");
 		return;
 	}
 	else if(temp.equals("mailList")) {
@@ -77,7 +77,7 @@ try {
 
 }
 catch (Exception e) {
-	out.println("error");
+	out.println("error= " + e.getMessage());
 }
 %>
 
