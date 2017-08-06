@@ -31,7 +31,6 @@ if(acc != null) {
 	str ="SELECT * FROM users WHERE account_no=" + acc;
 }
 else {
-	out.print("ssn");
 	str ="SELECT * FROM users WHERE ssn=" + ssn; 
 }
 //select * from users where ssn=123456123;
@@ -45,6 +44,9 @@ if(type == null) {
 
 out.print("<h1>View and Edit User Information</h1>");
 
+
+//start form
+out.print("<form method='post' action='update.jsp'");
 if(result.getString(18).equals("employee")|| result.getString(18).equals("manager")) { 
 	out.print("<div id = 'Employee'>");
 	out.print("<h3>Employee Information</h3>");
