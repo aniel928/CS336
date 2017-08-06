@@ -30,7 +30,7 @@
 						out.print("<div id = 'Employee'>");
 						out.print("<h3>Employee Information</h3>");
 						out.print("<label>SSN: (9 digits)</label>");
-						out.print("<input id ='field' type='text' name='ssn' value= " + session.getAttribute("ssn")); 
+						out.print("<input id ='field' type='text' name='ssn' value= '" + session.getAttribute("ssn")+"' </input>"); 
 						out.print("</div>");
 					}
 					else {
