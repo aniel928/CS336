@@ -1,12 +1,29 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>
+<%@ include file = "header.jsp" %>
+<%@ include file = "functions.jsp" %>
+	<title>View My Reservations</title>
+	</head>
+	<body>
+	<% 
+	
+	if(session.getAttribute("type").equals("customer")){
+		String str = "SELECT makes.ResNumber, ResDate, min(DateOfFlight) from makes, has, reservations where account_no ='"+session.getAttribute("account_no")+"' and reservations.ResNumber = makes.ResNumber and reservations.ResNumber = has.ResNumber and makes.ResNumber = has.ResNumber group by makes.ResNumber";
+		
+		ResultSet rs = selectRequest(str);
+		
+		out.println("<table class='datatable'><tr><th>Reservation Number</th><th>Date Reservation Made</th><th>First Date of Travel</th><th>Itinerary</th><th>Cancel</th</tr>");
+		
+		while(rs.next()){
+			out.println("<tr><td>"+rs.getString(1)+"</td><td>"+rs.getString(2)+"</td><td>"+rs.getString(3)+"</td>");
+			out.println("<td><a href='itinerary.jsp?num="+rs.getString(1)+"'>View Itinerary</a></td>");
+			out.println("<td><a href='cancelRes.jsp?res="+rs.getString(1)+"'>Cancel Reservation</a></td></tr>");
+		}
+		out.println("</table>");	
+	}	
+	else{
+		out.println("Print reservations made by CSR");
+	}
+	
+	%>
+	
+	</body>
+	</html>

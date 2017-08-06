@@ -17,6 +17,9 @@ if(tripType.equals("round")){
 	java.util.Date retdate = new java.util.Date();
 	retdate = getDate(request.getParameter("returnDate"));
 	
+	String startdayofweek = getWeekDay(startdate);
+	String retdayofweek = getWeekDay(retdate);
+	
 	String startTime = timeOfDay(request.getParameter("departTime"));
 	String returnTime = timeOfDay(request.getParameter("returnTime"));
 	
@@ -52,9 +55,11 @@ if(tripType.equals("round")){
 	}*/
 
 	//Pull outgoing flights from DB and create table
-	String str = "SELECT traverses.FLNumber, APIDDeparts, APIDArrives, TraDptDate, TraDptTime, TraArrDate, TraArrTime, FLFare from traverses, flights WHERE TraDptDate='"+ formatDate(startdate)+"' AND APIDDeparts = '"+request.getParameter("startAirport")+"' AND APIDArrives = '"+request.getParameter("destAirport")+"' AND traverses.FLNumber = flights.FLNumber"+startTime+";";
-	
-	ResultSet rs = selectRequest(str);
+	//String str = "SELECT traverses.FLNumber, APIDDeparts, APIDArrives, TraDptDate, TraDptTime, TraArrDate, TraArrTime, FLFare from traverses, flights WHERE TraDptDate='"+ formatDate(startdate)+"' AND APIDDeparts = '"+request.getParameter("startAirport")+"' AND APIDArrives = '"+request.getParameter("destAirport")+"' AND traverses.FLNumber = flights.FLNumber"+startTime+";";
+	//String str = "TraDptDate,TraArrDate, TraArrTime, FLFare from traverses, flights WHERE TraDptDate='"+ formatDate(startdate)+"' AND APIDDeparts = '"+request.getParameter("startAirport")+"' AND APIDArrives = '"+request.getParameter("destAirport")+"' AND traverses.FLNumber = flights.FLNumber"+startTime+";";
+	String str2 = "select FInumber, FIDeparts, FIarrives, FIDptTime, FIArrTime, FIFare from flightinfo, flightdays where FLNumber = FInumber AND FDDays = '"+startdayofweek+"' AND FIDeparts='"+request.getParameter("startAirport")+"' AND FIarrives = '"+request.getParameter("destAirport")+"'"+startTime+";";
+
+	ResultSet rs = selectRequest(str2);
 	if(!rs.next()){
 		response.sendRedirect("MakeReservation.jsp?error=noneStart&tripType=round&domintl="+request.getParameter("domintl")+"&account="+request.getParameter("account"));
 		con.close();
@@ -97,8 +102,8 @@ if(tripType.equals("round")){
 	int i = 0;
 	rs.beforeFirst();
 	while(rs.next()){
-		String time1 = rs.getString(5);
-		String time2 = rs.getString(7);
+		String time1 = rs.getString(4);
+		String time2 = rs.getString(5);
 		if(time1.length()!=2){
 			time1 = "0"+time1;
 		}
@@ -108,9 +113,9 @@ if(tripType.equals("round")){
 
 		
 	    DecimalFormat decim = new DecimalFormat("0.00");
-	    Double fare = Double.parseDouble(decim.format(rs.getDouble(8)));
+	    Double fare = Double.parseDouble(decim.format(rs.getDouble(6)));
 			
-		out.println("<tr><td><input type='radio' name = 'start' value='"+rs.getString(1)+"_"+rs.getString(2)+"_"+rs.getString(4)+"'/></td><td>"+rs.getString(1) + "</td><td>"+rs.getString(2)+"</td><td>" + rs.getString(3)+"</td><td>" + rs.getString(4)+"</td><td>" + time1+":00:00 Local</td><td>" + rs.getString(6)+"</td><td>" + time2+":00:00 Local</td><td>$"+fare+"</td>");
+		out.println("<tr><td><input type='radio' name = 'start' value='"+rs.getString(1)+"_"+rs.getString(2)+"_"+formatDate(startdate)+"'/></td><td>"+rs.getString(1) + "</td><td>"+rs.getString(2)+"</td><td>" + rs.getString(3)+"</td><td>" + formatDate(startdate) +"</td><td>" + time1+":00:00 Local</td><td>" + formatDate(startdate) +"</td><td>" + time2+":00:00 Local</td><td>$"+fare+"</td>");
 		
 		if(early){
 			fare = Double.parseDouble(decim.format(fare *= .8));
@@ -118,13 +123,16 @@ if(tripType.equals("round")){
 		if(extended){
 			fare = Double.parseDouble(decim.format(fare *= .9));
 		}
-		out.println("<th>$"+fare+"</th></tr>");
+		if(early||extended){
+			out.println("<th>$"+fare+"</th></tr>");
+		}
 		
 	}
 	
-	str = "SELECT traverses.FLNumber, APIDDeparts, APIDArrives, TraDptDate, TraDptTime, TraArrDate, TraArrTime, FLFare from traverses, flights WHERE TraDptDate='"+ formatDate(retdate)+"' AND APIDDeparts = '"+request.getParameter("destAirport")+"' AND APIDArrives = '"+request.getParameter("startAirport")+"' AND traverses.FLNumber = flights.FLNumber"+returnTime+";";
-	
-	rs = selectRequest(str);
+	//str = "SELECT traverses.FLNumber, APIDDeparts, APIDArrives, TraDptDate, TraDptTime, TraArrDate, TraArrTime, FLFare from traverses, flights WHERE TraDptDate='"+ formatDate(retdate)+"' AND APIDDeparts = '"+request.getParameter("destAirport")+"' AND APIDArrives = '"+request.getParameter("startAirport")+"' AND traverses.FLNumber = flights.FLNumber"+returnTime+";";
+	str2 = "select FInumber, FIDeparts, FIarrives, FIDptTime, FIArrTime, FIFare from flightinfo, flightdays where FLNumber = FInumber AND FDDays = '"+retdayofweek+"' AND FIDeparts='"+request.getParameter("destAirport")+"' AND FIarrives = '"+request.getParameter("startAirport")+"'"+startTime+";";
+
+	rs = selectRequest(str2);
 	if(!rs.next()){
 		response.sendRedirect("MakeReservation.jsp?error=noneReturn&tripType=round&domintl="+request.getParameter("domintl")+"&account="+request.getParameter("account"));
 		con.close();
@@ -151,8 +159,8 @@ if(tripType.equals("round")){
 	<%
 		rs.beforeFirst();
 		while(rs.next()){
-			String time1 = rs.getString(5);
-			String time2 = rs.getString(7);
+			String time1 = rs.getString(4);
+			String time2 = rs.getString(5);
 			if(time1.length()!=2){
 				time1 = "0"+time1;
 			}
@@ -160,9 +168,9 @@ if(tripType.equals("round")){
 				time2 = "0"+time2;
 			}
 		    DecimalFormat decim = new DecimalFormat("0.00");
-		    Double fare = Double.parseDouble(decim.format(rs.getDouble(8)));
+		    Double fare = Double.parseDouble(decim.format(rs.getDouble(6)));
 				
-			out.println("<tr><td><input type='radio' name = 'return' value='"+rs.getString(1)+"_"+rs.getString(2)+"_"+rs.getString(4)+"'/></td><td>"+rs.getString(1) + "</td><td>"+rs.getString(2)+"</td><td>" + rs.getString(3)+"</td><td>" + rs.getString(4)+"</td><td>" + time1+":00:00 Local</td><td>" + rs.getString(6)+"</td><td>" + time2+":00:00 Local</td><td>$"+fare+"</td>");
+			out.println("<tr><td><input type='radio' name = 'return' value='"+rs.getString(1)+"_"+rs.getString(2)+"_"+formatDate(retdate)+"'/></td><td>"+rs.getString(1) + "</td><td>"+rs.getString(2)+"</td><td>" + rs.getString(3)+"</td><td>" + formatDate(retdate) +"</td><td>" + time1+":00:00 Local</td><td>" + formatDate(retdate)+"</td><td>" + time2+":00:00 Local</td><td>$"+fare+"</td>");
 			
 			if(early){
 				fare = Double.parseDouble(decim.format(fare *= .8));
@@ -170,7 +178,9 @@ if(tripType.equals("round")){
 			if(extended){
 				fare = Double.parseDouble(decim.format(fare *= .9));
 			}
-			out.println("<th>$"+fare+"</th></tr>");
+			if(early || extended){
+				out.println("<th>$"+fare+"</th></tr>");
+			}
 			
 		}
 		rs.close();
@@ -179,7 +189,7 @@ if(tripType.equals("round")){
 		<input type='hidden' id='tripType' name = 'tripType' value='round'></input>
 		<input type='hidden' id='numPass' name = 'numPass' value= '<%out.println(request.getParameter("numPass"));%>'/>
 		<input type='hidden' id='account' name = 'account' value= '<%out.println(request.getParameter("account"));%>'/>
-		<input type='hidden' id='diffInDays' name = 'diffInDays' value= '<%out.println(request.getParameter("diffInDays"));%>'/>
+		<input type='hidden' id='diffInDays' name = 'diffInDays' value= '<%out.println(diffInDays);%>'/>
 		<br><br>
 		<input type="submit" class = "sub" value="Continue to Passenger Information"/>
 	
@@ -193,10 +203,10 @@ if(tripType.equals("round")){
 else if(tripType.equals("oneway")){
 	
 	String departTime = timeOfDay(request.getParameter("departTime"));
-	
 	java.util.Date startdate = new java.util.Date();
 	startdate = getDate(request.getParameter("startDate"));
-
+	String startdayofweek = getWeekDay(startdate);
+	
 	//doesn't allow today either... ok?  - put this back when Pete fixes database
 	//if startdate is before today, throw error.
 	/*if(startdate.compareTo(new java.util.Date())<0){
@@ -205,7 +215,10 @@ else if(tripType.equals("oneway")){
 	}*/
 	
 	//Pull outgoing flights from DB and create table
-	String str = "SELECT traverses.FLNumber, APIDDeparts, APIDArrives, TraDptDate, TraDptTime, TraArrDate, TraArrTime, FLFare from traverses, flights WHERE TraDptDate='"+ formatDate(startdate)+"' AND APIDDeparts = '"+request.getParameter("startAirport")+"' AND APIDArrives = '"+request.getParameter("destAirport")+"' AND traverses.FLNumber = flights.FLNumber"+ departTime +";";
+	//String str = "SELECT traverses.FLNumber, APIDDeparts, APIDArrives, TraDptDate, TraDptTime, TraArrDate, TraArrTime, FLFare from traverses, flights WHERE TraDptDate='"+ formatDate(startdate)+"' AND APIDDeparts = '"+request.getParameter("startAirport")+"' AND APIDArrives = '"+request.getParameter("destAirport")+"' AND traverses.FLNumber = flights.FLNumber"+ departTime +";";
+	String str = "select FInumber, FIDeparts, FIarrives, FIDptTime, FIArrTime, FIFare from flightinfo, flightdays where FLNumber = FInumber AND FDDays = '"+startdayofweek+"' AND FIDeparts='"+request.getParameter("startAirport")+"' AND FIarrives = '"+request.getParameter("destAirport")+"'"+departTime+";";
+
+	
 	ResultSet rs = selectRequest(str);
 	if(!rs.next()){
 		response.sendRedirect("MakeReservation.jsp?error=none&tripType=oneway&domintl="+request.getParameter("domintl")+"&account="+request.getParameter("account"));
@@ -244,8 +257,8 @@ else if(tripType.equals("oneway")){
 	int i = 0;
 	rs.beforeFirst();
 	while(rs.next()){
-		String time1 = rs.getString(5);
-		String time2 = rs.getString(7);
+		String time1 = rs.getString(4);
+		String time2 = rs.getString(5);
 		if(time1.length()!=2){
 			time1 = "0"+time1;
 		}
@@ -254,14 +267,14 @@ else if(tripType.equals("oneway")){
 		}
 			
 		DecimalFormat decim = new DecimalFormat("0.00");
-		Double fare = Double.parseDouble(decim.format(rs.getDouble(8)));
-				
-		out.println("<tr><td><input type='radio' name = 'start' value='"+rs.getString(1)+"_"+rs.getString(2)+"_"+rs.getString(4)+"'/></td><td>"+rs.getString(1) + "</td><td>"+rs.getString(2)+"</td><td>" + rs.getString(3)+"</td><td>" + rs.getString(4)+"</td><td>" + time1+":00:00 Local</td><td>" + rs.getString(6)+"</td><td>" + time2+":00:00 Local</td><td>$"+fare+"</td>");
+		Double fare = Double.parseDouble(decim.format(rs.getDouble(6)));
+		
+		out.println("<tr><td><input type='radio' name = 'start' value='"+rs.getString(1)+"_"+rs.getString(2)+"_"+formatDate(startdate)+"'/></td><td>"+rs.getString(1) + "</td><td>"+rs.getString(2)+"</td><td>" + rs.getString(3)+"</td><td>" + formatDate(startdate) +"</td><td>" + time1+":00:00 Local</td><td>" + formatDate(startdate)+"</td><td>" + time2+":00:00 Local</td><td>$"+fare+"</td>");
 			
 		if(early){
 			fare = Double.parseDouble(decim.format(fare *= .8));
+			out.println("<th>$"+fare+"</th></tr>");
 		}
-		out.println("<th>$"+fare+"</th></tr>");
 	}
 	rs.close();
 	%>
@@ -317,8 +330,10 @@ else if(tripType.equals("multi")){
 	for (int j=0; (j<dates.length-1);j++){
 		java.util.Date date = getDate(dates[j]);
 		//Pull outgoing flights from DB and create table
-		String str = "SELECT traverses.FLNumber, APIDDeparts, APIDArrives, TraDptDate, TraDptTime, TraArrDate, TraArrTime, FLFare from traverses, flights WHERE TraDptDate='"+ formatDate(date)+"' AND APIDDeparts = '"+airports[j]+"' AND APIDArrives = '"+airports[j+1]+"' AND traverses.FLNumber = flights.FLNumber"+times[j]+";";
-		ResultSet rs = selectRequest(str);
+//		String str = "SELECT traverses.FLNumber, APIDDeparts, APIDArrives, TraDptDate, TraDptTime, TraArrDate, TraArrTime, FLFare from traverses, flights WHERE TraDptDate='"+ formatDate(date)+"' AND APIDDeparts = '"+airports[j]+"' AND APIDArrives = '"+airports[j+1]+"' AND traverses.FLNumber = flights.FLNumber"+times[j]+";";
+		String str2 = "select FInumber, FIDeparts, FIarrives, FIDptTime, FIArrTime, FIFare from flightinfo, flightdays where FLNumber = FInumber AND FDDays = '"+getWeekDay(date)+"' AND FIDeparts='"+airports[j]+"' AND FIarrives = '"+airports[j+1]+"'"+times[j]+";";
+	
+		ResultSet rs = selectRequest(str2);
 		
 		
 	//discount eligible
@@ -351,8 +366,8 @@ else if(tripType.equals("multi")){
 		rs.beforeFirst();
 
 		while(rs.next()){
-			String time1 = rs.getString(5);
-			String time2 = rs.getString(7);
+			String time1 = rs.getString(4);
+			String time2 = rs.getString(5);
 			if(time1.length()!=2){
 				time1 = "0"+time1;
 			}
@@ -361,14 +376,14 @@ else if(tripType.equals("multi")){
 			}
 				
 			DecimalFormat decim = new DecimalFormat("0.00");
-			Double fare = Double.parseDouble(decim.format(rs.getDouble(8)));
+			Double fare = Double.parseDouble(decim.format(rs.getDouble(6)));
 					
-			out.println("<tr><td><input type='radio' name = 'mid"+j+"' value='"+rs.getString(1)+"_"+rs.getString(2)+"_"+rs.getString(4)+"'/></td><td>"+rs.getString(1) + "</td><td>"+rs.getString(2)+"</td><td>" + rs.getString(3)+"</td><td>" + rs.getString(4)+"</td><td>" + time1+":00:00 Local</td><td>" + rs.getString(6)+"</td><td>" + time2+":00:00 Local</td><td>$"+fare+"</td>");
+			out.println("<tr><td><input type='radio' name = 'mid"+j+"' value='"+rs.getString(1)+"_"+rs.getString(2)+"_"+formatDate(date)+"'/></td><td>"+rs.getString(1) + "</td><td>"+rs.getString(2)+"</td><td>" + rs.getString(3)+"</td><td>" + formatDate(date) +"</td><td>" + time1+":00:00 Local</td><td>" + formatDate(date) +"</td><td>" + time2+":00:00 Local</td><td>$"+fare+"</td>");
 				
 			if(early){
 				fare = Double.parseDouble(decim.format(fare *= .8));
+				out.println("<th>$"+fare+"</th></tr>");
 			}
-			out.println("<th>$"+fare+"</th></tr>");
 		}
 		rs.close();
 

@@ -24,11 +24,12 @@ if(request.getParameter("tripType").equals("round")){
 			out.println(e.getMessage());
 		}
 		int i = 0;
+		
 		out.println("<form method='post' action='book.jsp'>");
 		if(session.getAttribute("type").equals("customer")){			
 			out.println("Passenger#1: <input type='text' name='pass1' value='"+session.getAttribute("fname")+" "+session.getAttribute("lname")+"'/><br>");
 			out.println("Seat preference: <input type='text' name='seat1' value='"+session.getAttribute("seat")+"'/><br>");
-			out.println("Meal preference: <input type='text' name='meal1' value='"+session.getAttribute("meal")+"'/><br>");
+			out.println("Meal preference: <input type='text' name='meal1' value='"+session.getAttribute("meal")+"'/><br><br>");
 			i=1;
 		}
 		
@@ -43,8 +44,9 @@ if(request.getParameter("tripType").equals("round")){
 		out.println("<input type='hidden' id='account' name = 'account' value='"+request.getParameter("account")+"'></input>");
 		out.println("<input type='hidden' id='start' name = 'start' value='"+request.getParameter("start")+"'></input>");
 		out.println("<input type='hidden' id='return' name = 'return' value='"+request.getParameter("return")+"'></input>");
+		out.println("<input type='hidden' id='diffInDays' name = 'diffInDays' value='"+request.getParameter("diffInDays")+"'></input>");		
+		
 		out.println("<input type='submit' value='Confirm and Book.'></form>");
-		out.println(request.getParameter("return"));
 		
 	}
 	else{
@@ -83,33 +85,30 @@ if(request.getParameter("tripType").equals("round")){
 		rs.next();
 		int resno = rs.getInt(1);
 		resno++;
-		str = "select FLFare from flights where FLNumber="+flightNum+";";
+		//str = "select FLFare from flights where FLNumber="+flightNum+";";
+		str = "select FIFare from flightinfo where FINumber="+flightNum+";";
 		rs = selectRequest(str);
 		rs.next();
 		double fare = rs.getDouble(1);
-		str = "select FLFare from flights where FLNumber-"+retflightNum+";";
+		//str = "select FLFare from flights where FLNumber-"+retflightNum+";";
+		str = "select FIFare from flightinfo where FINumber="+retflightNum+";";
 		rs = selectRequest(str);
 		rs.next();
 		fare += rs.getDouble(1);
 		
-		
 		double booking = 0;
-		String rest = null;
+		String rest = "";
 		rs.close();
 		
 		if(daysBet(new java.util.Date(),getDate(startDept))>30){
 			rest = "Early; ";
 			fare *= .8;
 		}
-		else{
-			out.println("not early .  "+getDate(startDept)+"\n");
-		}
-		
+
 		int diffInDays = 0;
 		try{
-			diffInDays = Integer.parseInt(request.getParameter("diffInDays"));
+			diffInDays = Integer.parseInt((request.getParameter("diffInDays")).trim());
 		}catch(NumberFormatException e){
-			
 		}
 		
 		if(diffInDays >= 5){
@@ -136,16 +135,21 @@ if(request.getParameter("tripType").equals("round")){
 			statement.setDouble(5, booking);
 			statement.execute();
 			out.println("Reservation number "+resno+" created for account number "+account_no+".");
-			if(rest.equals("Early")){
+			if(rest!=null && (rest.equals("Early; ")||rest.equals("Early; Extended;"))){
 				out.println("You saved 20% by booking early!");
+			}
+			if(rest!=null && (rest.equals("Early; Extended;")||rest.equals("Extended;"))){
+				out.println("You saved 10% by staying 5 or more days!");
 			}
 			
 			//write to has
-			statement = con.prepareStatement("INSERT INTO has VALUES (?, ?)");
+			statement = con.prepareStatement("INSERT INTO has VALUES (?, ?, ?)");
 			statement.setInt(1, resno);
 			statement.setString(2, flightNum);
+			statement.setString(3, startDept);
 			statement.execute();
 			statement.setString(2, retflightNum);
+			statement.setString(3, retstartDept);
 			statement.execute();
 //			out.println("Flights saved");
 			
@@ -243,7 +247,8 @@ else if(request.getParameter("tripType").equals("oneway")){
 		rs.next();
 		int resno = rs.getInt(1);
 		resno++;
-		str = "select FLFare from flights where FLNumber="+flightNum+";";
+		//str = "select FLFare from flights where FLNumber="+flightNum+";";
+		str = "select FIFare from flightinfo where FINumber="+flightNum+";";
 		rs = selectRequest(str);
 		rs.next();
 		double fare = rs.getDouble(1);
@@ -253,7 +258,7 @@ else if(request.getParameter("tripType").equals("oneway")){
 		rs.close();
 		
 		if(daysBet(new java.util.Date(),getDate(startDept))>30){
-			rest = "Early";
+			rest = "Early; ";
 			fare *= .8;
 		}
 		else{
@@ -278,14 +283,15 @@ else if(request.getParameter("tripType").equals("oneway")){
 			statement.setDouble(5, booking);
 			statement.execute();
 			out.println("Reservation number "+resno+" created for account number "+account_no+".");
-			if(rest.equals("Early")){
+			if(rest!=null && (rest.equals("Early; "))){
 				out.println("You saved 20% by booking early!");
 			}
 
 			//write to has
-			statement = con.prepareStatement("INSERT INTO has VALUES (?, ?)");
+			statement = con.prepareStatement("INSERT INTO has VALUES (?, ?, ?)");
 			statement.setInt(1, resno);
 			statement.setString(2, flightNum);
+			statement.setString(3, startDept);
 			statement.execute();
 //			out.println("Flight saved");
 			
@@ -384,7 +390,7 @@ else if(request.getParameter("tripType").equals("oneway")){
 		int i = 0;
 		String flightNums[] = new String [numCities+1];
 		String startAirs[] = new String [numCities+1];
-		String deptAirs[] = new String [numCities+1];
+		String dates[] = new String [numCities+1];
 		while(i<numCities){
 			String str1 = request.getParameter("mid"+i);
 			String[] list = new String [3];
@@ -392,7 +398,7 @@ else if(request.getParameter("tripType").equals("oneway")){
 				list = str1.split("_");
 				flightNums[i] = list[0];
 				startAirs[i] = list[1];
-				deptAirs[i] = list[2];
+				dates[i] = list[2];
 			}catch(NullPointerException e){
 				out.println("....."+e.getMessage());
 				out.println(i);
@@ -429,7 +435,8 @@ else if(request.getParameter("tripType").equals("oneway")){
 		i=0;
 		try{
 		while(i < numCities){		
-			str = "select FLFare from flights where FLNumber="+flightNums[i]+";";
+			//str = "select FLFare from flights where FLNumber="+flightNums[i]+";";
+			str = "select FIFare from flightinfo where FINumber="+flightNums[i]+";";
 			rs = selectRequest(str);
 			rs.next();
 			fare += rs.getDouble(1);
@@ -449,7 +456,7 @@ else if(request.getParameter("tripType").equals("oneway")){
 		
 		try{
 			if(daysBet(new java.util.Date(),getDate(String.valueOf(request.getParameter("startDate"))))>30){
-				rest = "Early";
+				rest = "Early; ";
 				fare *= .8;
 			}
 			else{
@@ -476,15 +483,16 @@ else if(request.getParameter("tripType").equals("oneway")){
 		statement.setDouble(5, booking);
 		statement.execute();
 		out.println("Reservation number "+resno+" created for account number "+account_no+".");
-		if(rest != null && rest.equals("Early")){
+		if(rest!=null && (rest.equals("Early; "))){
 			out.println("You saved 20% by booking early!");
 		}
 
 		//write to has
 		for(int j=0;j<numCities;j++){
-			statement = con.prepareStatement("INSERT INTO has VALUES (?, ?)");
+			statement = con.prepareStatement("INSERT INTO has VALUES (?, ?, ?)");
 			statement.setInt(1, resno);
 			statement.setString(2, flightNums[j]);
+			statement.setString(3, dates[j]);
 			statement.execute();
 //			out.println("Flight saved");
 		}		
