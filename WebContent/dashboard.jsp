@@ -84,8 +84,9 @@ div.panel {
 				}
 				else{
 					session.setAttribute("ssn", result.getString(4));
-					session.setAttribute("city", result.getString(12));
-					session.setAttribute("startdate", result.getString(17));
+					session.setAttribute("phone", result.getString(12));
+					session.setAttribute("hourly", result.getString(17));
+					session.setAttribute("startDate", result.getString(19));
 				}
 				
 				out.println("<h1>Welcome, " + session.getAttribute("fname") +"!</h1>");

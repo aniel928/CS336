@@ -245,7 +245,7 @@
 				</div>		
 				<br><br>
 				<input type='hidden' id='tripType' name = 'tripType' value='oneway'></input>
-				<input type='hidden' id='domintl' name = 'doimntl' value=<% out.println(request.getParameter("domintl"));%>></input>
+				<input type='hidden' id='domintl' name = 'domintl' value=<% out.println(request.getParameter("domintl"));%>></input>
 				<input type='hidden' id='account' name = 'account' value=<% out.println(request.getParameter("account"));%>></input>
 				<input type="submit"/>
 			</form>

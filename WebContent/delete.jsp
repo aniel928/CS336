@@ -28,6 +28,8 @@ try{
 	else{
 		response.sendRedirect("delete.jsp?delete=delete");
 	}
+	
+	con.close();
 }
 catch(Exception e){
 	out.println("something happened at the end");
