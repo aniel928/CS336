@@ -92,15 +92,14 @@ else {
 </div>
 						
 <div>
-	<label>Old Password:</label> <input id = "field" type="password" name = "password" required value=<%out.print(result.getString(2));%>>
 </div>
 
 <div>
-	<label>Password:</label> <input id = "field" type="password" name = "password" required value="****">
+	<label>New Password:</label> <input id = "field" type="password" name = "password">
 </div>
 
 <div>
-	<label> Re-Type New Password:</label> <input id = "field" type="password" name = "password2" required value="****">
+	<label> Re-Type New Password:</label> <input id = "field" type="password" name = "password2">
 </div>
 
 
@@ -108,7 +107,7 @@ else {
 <h3>Address</h3>
 
 <div>
-	<label>Street Address:</label><input id = "field" type="text" name='street_address' required value=<%out.print(result.getString(7));%>>
+	<label>Street Address:</label><input id = "field" type="text" name='street_address' required value='<%out.print(result.getString(7));%>'>
 </div> 
  
 <div>
@@ -131,16 +130,38 @@ else {
 <div>
 	<label>Phone: (10 digits, numbers only)</label><input id = "field"  type="tel" pattern='\d{10}' name='phone' required value='<%out.print(result.getString(12));%>' />
 </div>	
-    			
+
+<%
+if(session.getAttribute("type").equals("manager")){
+	out.print("<h3>Manger Information</h3>");
+	if(!type.equals("customer")) {
+		out.print("<div>");
+			out.print("<label>Hourly Rate: </label><input id = 'field'  type='text'  name='rate' required value='" + result.getString(17) + "'>");
+		out.print("<div>");
+	}
+	out.print("<div>");
+		out.print("<label>User Type: </label><input id = 'field'  type='text'  name='type' required value='" + result.getString(18) + "'>");
+	out.print("<div>");
+}
+%>
+ 			
 <div style= "margin-top: 1cm"><input type="submit" value="Update"></div>
 
-<% 
+
+
+
+<%
 if(type.equals("customer")){
-	out.print("<input type='hidden' name = 'ssn' value='" + result.getString(4) + "'></input>");
-}
-else{
 	out.print("<input type='hidden' name = 'acc' value='" + result.getString(3) + "'></input>");
 }
+else{
+	out.print("<input type='hidden' name = 'old_ssn' value='" + result.getString(4) + "'></input>");
+}
+
+//close connections
+con.close();
+result.close();
+stmt.close();
 %>
 </form>
 </div>

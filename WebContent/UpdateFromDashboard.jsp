@@ -57,6 +57,7 @@ if(session.getAttribute("type").equals("customer")) {
 		str.append("CC_number= " + "'" + request.getParameter("CC_number") + "' ");
 		str.append("WHERE account_no= " + "'" + session.getAttribute("account_no") + "' ;");
 		stmt.executeUpdate(str.toString());
+		str.replace(0, str.length(), "UPDATE users SET ");
 	}
 }
 else {
