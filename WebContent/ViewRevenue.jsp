@@ -69,6 +69,7 @@ stmt = con.createStatement();
 			out.println("</tr>");
 	
 		}
+		con.close();
 } catch (SQLException e) {
 	out.println(e.getMessage());
 	out.println("Uh oh");
