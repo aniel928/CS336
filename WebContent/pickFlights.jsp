@@ -56,7 +56,6 @@ if(tripType.equals("round")){
 
 	//Pull outgoing flights from DB and create table
 	//String str = "SELECT traverses.FLNumber, APIDDeparts, APIDArrives, TraDptDate, TraDptTime, TraArrDate, TraArrTime, FLFare from traverses, flights WHERE TraDptDate='"+ formatDate(startdate)+"' AND APIDDeparts = '"+request.getParameter("startAirport")+"' AND APIDArrives = '"+request.getParameter("destAirport")+"' AND traverses.FLNumber = flights.FLNumber"+startTime+";";
-	//String str = "TraDptDate,TraArrDate, TraArrTime, FLFare from traverses, flights WHERE TraDptDate='"+ formatDate(startdate)+"' AND APIDDeparts = '"+request.getParameter("startAirport")+"' AND APIDArrives = '"+request.getParameter("destAirport")+"' AND traverses.FLNumber = flights.FLNumber"+startTime+";";
 	String str2 = "select FInumber, FIDeparts, FIarrives, FIDptTime, FIArrTime, FIFare from flightinfo, flightdays where FLNumber = FInumber AND FDDays = '"+startdayofweek+"' AND FIDeparts='"+request.getParameter("startAirport")+"' AND FIarrives = '"+request.getParameter("destAirport")+"'"+startTime+";";
 
 	ResultSet rs = selectRequest(str2);
@@ -121,7 +120,7 @@ if(tripType.equals("round")){
 				}	
 				r.close();
 			}
-			catch(Exception e){out.println(e.getMessage());}
+			catch(Exception e){out.println(e.getMessage());r.close();}
 		}
 		
 		String time1 = rs.getString(4);
@@ -197,7 +196,7 @@ if(tripType.equals("round")){
 					}
 					r.close();
 				}
-				catch(Exception e){out.println(e.getMessage());}
+				catch(Exception e){out.println(e.getMessage());r.close();}
 			}
 			String time1 = rs.getString(4);
 			String time2 = rs.getString(5);
@@ -316,7 +315,7 @@ else if(tripType.equals("oneway")){
 				}	
 				r.close();
 			}
-			catch(Exception e){out.println(e.getMessage());}
+			catch(Exception e){out.println(e.getMessage());r.close();}
 		}
 		
 		
@@ -453,7 +452,7 @@ else if(tripType.equals("multi")){
 					}	
 					r.close();
 				}
-				catch(Exception e){out.println(e.getMessage());}
+				catch(Exception e){out.println(e.getMessage());r.close();}
 			}
 			
 			

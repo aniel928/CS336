@@ -62,14 +62,15 @@
 	
 		ResultSet rs = selectRequest(str);
 		
-		out.println("<table class='datatable'><tr><th>Reservation Number</th><th>Account Number</th><th>Date Reservation Made</th><th>First Date of Travel</th><th>Cancel</th></tr>");
+		out.println("<table class='datatable'><tr><th>Reservation Number</th><th>Account Number</th><th>Date Reservation Made</th><th>First Date of Travel</th><th>Customer Itinerary</th><th>Cancel</th></tr>");
 		
 		while(rs.next()){
 			if(filter.equals("all")){
 				out.println("<tr><td>"+rs.getString(1)+"</td><td>"+rs.getString(2)+"</td><td>"+rs.getString(3)+"</td><td>"+rs.getString(4)+"</td>");
 				if(getDate(rs.getString(4)).after(today)){
-					out.println("<td><a href='cancelRes.jsp?res="+rs.getString(1)+"'>Cancel Reservation</a></td></tr>");
-				}
+					out.println("<td><a href='itinerary.jsp?num="+rs.getString(1)+"'>View Itinerary</a></td>");
+							out.println("<td><a href='cancelRes.jsp?res="+rs.getString(1)+"'>Cancel Reservation</a></td></tr>");
+					}
 				else{
 					out.println("<td></td></tr>");
 				}
@@ -77,12 +78,14 @@
 			else if(filter.equals("past")){
 				if(getDate(rs.getString(4)).before(today)){
 					out.println("<tr><td>"+rs.getString(1)+"</td><td>"+rs.getString(2)+"</td><td>"+rs.getString(3)+"</td><td>"+rs.getString(4)+"</td>");
+					out.println("<td><a href='itinerary.jsp?num="+rs.getString(1)+"'>View Itinerary</a></td>");
 					out.println("<td></td></tr>");
 				}
 			}
 			else if(filter.equals("future")){
 				if(getDate(rs.getString(4)).after(today)){
 					out.println("<tr><td>"+rs.getString(1)+"</td><td>"+rs.getString(2)+"</td><td>"+rs.getString(3)+"</td><td>"+rs.getString(4)+"</td>");
+					out.println("<td><a href='itinerary.jsp?num="+rs.getString(1)+"'>View Itinerary</a></td>");
 					out.println("<td><a href='cancelRes.jsp?res="+rs.getString(1)+"'>Cancel Reservation</a></td></tr>");
 				}
 			}
