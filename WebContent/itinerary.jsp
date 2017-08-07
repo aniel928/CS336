@@ -62,9 +62,10 @@ str = "select PassName, PassSeat, PassMeal from passenger where ResNumber='"+res
 	}
 	out.println("</div><br><br>");
 	
+	out.println("<button type='button' name='back' onclick='history.back()''>Go Back</button>");
 	
-	
-	
+	out.println("<br><br><button type='button' name='back'><a href='dashboard.jsp'>Back to Dashboard</a></button>");
+
 	
 	
 	

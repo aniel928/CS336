@@ -499,7 +499,7 @@ else if(tripType.equals("multi")){
 else{
 	out.println("uh oh");
 }
-
+out.println("<br><br><a href='dashboard.jsp'>Back to Dashboard</a>");
 con.close();
 %>
 
