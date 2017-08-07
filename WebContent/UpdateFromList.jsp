@@ -25,6 +25,8 @@ else{
 	temp="SELECT * FROM users WHERE account_no='" + acc + "'";
 }
 
+out.print("temp= " + temp);
+out.print("<br>");
 
 //make initial query to DB
 ResultSet result = stmt.executeQuery(temp);
@@ -48,6 +50,7 @@ str.append("SET ");
 
 if(type.equals("customer")) {
 	result.beforeFirst();
+	result.next();
 
 	if(!request.getParameter("account_no").equals(result.getString(3))){
 		out.print("changed account no");
@@ -207,6 +210,7 @@ else {
 
 }
 }catch(SQLException e){
+	out.print("<br>");
 	out.println(e.getMessage());
 }
 //close connections
