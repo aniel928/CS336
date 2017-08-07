@@ -137,11 +137,7 @@ td {
 			 }
 	
 			
-			
-			//manager page
-			
-			//Top labels
-
+			 con.close();
 		
 		
 } catch (SQLException e) {
