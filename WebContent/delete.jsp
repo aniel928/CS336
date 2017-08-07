@@ -19,8 +19,9 @@ try{
 	Statement stmt = con.createStatement(); 
 	String command = "delete from users where username = '"+user+"';";
 	stmt.executeUpdate(command);
+	stmt.close();
 	
-//	out.println(request.getParameter("user")+" "+session.getAttribute("username"));
+	con.close();
 	
 	if(request.getParameter("user").equals(session.getAttribute("username"))){
 		response.sendRedirect("index.jsp?delete=delete");
@@ -29,10 +30,10 @@ try{
 		response.sendRedirect("delete.jsp?delete=delete");
 	}
 	
-	con.close();
+	
 }
 catch(Exception e){
-	out.println("something happened at the end");
+	out.println("something happened");
 }
 
  %>

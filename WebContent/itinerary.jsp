@@ -4,10 +4,11 @@
 	</head>
 	<body>
 	
-	<% 
+	<%
+	
 	String res_no = request.getParameter("num");
 	
-	String str = "select FLNumber, DateOfFlight, FIDeparts, FIDptTime, FIArrives, FIArrTime, ResTotalFare, ResFareRestrictions from flightinfo, reservations, makes, has where account_no='"+session.getAttribute("account_no")+"' AND reservations.ResNumber='"+res_no+"' AND reservations.ResNumber = makes.ResNumber AND makes.ResNumber = has.ResNumber AND has.ResNumber = reservations.ResNumber AND has.FLNumber = flightinfo.FInumber order by DateOfFlight;";
+	String str = "select FLNumber, DateOfFlight, FIDeparts, FIDptTime, FIArrives, FIArrTime, ResTotalFare, ResFareRestrictions, account_no from flightinfo, reservations, makes, has where reservations.ResNumber='"+res_no+"' AND reservations.ResNumber = makes.ResNumber AND makes.ResNumber = has.ResNumber AND has.ResNumber = reservations.ResNumber AND has.FLNumber = flightinfo.FInumber order by DateOfFlight;";
 
 	DecimalFormat decim = new DecimalFormat("0.00");
 	
@@ -15,6 +16,9 @@
 	
 	rs.next();
 	out.println("<h3>Reservation Number: "+res_no+"</h3>");
+	if(!session.getAttribute("type").equals("customer")){
+		out.println("<h4>Account Number: "+rs.getString(9));
+	}
 	out.println("<h4>Total Fare: $"+Double.parseDouble(decim.format(rs.getDouble(7)))+"</h4>");
 	out.println("<h4>Restrictions Applied: "+rs.getString(8)+"</h4>");
 	
@@ -58,9 +62,10 @@ str = "select PassName, PassSeat, PassMeal from passenger where ResNumber='"+res
 	}
 	out.println("</div><br><br>");
 	
+	out.println("<button type='button' name='back' onclick='history.back()''>Go Back</button>");
 	
-	
-	
+	out.println("<br><br><button type='button' name='back'><a href='dashboard.jsp'>Back to Dashboard</a></button>");
+
 	
 	
 	

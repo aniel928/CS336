@@ -84,13 +84,13 @@ public int daysBet(java.util.Date d1, java.util.Date d2){
 public String timeOfDay(String s){
 	String retS = null;
 	if(s.equals("early")){
-		retS = " AND TraDptTime < 5";
+		retS = " AND FIDptTime < 5";
 	}else if(s.equals("morning")){
-		retS = " AND TraDptTime >= 5 AND TraDptTime < 12";
+		retS = " AND FIDptTime >= 5 AND FIDptTime < 12";
 	}else if(s.equals("afternoon")){
-		retS = " AND TraDptTime >=12 AND TraDptTime < 18";
+		retS = " AND FIDptTime >=12 AND FIDptTime < 18";
 	}else if(s.equals("night")){
-		retS = " AND TraDptTime >=18 AND TraDptTime < 24";
+		retS = " AND FIDptTime >=18 AND FIDptTime < 24";
 	}else{
 		retS =" ";
 	}

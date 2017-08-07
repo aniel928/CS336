@@ -104,6 +104,8 @@ while(result.next()) {
 }
 
 out.println("</table>");
+
+out.println("<br><br><a href='dashboard.jsp'>Back to Dashboard</a>");
 con.close();
 
 

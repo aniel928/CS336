@@ -27,16 +27,16 @@ if(request.getParameter("tripType").equals("round")){
 		
 		out.println("<form method='post' action='book.jsp'>");
 		if(session.getAttribute("type").equals("customer")){			
-			out.println("Passenger#1: <input type='text' name='pass1' value='"+session.getAttribute("fname")+" "+session.getAttribute("lname")+"'/><br>");
-			out.println("Seat preference: <input type='text' name='seat1' value='"+session.getAttribute("seat")+"'/><br>");
-			out.println("Meal preference: <input type='text' name='meal1' value='"+session.getAttribute("meal")+"'/><br><br>");
+			out.println("Passenger#1: <input type='text' name='pass1' value='"+session.getAttribute("fname")+" "+session.getAttribute("lname")+"' required/><br>");
+			out.println("Seat preference: <input type='text' name='seat1' value='"+session.getAttribute("seat")+"' required/><br>");
+			out.println("Meal preference: <input type='text' name='meal1' value='"+session.getAttribute("meal")+"' required/><br><br>");
 			i=1;
 		}
 		
 		while (i < num){
-			out.println("Passenger#"+(i+1)+": <input type='text' name='pass"+(i+1)+"'/><br>");
-			out.println("Seat preference: <input type='text' name='seat"+(i+1)+"'/><br>");
-			out.println("Meal preference: <input type='text' name='meal"+(i+1)+"'/><br><br>");
+			out.println("Passenger#"+(i+1)+": <input type='text' name='pass"+(i+1)+"' required/><br>");
+			out.println("Seat preference: <input type='text' name='seat"+(i+1)+"' required/><br>");
+			out.println("Meal preference: <input type='text' name='meal"+(i+1)+"' required/><br><br>");
 			i++;
 		}
 		out.println("<input type='hidden' id='tripType' name = 'tripType' value='round'></input>");
@@ -85,17 +85,21 @@ if(request.getParameter("tripType").equals("round")){
 		rs.next();
 		int resno = rs.getInt(1);
 		resno++;
-		//str = "select FLFare from flights where FLNumber="+flightNum+";";
+		rs.close();
+		
 		str = "select FIFare from flightinfo where FINumber="+flightNum+";";
 		rs = selectRequest(str);
 		rs.next();
 		double fare = rs.getDouble(1);
-		//str = "select FLFare from flights where FLNumber-"+retflightNum+";";
+
+		fare *= num;
+
+		rs.close();
+		
 		str = "select FIFare from flightinfo where FINumber="+retflightNum+";";
 		rs = selectRequest(str);
 		rs.next();
 		fare += rs.getDouble(1);
-		
 		double booking = 0;
 		String rest = "";
 		rs.close();
@@ -134,6 +138,7 @@ if(request.getParameter("tripType").equals("round")){
 			statement.setString(4, rest);
 			statement.setDouble(5, booking);
 			statement.execute();
+			statement.close();
 			out.println("Reservation number "+resno+" created for account number "+account_no+".");
 			if(rest!=null && (rest.equals("Early; ")||rest.equals("Early; Extended;"))){
 				out.println("You saved 20% by booking early!");
@@ -151,6 +156,7 @@ if(request.getParameter("tripType").equals("round")){
 			statement.setString(2, retflightNum);
 			statement.setString(3, retstartDept);
 			statement.execute();
+			statement.close();
 //			out.println("Flights saved");
 			
 			//write to makes
@@ -163,6 +169,7 @@ if(request.getParameter("tripType").equals("round")){
 				statement.setString(3,null);
 			}
 			statement.execute();
+			statement.close();
 //			out.println("Saved to makes");
 			
 			//enter into passengers
@@ -173,6 +180,7 @@ if(request.getParameter("tripType").equals("round")){
 				statement.setString(3,(request.getParameter("seat"+(j+1))));
 				statement.setString(4,(request.getParameter("meal"+(j+1))));
 				statement.execute();
+				statement.close();
 //				out.println("Passengers updated");
 			}	
 
@@ -195,16 +203,16 @@ else if(request.getParameter("tripType").equals("oneway")){
 		out.println("<form method='post' action='book.jsp'>");
 		if(session.getAttribute("type").equals("customer")){
 			
-			out.println("Passenger#1: <input type='text' name='pass1' value='"+session.getAttribute("fname")+" "+session.getAttribute("lname")+"'/><br>");
-			out.println("Seat preference: <input type='text' name='seat1' value='"+session.getAttribute("seat")+"'/><br>");
-			out.println("Meal preference: <input type='text' name='meal1' value='"+session.getAttribute("meal")+"'/><br>");
+			out.println("Passenger#1: <input type='text' name='pass1' value='"+session.getAttribute("fname")+" "+session.getAttribute("lname")+"' required/><br>");
+			out.println("Seat preference: <input type='text' name='seat1' value='"+session.getAttribute("seat")+"' required/><br>");
+			out.println("Meal preference: <input type='text' name='meal1' value='"+session.getAttribute("meal")+"' required/><br>");
 			i=1;
 		}
 		
 		while (i < num){
-			out.println("Passenger#"+(i+1)+": <input type='text' name='pass"+(i+1)+"'/><br>");
-			out.println("Seat preference: <input type='text' name='seat"+(i+1)+"'/><br>");
-			out.println("Meal preference: <input type='text' name='meal"+(i+1)+"'/><br><br>");
+			out.println("Passenger#"+(i+1)+": <input type='text' name='pass"+(i+1)+"' required/><br>");
+			out.println("Seat preference: <input type='text' name='seat"+(i+1)+"' required/><br>");
+			out.println("Meal preference: <input type='text' name='meal"+(i+1)+"' required/><br><br>");
 			i++;
 		}
 		out.println("<input type='hidden' id='tripType' name = 'tripType' value='oneway'/>");
@@ -247,13 +255,17 @@ else if(request.getParameter("tripType").equals("oneway")){
 		rs.next();
 		int resno = rs.getInt(1);
 		resno++;
+		rs.close();
+		
 		//str = "select FLFare from flights where FLNumber="+flightNum+";";
 		str = "select FIFare from flightinfo where FINumber="+flightNum+";";
 		rs = selectRequest(str);
 		rs.next();
 		double fare = rs.getDouble(1);
-		double booking = 0;
 
+		fare *= num;
+
+		double booking = 0;
 		String rest = null;
 		rs.close();
 		
@@ -282,6 +294,7 @@ else if(request.getParameter("tripType").equals("oneway")){
 			statement.setString(4, rest);
 			statement.setDouble(5, booking);
 			statement.execute();
+			statement.close();
 			out.println("Reservation number "+resno+" created for account number "+account_no+".");
 			if(rest!=null && (rest.equals("Early; "))){
 				out.println("You saved 20% by booking early!");
@@ -293,6 +306,7 @@ else if(request.getParameter("tripType").equals("oneway")){
 			statement.setString(2, flightNum);
 			statement.setString(3, startDept);
 			statement.execute();
+			statement.close();
 //			out.println("Flight saved");
 			
 			//write to makes
@@ -305,6 +319,7 @@ else if(request.getParameter("tripType").equals("oneway")){
 				statement.setString(3,null);
 			}
 			statement.execute();
+			statement.close();
 //			out.println("Saved to makes");
 			
 			//enter into passengers
@@ -315,6 +330,7 @@ else if(request.getParameter("tripType").equals("oneway")){
 				statement.setString(3,(request.getParameter("seat"+(j+1))));
 				statement.setString(4,(request.getParameter("meal"+(j+1))));
 				statement.execute();
+				statement.close();
 //				out.println("Passengers updated");
 			}
 			con.close();
@@ -340,16 +356,16 @@ else if(request.getParameter("tripType").equals("oneway")){
 		out.println("<form method='post' action='book.jsp'>");
 		if(session.getAttribute("type").equals("customer")){
 			
-			out.println("Passenger#1: <input type='text' name='pass1' value='"+session.getAttribute("fname")+" "+session.getAttribute("lname")+"'/><br>");
-			out.println("Seat preference: <input type='text' name='seat1' value='"+session.getAttribute("seat")+"'/><br>");
-			out.println("Meal preference: <input type='text' name='meal1' value='"+session.getAttribute("meal")+"'/><br>");
+			out.println("Passenger#1: <input type='text' name='pass1' value='"+session.getAttribute("fname")+" "+session.getAttribute("lname")+"' required/><br>");
+			out.println("Seat preference: <input type='text' name='seat1' value='"+session.getAttribute("seat")+"' required/><br>");
+			out.println("Meal preference: <input type='text' name='meal1' value='"+session.getAttribute("meal")+"' required/><br>");
 			i=1;
 		}
 		
 		while (i < num){
-			out.println("Passenger#"+(i+1)+": <input type='text' name='pass"+(i+1)+"'/><br>");
-			out.println("Seat preference: <input type='text' name='seat"+(i+1)+"'/><br>");
-			out.println("Meal preference: <input type='text' name='meal"+(i+1)+"'/><br><br>");
+			out.println("Passenger#"+(i+1)+": <input type='text' name='pass"+(i+1)+"' required/><br>");
+			out.println("Seat preference: <input type='text' name='seat"+(i+1)+"' required/><br>");
+			out.println("Meal preference: <input type='text' name='meal"+(i+1)+"' required/><br><br>");
 			i++;
 		}
 		out.println("<input type='hidden' id='tripType' name = 'tripType' value='multi'></input>");
@@ -429,8 +445,9 @@ else if(request.getParameter("tripType").equals("oneway")){
 		ResultSet rs = selectRequest(str);
 		rs.next();
 		int resno = rs.getInt(1);
-		rs.close();
 		resno++;
+		rs.close();
+
 		double fare = 0;		
 		i=0;
 		try{
@@ -447,6 +464,8 @@ else if(request.getParameter("tripType").equals("oneway")){
 			out.println("fare "+e.getMessage());
 			return;
 		}
+		
+		fare *= num;
 		
 		DecimalFormat decim = new DecimalFormat("0.00");
 		Double fareFormat = Double.parseDouble(decim.format(fare));
@@ -482,6 +501,7 @@ else if(request.getParameter("tripType").equals("oneway")){
 		statement.setString(4, rest);
 		statement.setDouble(5, booking);
 		statement.execute();
+		statement.close();
 		out.println("Reservation number "+resno+" created for account number "+account_no+".");
 		if(rest!=null && (rest.equals("Early; "))){
 			out.println("You saved 20% by booking early!");
@@ -494,6 +514,7 @@ else if(request.getParameter("tripType").equals("oneway")){
 			statement.setString(2, flightNums[j]);
 			statement.setString(3, dates[j]);
 			statement.execute();
+			statement.close();
 //			out.println("Flight saved");
 		}		
 		
@@ -508,6 +529,7 @@ else if(request.getParameter("tripType").equals("oneway")){
 			statement.setString(3,null);
 		}
 		statement.execute();
+		statement.close();
 //		out.println("Saved to makes");
 		
 
@@ -521,6 +543,7 @@ else if(request.getParameter("tripType").equals("oneway")){
 			statement.setString(3,(request.getParameter("seat"+(j+1))));
 			statement.setString(4,(request.getParameter("meal"+(j+1))));
 			statement.execute();
+			statement.close();
 //			out.println("Passengers updated");
 		}
 		
@@ -531,7 +554,8 @@ else if(request.getParameter("tripType").equals("oneway")){
 		
 		
 	//	out.println("INSERT INTO reservations values (1, )")
-	}	
+	}
+	
 }
-
  %>
+ <br><br><button type='button'> <a href="dashboard.jsp">Back to Dashboard</a></button></body></html>
