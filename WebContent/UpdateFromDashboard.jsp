@@ -5,10 +5,6 @@
 <style>
 </style>
 <body>
-
-<h1>Update Page</h1>
-
-
 <%
 //string builder for the query
 StringBuilder str=new StringBuilder();
@@ -16,8 +12,6 @@ StringBuilder str=new StringBuilder();
 //add begining of query
 str.append("UPDATE users ");
 str.append("SET ");
-
-
 
 
 Connection con = dbConnect();
@@ -38,6 +32,7 @@ if(session.getAttribute("type").equals("customer")) {
 		str.append("account_no= " + "'" + request.getParameter("account_no") + "' ");
 		str.append("WHERE account_no= " + "'" + session.getAttribute("account_no") + "' ;");
 		stmt.executeUpdate(str.toString());
+		str.replace(0, str.length(), "UPDATE users SET ");
 	}
 	
 	if(!request.getParameter("seat_preference").equals(session.getAttribute("seat"))) {
@@ -45,13 +40,16 @@ if(session.getAttribute("type").equals("customer")) {
 		str.append("seat_preference= " + "'" + request.getParameter("seat_preference") + "' ");
 		str.append("WHERE account_no= " + "'" + session.getAttribute("account_no") + "' ;");
 		stmt.executeUpdate(str.toString());
+		str.replace(0, str.length(), "UPDATE users SET ");
 	}
 	
 	if(!request.getParameter("meal_preference").equals(session.getAttribute("meal"))) {
 		out.println("changed meal_prefrence");
 		str.append("meal_preference= " + "'" + request.getParameter("meal_preference") + "' ");
 		str.append("WHERE account_no= " + "'" + session.getAttribute("account_no") + "' ;");
+		out.print(str);
 		stmt.executeUpdate(str.toString());
+		str.replace(0, str.length(), "UPDATE users SET ");
 	}
 	
 	if(!request.getParameter("CC_number").equals(session.getAttribute("ccnum"))) {
@@ -67,6 +65,7 @@ else {
 		str.append("ssn= " + "'" + request.getParameter("ssn") + "' ");
 		str.append("WHERE account_no= " + "'" + session.getAttribute("account_no") + "' ;");
 		stmt.executeUpdate(str.toString());
+		str.replace(0, str.length(), "UPDATE users SET ");
 	}	
 }
 
@@ -76,13 +75,15 @@ if(!request.getParameter("first_name").equals(session.getAttribute("fname"))) {
 	str.append("first_name= " + "'" + request.getParameter("first_name") + "' ");
 	str.append("WHERE account_no= " + "'" + session.getAttribute("account_no") + "' ;");
 	stmt.executeUpdate(str.toString());
+	str.replace(0, str.length(), "UPDATE users SET ");
 }
 
 if(!request.getParameter("last_name").equals(session.getAttribute("lname"))) {
-	out.println("changed last_name");
+	//out.println("changed last_name");
 	str.append("last_name= " + "'" + request.getParameter("last_name") + "' ");
 	str.append("WHERE account_no= " + "'" + session.getAttribute("account_no") + "' ;");
 	stmt.executeUpdate(str.toString());
+	str.replace(0, str.length(), "UPDATE users SET ");
 }
 
 if(!request.getParameter("username").equals(session.getAttribute("username"))) {
@@ -90,6 +91,7 @@ if(!request.getParameter("username").equals(session.getAttribute("username"))) {
 	str.append("uersname= " + "'" + request.getParameter("uersname") + "' ");
 	str.append("WHERE account_no= " + "'" + session.getAttribute("account_no") + "' ;");
 	stmt.executeUpdate(str.toString());
+	str.replace(0, str.length(), "UPDATE users SET ");
 }
 
 if(!request.getParameter("password").equals(session.getAttribute("password"))) {
@@ -101,6 +103,7 @@ if(!request.getParameter("street_address").equals(session.getAttribute("address"
 	str.append("street_address= " + "'" + request.getParameter("street_address") + "' ");
 	str.append("WHERE account_no= " + "'" + session.getAttribute("account_no") + "' ;");
 	stmt.executeUpdate(str.toString());
+	str.replace(0, str.length(), "UPDATE users SET ");
 }
 
 if(!request.getParameter("city").equals(session.getAttribute("city"))) {
@@ -108,6 +111,7 @@ if(!request.getParameter("city").equals(session.getAttribute("city"))) {
 	str.append("city= " + "'" + request.getParameter("city") + "' ");
 	str.append("WHERE account_no= " + "'" + session.getAttribute("account_no") + "' ;");
 	stmt.executeUpdate(str.toString());
+	str.replace(0, str.length(), "UPDATE users SET ");
 }
 
 if(!request.getParameter("state").equals(session.getAttribute("state"))) {
@@ -115,6 +119,7 @@ if(!request.getParameter("state").equals(session.getAttribute("state"))) {
 	str.append("state= " + "'" + request.getParameter("state") + "' ");
 	str.append("WHERE account_no= " + "'" + session.getAttribute("account_no") + "' ;");
 	stmt.executeUpdate(str.toString());
+	str.replace(0, str.length(), "UPDATE users SET ");
 }
 
 if(!request.getParameter("zipcode").equals(session.getAttribute("zip"))) {
@@ -122,6 +127,7 @@ if(!request.getParameter("zipcode").equals(session.getAttribute("zip"))) {
 	str.append("zipcode= " + "'" + request.getParameter("zipcode") + "' ");
 	str.append("WHERE account_no= " + "'" + session.getAttribute("account_no") + "' ;");
 	stmt.executeUpdate(str.toString());
+	str.replace(0, str.length(), "UPDATE users SET ");
 }
 
 if(!request.getParameter("email").equals(session.getAttribute("email"))) {
@@ -129,6 +135,8 @@ if(!request.getParameter("email").equals(session.getAttribute("email"))) {
 	str.append("email= " + "'" + request.getParameter("email") + "' ");
 	str.append("WHERE account_no= " + "'" + session.getAttribute("account_no") + "' ;");
 	stmt.executeUpdate(str.toString());
+	str.replace(0, str.length(), "UPDATE users SET ");
+	
 }
 
 if(!request.getParameter("phone").equals(session.getAttribute("phone"))) {
@@ -136,6 +144,12 @@ if(!request.getParameter("phone").equals(session.getAttribute("phone"))) {
 	str.append("phone= " + "'" + request.getParameter("phone") + "' ");
 	str.append("WHERE account_no= " + "'" + session.getAttribute("account_no") + "' ;");
 	out.print(str);
-	//stmt.executeUpdate(str.toString());
+	stmt.executeUpdate(str.toString());
+	str.replace(0, str.length(), "UPDATE users SET ");
 }
+
+out.print("<h3> Information Updated</h3>");
+
+out.print("<form method=get action='temp.jsp'>");
+out.println("<button name='backToDash' value='backToDash'>Go Back to Dashboard </button> <br> <br>");
 %>

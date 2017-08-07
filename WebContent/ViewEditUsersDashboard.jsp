@@ -6,7 +6,7 @@
 		<h1>View and Edit User Information</h1>
 		<br>
 		<div>
-			<form method="post" action="UpdateDashboard.jsp"> 
+			<form method="post" action="UpdateFromDashboard.jsp"> 
 					<%
 					try{
 						if(request.getParameter("error").equals("nopass")){				
