@@ -27,16 +27,16 @@ if(request.getParameter("tripType").equals("round")){
 		
 		out.println("<form method='post' action='book.jsp'>");
 		if(session.getAttribute("type").equals("customer")){			
-			out.println("Passenger#1: <input type='text' name='pass1' value='"+session.getAttribute("fname")+" "+session.getAttribute("lname")+"'/><br>");
-			out.println("Seat preference: <input type='text' name='seat1' value='"+session.getAttribute("seat")+"'/><br>");
-			out.println("Meal preference: <input type='text' name='meal1' value='"+session.getAttribute("meal")+"'/><br><br>");
+			out.println("Passenger#1: <input type='text' name='pass1' value='"+session.getAttribute("fname")+" "+session.getAttribute("lname")+"' required/><br>");
+			out.println("Seat preference: <input type='text' name='seat1' value='"+session.getAttribute("seat")+"' required/><br>");
+			out.println("Meal preference: <input type='text' name='meal1' value='"+session.getAttribute("meal")+"' required/><br><br>");
 			i=1;
 		}
 		
 		while (i < num){
-			out.println("Passenger#"+(i+1)+": <input type='text' name='pass"+(i+1)+"'/><br>");
-			out.println("Seat preference: <input type='text' name='seat"+(i+1)+"'/><br>");
-			out.println("Meal preference: <input type='text' name='meal"+(i+1)+"'/><br><br>");
+			out.println("Passenger#"+(i+1)+": <input type='text' name='pass"+(i+1)+"' required/><br>");
+			out.println("Seat preference: <input type='text' name='seat"+(i+1)+"' required/><br>");
+			out.println("Meal preference: <input type='text' name='meal"+(i+1)+"' required/><br><br>");
 			i++;
 		}
 		out.println("<input type='hidden' id='tripType' name = 'tripType' value='round'></input>");
@@ -195,16 +195,16 @@ else if(request.getParameter("tripType").equals("oneway")){
 		out.println("<form method='post' action='book.jsp'>");
 		if(session.getAttribute("type").equals("customer")){
 			
-			out.println("Passenger#1: <input type='text' name='pass1' value='"+session.getAttribute("fname")+" "+session.getAttribute("lname")+"'/><br>");
-			out.println("Seat preference: <input type='text' name='seat1' value='"+session.getAttribute("seat")+"'/><br>");
-			out.println("Meal preference: <input type='text' name='meal1' value='"+session.getAttribute("meal")+"'/><br>");
+			out.println("Passenger#1: <input type='text' name='pass1' value='"+session.getAttribute("fname")+" "+session.getAttribute("lname")+"' required/><br>");
+			out.println("Seat preference: <input type='text' name='seat1' value='"+session.getAttribute("seat")+"' required/><br>");
+			out.println("Meal preference: <input type='text' name='meal1' value='"+session.getAttribute("meal")+"' required/><br>");
 			i=1;
 		}
 		
 		while (i < num){
-			out.println("Passenger#"+(i+1)+": <input type='text' name='pass"+(i+1)+"'/><br>");
-			out.println("Seat preference: <input type='text' name='seat"+(i+1)+"'/><br>");
-			out.println("Meal preference: <input type='text' name='meal"+(i+1)+"'/><br><br>");
+			out.println("Passenger#"+(i+1)+": <input type='text' name='pass"+(i+1)+"' required/><br>");
+			out.println("Seat preference: <input type='text' name='seat"+(i+1)+"' required/><br>");
+			out.println("Meal preference: <input type='text' name='meal"+(i+1)+"' required/><br><br>");
 			i++;
 		}
 		out.println("<input type='hidden' id='tripType' name = 'tripType' value='oneway'/>");
@@ -340,16 +340,16 @@ else if(request.getParameter("tripType").equals("oneway")){
 		out.println("<form method='post' action='book.jsp'>");
 		if(session.getAttribute("type").equals("customer")){
 			
-			out.println("Passenger#1: <input type='text' name='pass1' value='"+session.getAttribute("fname")+" "+session.getAttribute("lname")+"'/><br>");
-			out.println("Seat preference: <input type='text' name='seat1' value='"+session.getAttribute("seat")+"'/><br>");
-			out.println("Meal preference: <input type='text' name='meal1' value='"+session.getAttribute("meal")+"'/><br>");
+			out.println("Passenger#1: <input type='text' name='pass1' value='"+session.getAttribute("fname")+" "+session.getAttribute("lname")+"' required/><br>");
+			out.println("Seat preference: <input type='text' name='seat1' value='"+session.getAttribute("seat")+"' required/><br>");
+			out.println("Meal preference: <input type='text' name='meal1' value='"+session.getAttribute("meal")+"' required/><br>");
 			i=1;
 		}
 		
 		while (i < num){
-			out.println("Passenger#"+(i+1)+": <input type='text' name='pass"+(i+1)+"'/><br>");
-			out.println("Seat preference: <input type='text' name='seat"+(i+1)+"'/><br>");
-			out.println("Meal preference: <input type='text' name='meal"+(i+1)+"'/><br><br>");
+			out.println("Passenger#"+(i+1)+": <input type='text' name='pass"+(i+1)+"' required/><br>");
+			out.println("Seat preference: <input type='text' name='seat"+(i+1)+"' required/><br>");
+			out.println("Meal preference: <input type='text' name='meal"+(i+1)+"' required/><br><br>");
 			i++;
 		}
 		out.println("<input type='hidden' id='tripType' name = 'tripType' value='multi'></input>");
@@ -531,7 +531,7 @@ else if(request.getParameter("tripType").equals("oneway")){
 		
 		
 	//	out.println("INSERT INTO reservations values (1, )")
-	}	
+	}
+	
 }
-
  %>

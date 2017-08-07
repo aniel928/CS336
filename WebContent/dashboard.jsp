@@ -73,8 +73,8 @@ div.panel {
 				session.setAttribute("city", result.getString(8));
 				session.setAttribute("state", result.getString(9));
 				session.setAttribute("zip", result.getString(10));
-				session.setAttribute("type", result.getString(18));
 				session.setAttribute("phone", result.getString(12));
+				session.setAttribute("type", result.getString(18));
 				if(session.getAttribute("type").equals("customer")){
 					session.setAttribute("account_no", result.getString(3));
 					session.setAttribute("email", result.getString(11));
