@@ -47,12 +47,12 @@ if(tripType.equals("round")){
 		con.close();
 		return;
 	}
-	//doesn't allow today either... ok?  - put this back when Pete fixes database
+	
 	//if startdate is before today, throw error.
-/*	if(startdate.compareTo(new java.util.Date())<0){
+	if(startdate.compareTo(new java.util.Date())<0){
 		response.sendRedirect("MakeReservation.jsp?error=prior&tripType=round&domintl="+request.getParameter("domintl"));
 		return;
-	}*/
+	}
 
 	//Pull outgoing flights from DB and create table
 	//String str = "SELECT traverses.FLNumber, APIDDeparts, APIDArrives, TraDptDate, TraDptTime, TraArrDate, TraArrTime, FLFare from traverses, flights WHERE TraDptDate='"+ formatDate(startdate)+"' AND APIDDeparts = '"+request.getParameter("startAirport")+"' AND APIDArrives = '"+request.getParameter("destAirport")+"' AND traverses.FLNumber = flights.FLNumber"+startTime+";";
@@ -109,6 +109,7 @@ if(tripType.equals("round")){
 		int seats= 0;
 		if(r.next()){
 			seats = Integer.parseInt(r.getString(1));
+			r.close();
 		}
 		else{
 			r.close();
@@ -184,6 +185,7 @@ if(tripType.equals("round")){
 			int seats= 0;
 			if(r.next()){
 				seats = Integer.parseInt(r.getString(1));
+				r.close();
 			}
 			else{
 				r.close();
@@ -246,12 +248,12 @@ else if(tripType.equals("oneway")){
 	startdate = getDate(request.getParameter("startDate"));
 	String startdayofweek = getWeekDay(startdate);
 	
-	//doesn't allow today either... ok?  - put this back when Pete fixes database
+	
 	//if startdate is before today, throw error.
-	/*if(startdate.compareTo(new java.util.Date())<0){
+	if(startdate.compareTo(new java.util.Date())<0){
 		response.sendRedirect("MakeReservation.jsp?error=prior&tripType=round&domintl="+request.getParameter("domintl"));
 		return;
-	}*/
+	}
 	
 	//Pull outgoing flights from DB and create table
 	//String str = "SELECT traverses.FLNumber, APIDDeparts, APIDArrives, TraDptDate, TraDptTime, TraArrDate, TraArrTime, FLFare from traverses, flights WHERE TraDptDate='"+ formatDate(startdate)+"' AND APIDDeparts = '"+request.getParameter("startAirport")+"' AND APIDArrives = '"+request.getParameter("destAirport")+"' AND traverses.FLNumber = flights.FLNumber"+ departTime +";";
@@ -302,6 +304,7 @@ else if(tripType.equals("oneway")){
 		int seats= 0;
 		if(r.next()){
 			seats = Integer.parseInt(r.getString(1));
+			r.close();
 		}
 		else{
 			r.close();
@@ -369,6 +372,11 @@ else if(tripType.equals("multi")){
 	dates[0] = request.getParameter("startDepart");
 	times[0] = timeOfDay(request.getParameter("startTime"));
 	
+	if(getDate(dates[0]).compareTo(new java.util.Date())<0){
+		response.sendRedirect("MakeReservation.jsp?error=prior&tripType=round&domintl="+request.getParameter("domintl"));
+		return;
+	}
+	
 	//Loop for city info
 	while(i < cities){
 		String city = "airport" + i;
@@ -397,8 +405,6 @@ else if(tripType.equals("multi")){
 	
 		ResultSet rs = selectRequest(str2);
 		
-		
-	//discount eligible
 %>
 		
 		<br> <h3>Choose flight<% out.println(" "+(j+1)+":");%></h3><br>
@@ -435,6 +441,7 @@ else if(tripType.equals("multi")){
 			int seats= 0;
 			if(r.next()){
 				seats = Integer.parseInt(r.getString(1));
+				r.close();
 			}
 			else{
 				try{
