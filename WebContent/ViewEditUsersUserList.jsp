@@ -46,53 +46,53 @@ out.print("<h1>View and Edit User Information</h1>");
 
 
 //start form
-out.print("<form method='post' action='update.jsp'");
+out.print("<form method='post' action='UpdateFromList.jsp'");
 if(result.getString(18).equals("employee")|| result.getString(18).equals("manager")) { 
 	out.print("<div id = 'Employee'>");
 	out.print("<h3>Employee Information</h3>");
 	out.print("<label>SSN: (9 digits)</label>");
-	out.print("<input id ='field' type='text' name='ssn' value= "); 
+	out.print("<input id ='field' type='text' name='ssn' value='" + result.getString(4) + "'"); 
 	out.print("</div>");
 }
 else {
-	out.print("<div id = 'Customer'");
-	out.print("<h3>Customer Information</h3>");
-	out.print("<div>");
-		out.print("<label>Account Number: (10 digits)</label><input type='text' name='account_no' value= " + result.getString(3)); 
-	out.print("</div>");
+	out.print("<div id = 'Customer'>");
+		out.print("<h3>Customer Information</h3>");
+			out.print("<div>");
+				out.print("<label>Account Number: (10 digits)</label><input type='text' name='account_no' value='" + result.getString(3) + "'"); 
+			out.print("</div>");
 	
-	out.print("<div>");
-		out.print("<label>Seat Preference:</label><input type='text' name='seat_preference' required value= " + result.getString(15));
-	out.print("</div>");
-		
-	out.print("<div>");
-		out.print("<label>Meal Preference:</label><input type='text' name='meal_preference' required value= " + result.getString(16));
-	out.print("</div>");
-	
-	out.print("<div>");
-		out.print("<label>Credit Card Number: (16 digits)</label>");
-		out.print("<input type='text' name='CC_number' value= " + result.getString(14));
-	out.print("</div>");
-out.print("</div>");
+			out.print("<div>");
+				out.print("<label>Seat Preference:</label><input type='text' name='seat_preference' required value='" + result.getString(15) + "'");
+			out.print("</div>");
+				
+			out.print("<div>");
+				out.print("<label>Meal Preference:</label><input type='text' name='meal_preference' required value='" + result.getString(16) + "'");
+			out.print("</div>");
+			
+			out.print("<div>");
+				out.print("<label>Credit Card Number: (16 digits)</label>");
+				out.print("<input type='text' name='CC_number' value='" + result.getString(14) + "'");
+			out.print("</div>");
+		out.print("</div>");
 }
 %>
 
 <h3>Account Basics</h3>
 					
 <div>
-	<label>First Name:</label><input id = "field" type="text" name='first_name' required value=<%out.print(session.getAttribute("fname"));%>/>
+	<label>First Name:</label><input id = "field" type="text" name='first_name' required value='<%out.print(result.getString(5));%>'/>
 </div> 
 		 
 <div>
-	<label>Last Name:</label><input id = "field" type="text" name='last_name' required value=<%out.print(session.getAttribute("lname"));%>/>
+	<label>Last Name:</label><input id = "field" type="text" name='last_name' required value='<%out.print(result.getString(6));%>'/>
 </div> 
 
 <div>
-	<label>Username:</label><input id = "field" type="text" name='username' required value=<%out.print(session.getAttribute("username"));%>/>
+	<label>Username:</label><input id = "field" type="text" name='username' required value='<%out.print(result.getString(1));%>'/>
 </div>
 						
 <div>
-	<label>Old Password:</label> <input id = "field" type="password" name = "password" required value=<%out.print(session.getAttribute("pass"));%>>
+	<label>Old Password:</label> <input id = "field" type="password" name = "password" required value=<%out.print(result.getString(2));%>>
 </div>
 
 <div>
@@ -108,31 +108,40 @@ out.print("</div>");
 <h3>Address</h3>
 
 <div>
-	<label>Street Address:</label><input id = "field" type="text" name='street_address'/ required value=<%out.print(session.getAttribute("address"));%>>
+	<label>Street Address:</label><input id = "field" type="text" name='street_address' required value=<%out.print(result.getString(7));%>>
 </div> 
  
 <div>
-	<label>City:</label><input id = "field" type="text" name='city' required value=<%out.print(session.getAttribute("city"));%>/>
+	<label>City:</label><input id = "field" type="text" name='city' required value='<%out.print(result.getString(8));%>'/>
 </div> 
 
 <div>
-	<label>State:(two capital letters)</label><input id = "field" type="text" pattern='[A-Z]{5}' name='state'required value=<%out.print(session.getAttribute("state"));%>/>
+	<label>State:(two capital letters)</label><input id = "field" type="text" pattern='[A-Z]{2}' name='state'required value='<%out.print(result.getString(9));%>'/>
 </div> 
 
 <div>
-	<label>Zipcode: (5 digits)</label><input id = "field" type="text" pattern='\d{5}'name='zipcode'required value=<%out.print(session.getAttribute("zip"));%>/>
+	<label>Zipcode: (5 digits)</label><input id = "field" type="text" pattern='\d{5}'name='zipcode'required value='<%out.print(result.getString(10));%>'/>
 </div> 
  
  <h3>Contact</h3>
  
 <div>
-	<label>Email:</label><input id = "field" type="text" name='email'required value=<%out.print(session.getAttribute("email"));%>/>
+	<label>Email:</label><input id = "field" type="text" name='email'required value='<%out.print(result.getString(11));%>'/>
 </div> 
 <div>
-	<label>Phone: (10 digits, numbers only)</label><input id = "field"  type="tel" pattern='\d{10}' name='phone' required value=<%out.print(session.getAttribute("phone"));%> />
+	<label>Phone: (10 digits, numbers only)</label><input id = "field"  type="tel" pattern='\d{10}' name='phone' required value='<%out.print(result.getString(12));%>' />
 </div>	
     			
 <div style= "margin-top: 1cm"><input type="submit" value="Update"></div>
+
+<% 
+if(type.equals("customer")){
+	out.print("<input type='hidden' name = 'ssn' value='" + result.getString(4) + "'></input>");
+}
+else{
+	out.print("<input type='hidden' name = 'acc' value='" + result.getString(3) + "'></input>");
+}
+%>
 </form>
 </div>
 </body>

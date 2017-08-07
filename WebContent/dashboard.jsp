@@ -74,6 +74,7 @@ div.panel {
 				session.setAttribute("state", result.getString(9));
 				session.setAttribute("zip", result.getString(10));
 				session.setAttribute("type", result.getString(18));
+				session.setAttribute("phone", result.getString(12));
 				if(session.getAttribute("type").equals("customer")){
 					session.setAttribute("account_no", result.getString(3));
 					session.setAttribute("email", result.getString(11));
@@ -84,7 +85,6 @@ div.panel {
 				}
 				else{
 					session.setAttribute("ssn", result.getString(4));
-					session.setAttribute("phone", result.getString(12));
 					session.setAttribute("hourly", result.getString(17));
 					session.setAttribute("startDate", result.getString(19));
 				}
