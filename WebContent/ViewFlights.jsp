@@ -59,7 +59,7 @@ td {
 			out.println("</td>");
 		
 			out.println("</tr>");
-			while(result.next()) {
+			for(int i=0; i < 5; i++){
 				
 				
 				out.println("<td>");
@@ -91,7 +91,7 @@ td {
 			 out.println("</table>");
 			
 		} else{%>
-			out.println("<h1>Select Flights</h1>");
+			<h1>Select Flights</h1>
 			<form method="post" action="ViewFlights.jsp">
 				<select id="showby" name = "showby">
 					<option value="all">All Flights</option>
