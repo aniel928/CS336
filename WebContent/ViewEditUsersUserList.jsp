@@ -152,7 +152,7 @@ if(session.getAttribute("type").equals("manager")){
 
 <%
 if(type.equals("customer")){
-	out.print("<input type='hidden' name = 'acc' value='" + result.getString(3) + "'></input>");
+	out.print("<input type='hidden' name = 'old_acc' value='" + result.getString(3) + "'></input>");
 }
 else{
 	out.print("<input type='hidden' name = 'old_ssn' value='" + result.getString(4) + "'></input>");
