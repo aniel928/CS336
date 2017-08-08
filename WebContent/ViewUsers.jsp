@@ -114,26 +114,43 @@ try {
 			
 	
 			out.print("<td>" + result.getString(1) +  "</td>");
-			out.print("<td> "+ acc + " " + ssn + "</td>");
+			if(type.equals("customer")){
+				out.print("<td> "+ acc + "</td>");
+			}
+			else{
+				out.print("<td> "+ ssn + "</td>");
+			}
 			out.print("<td>" + result.getString(5) + " " +  result.getString(6) +  "</td>");
 			
-			out.print("<td>" + result.getString(7) + " " +  result.getString(8) 
-					         + result.getString(9) + " " +  result.getString(10) + "</td>");
+			out.print("<td>" + result.getString(7) + " " +  result.getString(8) + ", " + result.getString(9) + " " +  result.getString(10) + "</td>");
 			
 			out.print("<td>" + result.getString(11) +  "</td>");
 			out.print("<td>" + result.getString(12) +  "</td>");
-			out.print("<td>" + result.getString(15) +  "</td>");
-			out.print("<td>" + result.getString(16) +  "</td>"); 
+			if(type.equals("customer")){
+				out.print("<td>" + result.getString(15) +  "</td>");
+				out.print("<td>" + result.getString(16) +  "</td>");
+			}
+			else{
+				out.print("<td></td><td></td>");
+			}
 			
 			
 			//if manager display hourly rate
 			if(session.getAttribute("type").equals("manager")) {
-				out.print("<td>" + result.getString(16) +  "</td>");
-			}		  
+				if(type.equals("customer")){
+					out.println("<td></td>");
+				}
+				else{
+					out.print("<td>" + result.getString(17) +  "</td>");
+				}
+			}	
 			out.print("<td>" + type +  "</td>");
-			
-			out.print("<td>" + result.getString(19) +  "</td>");
-			
+			if(type.equals("customer")){
+				out.print("<td></td>");
+			}
+			else{
+				out.print("<td>" + result.getString(19) +  "</td>");
+			}		
 			if(type == null){
 				type="employee";
 			}
