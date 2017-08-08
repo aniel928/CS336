@@ -44,7 +44,7 @@ div.panel {
 </head>
 <body>
 	<%
-		
+
 		try {
 			if(session.getAttribute("type")== null){
 					
@@ -66,7 +66,6 @@ div.panel {
 					return;
 				}
 				else{
-				
 					//logic to build dashboard
 					//TODO:this needs to be primary key, not name
 					session.setAttribute("username", result.getString(1)); 

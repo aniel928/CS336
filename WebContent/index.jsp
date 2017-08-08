@@ -1,5 +1,5 @@
 <%@ include file = "header.jsp" %>
-
+<%session.invalidate(); %>
 <title>Airline Reservations</title>
 </head>
 	<body>

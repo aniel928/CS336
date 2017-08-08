@@ -96,3 +96,7 @@
 	
 	%>
 	 
+	 <button type='button' name='back' onclick='history.back()''>Go Back</button>
+	
+	<br><br><button type='button' name='back'><a href='dashboard.jsp'>Back to Dashboard</a></button>
+	 
