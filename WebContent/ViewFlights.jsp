@@ -11,25 +11,95 @@ td {
 	width:10%;
 }</style>
 <body>
-<h1>View Current Flights</h1>
-
 
 	<%if(request.getParameter("showby")==null){
 
-		if(false){
+		if(session.getAttribute("type").toString().equals("customer")){
+			out.println("<h1>Popular Flights</h1>");
+			out.println("<div id='trans'");
+			Connection con;
+			Statement stmt;
+			String type;
+			String str;
+			ResultSet result;
 			
-			out.println("Best Selling flights goes here later");
+			con = dbConnect();
+			
+			stmt = con.createStatement();
+			str="SELECT FLnumber, FIDeparts, FIDptTime, FIArrives, FIArrTime,  COUNT(FLNumber) " +
+					"FROM airline.has h, airline.passenger p, airline.flightinfo f " +
+					"WHERE h.ResNumber=p.ResNumber AND f.FInumber=h.FLNumber GROUP BY FLNumber HAVING COUNT(FLNumber)>3 ORDER BY COUNT(FLNumber) desc;";
+			
+	 		result = stmt.executeQuery(str);
+
+			out.println("<table style='width:1000'>");
+	 		out.println("<tr>");
+			out.println("<td>");
+				out.println("Flight Number");
+			out.println("</td>");
+			
+			out.println("<td>");
+				out.println("Departing Airport");  
+			out.println("</td>");
+			
+			out.println("<td>");
+				out.println("Arriving Time");  
+			out.println("</td>");
+		
+			out.println("<td>");
+				out.println("Arriving Airport");  
+			out.println("</td>");
+			
+			out.println("<td>");
+				out.println("Arriving Time");  
+			out.println("</td>");
+			
+			out.println("<td>");
+				out.println("Reservations");  
+			out.println("</td>");
+		
+			out.println("</tr>");
+			while(result.next()) {
+				
+				
+				out.println("<td>");
+				out.print(result.getString(1));
+				out.println("</td>");
+				
+				out.println("<td>");
+				out.print(result.getString(2));
+				out.println("</td>");
+				
+				out.println("<td>");
+				out.print(result.getString(3) + ":00");
+				out.println("</td>");
+				
+				out.println("<td>");
+				out.print(result.getString(4));
+				out.println("</td>");
+				
+				out.println("<td>");
+				out.print(result.getString(5)+ ":00");
+				out.println("</td>");
+				out.println("<td>");
+				out.println("<form name= 'flightnum' method='post' action = 'CustFlight.jsp'>");
+				out.print("<input type='submit' name= 'num' value='"
+							+ result.getString(1) + "' style = 'align:center'/>");
+				
+				out.println("</tr>");
+			}
+			 out.println("</table>");
 			
 		} else{%>
-			
+			out.println("<h1>Select Flights</h1>");
 			<form method="post" action="ViewFlights.jsp">
 				<select id="showby" name = "showby">
 					<option value="all">All Flights</option>
-					<option value="active">Most Active Flights.</option>
-					<option value="airport">Flight by Airport</option>
-					<option value="ontime">On-Time Flights</option>
+					<option value="active">Best Selling</option>
+					<option value="airport">Flight by Airport</option>>
+					<!--<option value="ontime">On-Time Flights</option>
 					<option value="delayed">Delayed Flights></option>
-					<option value="bestsell">Best Selling</option>
+					<option value="bestsell">Best Selling</option> -->
 				</select>
 					<select name= "airport" id = "airport" class= "inv">
 					<% 
@@ -149,7 +219,9 @@ td {
 				 out.println("</form>");
 		}
 		else if(view.equals("active")){
-			str="SELECT FInumber, FIDeparts, FIDptTime, FIArrives, FIArrTime FROM airline.flightinfo;";
+			str="SELECT FLnumber, FIDeparts, FIDptTime, FIArrives, FIArrTime,  COUNT(FLNumber) " +
+					"FROM airline.has h, airline.passenger p, airline.flightinfo f " +
+					"WHERE h.ResNumber=p.ResNumber AND f.FInumber=h.FLNumber GROUP BY FLNumber HAVING COUNT(FLNumber)>3;";
 			
 	 		result = stmt.executeQuery(str);
 
@@ -202,10 +274,10 @@ td {
 				out.println("<td>");
 				out.print(result.getString(5)+ ":00");
 				out.println("</td>");
-				
 				out.println("<td>");
-				out.print("<input type='submit' style = 'align:center' value='View'/>");
-				out.println("</td>");
+				out.println("<form name= 'flightnum' method='post' action = 'CustFlight.jsp'>");
+				out.print("<input type='submit' name= 'num' value='"
+							+ result.getString(1) + "' style = 'align:center'/>");
 				
 				out.println("</tr>");
 			}
@@ -215,7 +287,7 @@ td {
 			out.println("Customer selected.");
 		}
 		else if(view.equals("airport")){
-str="SELECT FInumber, FIDeparts, FIDptTime, FIArrives, FIArrTime FROM airline.flightinfo WHERE FIDeparts= '"+ request.getParameter("airport")+ "';";
+			str="SELECT FInumber, FIDeparts, FIDptTime, FIArrives, FIArrTime FROM airline.flightinfo WHERE FIDeparts= '"+ request.getParameter("airport")+ "';";
 			
 	 		result = stmt.executeQuery(str);
 
@@ -284,9 +356,6 @@ str="SELECT FInumber, FIDeparts, FIDptTime, FIArrives, FIArrTime FROM airline.fl
 		else if(view.equals("delayed")){
 			out.println("Delayed selected.");
 		}
-		else if(view.equals("bestsell")){
-			out.println("Best Selling selected.");
-		}
 		else{
 			out.println("Error.");			
 		}
@@ -297,6 +366,6 @@ str="SELECT FInumber, FIDeparts, FIDptTime, FIArrives, FIArrTime FROM airline.fl
 %>
 
 
-
+</div>
 </body>
 </html>

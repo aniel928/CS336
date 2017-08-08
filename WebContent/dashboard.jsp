@@ -43,6 +43,7 @@ div.panel {
 
 </head>
 <body>
+<div id="trans">
 	<%
 		
 		try {
@@ -159,7 +160,7 @@ div.panel {
 					if(session.getAttribute("type").equals("customer")){
 						out.println("<button class= 'expand' name='viewPopular' value='viewPopular'>View Popular Flights</button> <br> <br>");
 					}
-					else if(session.getAttribute("type").equals("manager")){
+					else if(session.getAttribute("type").equals("manager") || session.getAttribute("type").equals("manager")){
 						out.println("<button class= 'expand' name='viewFlights' value='viewFlights'>View Flight Info </button> <br> <br>");
 					}
 					else{
@@ -211,5 +212,6 @@ div.panel {
 	    }
 	}
 	</script>
+	</div>
 	</body>
 </html>
