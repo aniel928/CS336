@@ -77,9 +77,9 @@ div.panel {
 					session.setAttribute("zip", result.getString(10));
 					session.setAttribute("phone", result.getString(12));
 					session.setAttribute("type", result.getString(18));
+					session.setAttribute("email", result.getString(11));
 					if(session.getAttribute("type").equals("customer")){
 						session.setAttribute("account_no", result.getString(3));
-						session.setAttribute("email", result.getString(11));
 						session.setAttribute("acctDate", result.getString(13));
 						session.setAttribute("ccnum", result.getString(14));
 						session.setAttribute("seat", result.getString(15));
