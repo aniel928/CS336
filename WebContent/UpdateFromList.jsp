@@ -179,7 +179,7 @@ if(type.equals("customer")) {
 	if(!request.getParameter("type").equals(type)){
 		out.print("changed credit card");
 		out.print("<br> <br>");
-		str.append("type= " + "'" + request.getParameter("type") + "' ");
+		str.append("usertype= " + "'" + request.getParameter("type") + "' ");
 		str.append("WHERE account_no= " + "'" + acc + "' ;");
 		stmt.executeUpdate(str.toString());
 		str.replace(0, str.length(), "UPDATE users SET ");

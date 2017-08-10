@@ -2,14 +2,6 @@
 <%@ include file = "functions.jsp" %>
 
 <title>View Users</title>
-<style>
-table, th, td {
-	border: 1px solid black;
-}
-td {
-	width:10%;
-}
-</style>
 <body>
 <div class="trans">
 <h1>View User Profile</h1>
@@ -171,19 +163,7 @@ try {
 								"<button name='ssn' value=" + ssn + ">View or Edit</button>" +	
 							"</form>" +
 			              "</td>");
-			}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			}			
 			if(session.getAttribute("type").equals("manager")) {
 				out.print("<td>");
 					out.print("<form method='post' action='delete.jsp'>");
@@ -209,22 +189,7 @@ try {
 					out.print("</td>");
 					out.print("</tr>");
 				}
-			}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			}			
 		}
 		out.print("</table>");
 } 
@@ -237,7 +202,6 @@ catch(NullPointerException e) {
 }
 %>
 </div>
-=======
 <br><br>
 <button type='button' name='back'><a href='dashboard.jsp'>Back to Dashboard</a></button>
 </body>
