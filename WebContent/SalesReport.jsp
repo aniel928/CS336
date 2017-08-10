@@ -1,6 +1,6 @@
 <%@ include file = "header.jsp" %>
 <%@ include file = "functions.jsp" %>
-
+<!-- Author: Catherine Yeager -->
 <title>View Sales Report</title>
 <body>
 <div class="trans">

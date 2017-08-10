@@ -153,7 +153,6 @@ out.println("<button name='backToDash' value='backToDash'>Go Back to Dashboard <
 
 
 %>
-=======
 %>
 <div class = "trans">
 <h1> Changes made successfully</h1>
