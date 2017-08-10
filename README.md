@@ -1,11 +1,12 @@
 # Airline Project README #
 
 # URL #
-
+ec2-13-58-6-109.us-east-2.compute.amazonaws.com:8080/airlineProj
 
 
 # Credentials #
-
+username:  aniel928
+password: mookie1015
 
 
 # Table Credit #
@@ -55,6 +56,7 @@ Peter
 # JSP Credit #
 airplaneProj.css
 Catherine
+Anne
 
 book.jsp
 Anne
@@ -71,6 +73,7 @@ Steve
 Catherine
 
 delete.jsp
+Anne
 
 footer.jsp
 Anne
@@ -108,10 +111,11 @@ registerMe.jsp
 Catherine
 Anne
 
-Reservations.jsp
-
 SalesReport.jsp
 Catherine
+
+Suggestions.jsp
+Steve
 
 Summary.jsp
 Catherine
@@ -136,8 +140,10 @@ Catherine
 Steve
 
 ViewMine.jsp
+Anne
 
 ViewReservation.jsp
+Anne
 
 ViewRevenue.jsp
 Catherine
