@@ -151,4 +151,5 @@ out.print("<h3> Information Updated</h3>");
 out.print("<form method=get action='temp.jsp'>");
 out.println("<button name='backToDash' value='backToDash'>Go Back to Dashboard </button> <br> <br>");
 %>
+<h1> Changes made succesfully</h1>
 <button type='button' name='back'><a href='dashboard.jsp'>Back to Dashboard</a></button>

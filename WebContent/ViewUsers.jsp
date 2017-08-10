@@ -102,6 +102,10 @@ try {
 			out.println("<td style='font-weight:bold'>");
 				out.println("Link");
 			out.println("</td>");
+		
+			out.println("<td style='font-weight:bold'>");
+				out.println("Delete");
+			out.println("</td>");
 		out.println("</tr>");
 		
 		while(result.next()) {
@@ -168,8 +172,29 @@ try {
 							"</form>" +
 			              "</td>");
 			}
-			
-			out.print("</tr>");
+			if(session.getAttribute("type").equals("manager")) {
+				out.print("<td>");
+					out.print("<form method='post' action='temp.jsp'>");
+					out.print("<button class= 'expand' name='delete' value='delete'>Delete Account</button>");
+					out.print("</form>");
+				out.print("</td>");
+				out.print("</tr>");
+			}
+			else if(session.getAttribute("type").equals("employee")) {
+				if(result.getString(18).equals("customer")) {
+					out.print("<td>");
+					out.print("<form method='post' action='temp.jsp'>");
+					out.print("<button class= 'expand' name='delete' value='delete'>Delete Account</button>");
+					out.print("</form>");
+				out.print("</td>");
+				out.print("</tr>");
+				}
+				else {
+					out.print("<td>");
+					out.print("Not Available");
+					out.print("</td>");
+				}
+			}
 		}
 		out.print("</table>");
 } 
