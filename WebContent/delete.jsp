@@ -23,13 +23,13 @@ try{
 	
 	con.close();
 	
+
 	if(request.getParameter("user").equals(session.getAttribute("username"))){
 		response.sendRedirect("index.jsp?delete=delete");
 	}
 	else{
 		response.sendRedirect("delete.jsp?delete=delete");
 	}
-	
 }
 catch(Exception e){
 	out.println("error= " + e.getMessage());
