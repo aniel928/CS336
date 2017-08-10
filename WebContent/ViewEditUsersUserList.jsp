@@ -90,19 +90,6 @@ else {
 <div>
 	<label>Username:</label><input id = "field" type="text" name='username' required value='<%out.print(result.getString(1));%>'/>
 </div>
-						
-<div>
-</div>
-
-<div>
-	<label>New Password:</label> <input id = "field" type="password" name = "password">
-</div>
-
-<div>
-	<label> Re-Type New Password:</label> <input id = "field" type="password" name = "password2">
-</div>
-
-
 
 <h3>Address</h3>
 
@@ -165,5 +152,6 @@ stmt.close();
 %>
 </form>
 </div>
+<button type='button' name='back'><a href='dashboard.jsp'>Back to Dashboard</a></button>
 </body>
 </html>

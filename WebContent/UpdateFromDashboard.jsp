@@ -95,9 +95,6 @@ if(!request.getParameter("username").equals(session.getAttribute("username"))) {
 	str.replace(0, str.length(), "UPDATE users SET ");
 }
 
-if(!request.getParameter("password").equals(session.getAttribute("password"))) {
-	//change password to password2
-}
 
 if(!request.getParameter("street_address").equals(session.getAttribute("address"))) {
 	out.println("changed street");
@@ -154,3 +151,4 @@ out.print("<h3> Information Updated</h3>");
 out.print("<form method=get action='temp.jsp'>");
 out.println("<button name='backToDash' value='backToDash'>Go Back to Dashboard </button> <br> <br>");
 %>
+<button type='button' name='back'><a href='dashboard.jsp'>Back to Dashboard</a></button>

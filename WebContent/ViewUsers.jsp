@@ -89,7 +89,7 @@ try {
 				 out.println("<td style='font-weight:bold'>");
 					out.println("Hourly Rate");
 				out.println("</td>");
-			  }
+			 }
 			
 			out.println("<td style='font-weight:bold'>");
 				out.println("Type");
@@ -180,7 +180,8 @@ catch (SQLException e) {
 catch(NullPointerException e) {
 	out.print("tst" + e.getMessage());
 }
-
 %>
+<br><br>
+<button type='button' name='back'><a href='dashboard.jsp'>Back to Dashboard</a></button>
 </body>
 </html>

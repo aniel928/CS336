@@ -70,18 +70,6 @@
 					<div>
 						<label>Username:</label><input id = "field" type="text" name='username' required value='<%out.print(session.getAttribute("username"));%>'>
 					</div>
-											
-					<div>
-						<label>Old Password:</label> <input id = "field" type="password" name = "password" required value='<%out.print(session.getAttribute("pass"));%>'>
-					</div>
-					
-					<div>
-						<label>New Password:</label> <input id = "field" type="password" name = "password">
-					</div>
-					
-					<div>
-						<label> Re-Type New Password:</label> <input id = "field" type="password" name = "password2">
-					</div>
 					
 		
 					
@@ -112,4 +100,5 @@
 	       			
 				<div style= "margin-top: 1cm"><input type="submit" value="Update"></div>
 			</form>
+			<button type='button' name='back'><a href='dashboard.jsp'>Back to Dashboard</a></button>
 		</div>

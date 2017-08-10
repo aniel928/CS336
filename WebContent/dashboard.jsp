@@ -140,6 +140,7 @@ div.panel {
 				if(session.getAttribute("type").equals("employee")){
 					out.println("<button class= 'expand' name='mailList' value='mailList'>Mail List</button> <br> <br>");
 					out.println("<button class= 'expand' name='viewUsers' value='viewUsers'>View Users </button> <br> <br>");
+					out.println("<button class= 'expand' name='suggest' value='suggest'>View Customer Suggestions</button> <br> <br>");
 				}
 				if(session.getAttribute("type").equals("manager")) {
 					out.println("<button class= 'expand' name='addUser' value='addUser'>Add User </button> <br> <br>");
@@ -160,9 +161,6 @@ div.panel {
 					}
 					else if(session.getAttribute("type").equals("manager")){
 						out.println("<button class= 'expand' name='viewFlights' value='viewFlights'>View Flight Info </button> <br> <br>");
-					}
-					else{
-						out.println("<button class= 'expand' name='viewFlights' value='viewFlights'>Recommended Flights by User</button> <br> <br>");						
 					}
 					
 					out.println("</form>");
