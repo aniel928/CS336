@@ -46,7 +46,7 @@ div.panel {
 	<%
 
 		try {
-			if(session.getAttribute("type")== null){
+			if(request.getParameter("userID")!=null){
 					
 				//store userName
 				String uname=request.getParameter("userID");
