@@ -16,8 +16,9 @@ td {
 	<%if(request.getParameter("showby")==null){
 
 		if(session.getAttribute("type").toString().equals("customer")){
+			
 			out.println("<h1>Popular Flights</h1>");
-			out.println("<div id='trans'");
+			
 			Connection con;
 			Statement stmt;
 			String type;
@@ -33,34 +34,31 @@ td {
 			
 	 		result = stmt.executeQuery(str);
 
-			out.println("<table style='width:1000'>");
+			out.println("<table class='datatable'>");
 	 		out.println("<tr>");
-			out.println("<td>");
+			out.println("<th>");
 				out.println("Flight Number");
-			out.println("</td>");
+			out.println("</th>");
 			
-			out.println("<td>");
+			out.println("<th>");
 				out.println("Departing Airport");  
-			out.println("</td>");
+			out.println("</th>");
 			
-			out.println("<td>");
+			out.println("<th>");
 				out.println("Arriving Time");  
-			out.println("</td>");
+			out.println("</th>");
 		
-			out.println("<td>");
+			out.println("<th>");
 				out.println("Arriving Airport");  
-			out.println("</td>");
+			out.println("</th>");
 			
-			out.println("<td>");
+			out.println("<th>");
 				out.println("Arriving Time");  
-			out.println("</td>");
+			out.println("</th>");
 			
-			out.println("<td>");
-				out.println("Reservations");  
-			out.println("</td>");
-		
+
 			out.println("</tr>");
-			for(int i=0; i < 5; i++){
+			for(int i=0; i < 5 && result.next(); i++){
 				
 				
 				out.println("<td>");
@@ -82,10 +80,7 @@ td {
 				out.println("<td>");
 				out.print(result.getString(5)+ ":00");
 				out.println("</td>");
-				out.println("<td>");
-				out.println("<form name= 'flightnum' method='post' action = 'CustFlight.jsp'>");
-				out.print("<input type='submit' name= 'num' value='"
-							+ result.getString(1) + "' style = 'align:center'/>");
+
 				
 				out.println("</tr>");
 			}
@@ -159,29 +154,30 @@ td {
 		 		out.println("<h1> All Flights </h1>");
 				out.println("<table class = 'datatable'>");
 		 		out.println("<tr>");
-				out.println("<td>");
-					out.println("Flight Number");
-				out.println("</td>");
+		 		out.println("<th>");
+				out.println("Flight Number");
+				out.println("</th>");
 				
-				out.println("<td>");
+				out.println("<th>");
 					out.println("Departing Airport");  
-				out.println("</td>");
+				out.println("</th>");
 				
-				out.println("<td>");
+				out.println("<th>");
 					out.println("Arriving Time");  
-				out.println("</td>");
+				out.println("</th>");
 			
-				out.println("<td>");
+				out.println("<th>");
 					out.println("Arriving Airport");  
-				out.println("</td>");
+				out.println("</th>");
 				
-				out.println("<td>");
+				out.println("<th>");
 					out.println("Arriving Time");  
-				out.println("</td>");
+				out.println("</th>");
 				
-				out.println("<td>");
+				out.println("<th>");
 					out.println("Reservations");  
-				out.println("</td>");
+				out.println("</th>");
+				
 			
 				out.println("</tr>");
 				out.println("<form name= 'flightnum' method='post' action = 'CustFlight.jsp'>");

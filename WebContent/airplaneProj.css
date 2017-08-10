@@ -17,30 +17,27 @@ body {
     background-attachment: fixed;
     background-color: white;
     margin: 50px; 
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 
 .datatable {
 	background-color: white;
- 	border-style: ridge;
-	border-color: black;
 	width: 100%;
 	opacity: 1.00;
 	border-collapse: collapse;
+	border:none;
  }
 
 table.datatable td{
 	padding: 10px;
-	border-style: solid;
-	border-width: 1px;
-	padding: 15px;
 }
 
 table.datatable th{
 	background-color: #3465a4;
+	color:white;
 	padding: 10px;
-	border-style: solid;
-	border-width: 1px;
+	font-style: bold;
 }
 
 table.datatable tr:nth-child(even) {

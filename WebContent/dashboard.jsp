@@ -117,7 +117,7 @@ div.panel {
 				}
 			
 				out.println("</form>");
-			out.println("</div>");
+				out.println("</div>");
 			
 			
 			//customer panel
@@ -135,7 +135,7 @@ div.panel {
 						
 				if(!session.getAttribute("type").equals("customer")){
 					out.println("<button class='accordion'>Customer Information </button>");
-					out.println("<div class='panel'>");
+					
 					out.println("<form method=get action='temp.jsp'>");
 				}
 				if(session.getAttribute("type").equals("employee")){
@@ -147,8 +147,14 @@ div.panel {
 					out.println("<button class= 'expand' name='addUser' value='addUser'>Add User </button> <br> <br>");
 					out.println("<button class= 'expand' name='viewUsers' value='viewUsers'>View Users </button> <br> <br>");
 				}
-				out.println("</form>");
-				out.println("</div>");
+				if(!session.getAttribute("type").equals("customer")){
+					out.println("<button class='accordion'>Customer Information </button>");
+					
+					out.println("<form method=get action='temp.jsp'>");
+					out.println("</form>");
+					out.println("</div>");
+				}
+				
 				
 				//flight panel
 				
