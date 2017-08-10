@@ -36,41 +36,41 @@ else {
 	//build header
 	out.println("<table class=datatable>");
 	out.println("<tr>");
-				out.println("<td style='font-weight:bold'>");
+				out.println("<th style='font-weight:bold'>");
 					out.println("Flight Number");
-				out.println("</td>");
+				out.println("</th>");
 				
-				out.println("<td style='font-weight:bold'>");
+				out.println("<th style='font-weight:bold'>");
 					out.println("Flight Fare");
-				out.println("</td>");
+				out.println("</th>");
 				
-				out.println("<td style='font-weight:bold'>");
+				out.println("<th style='font-weight:bold'>");
 					out.println("Departs");  
-				out.println("</td>");
+				out.println("</th>");
 					
-				out.println("<td style='font-weight:bold'>");
+				out.println("<th style='font-weight:bold'>");
 					out.println("Arrives");
-				out.println("</td>");
+				out.println("</th>");
 				
-				out.println("<td style='font-weight:bold'>");
+				out.println("<th style='font-weight:bold'>");
 					out.println("Time Departs");
-				out.println("</td>");
+				out.println("</th>");
 	
-				out.println("<td style='font-weight:bold'>");
+				out.println("<th style='font-weight:bold'>");
 					out.println("Time Arrives");
-				out.println("</td>");
+				out.println("</th>");
 				
-				out.println("<td style='font-weight:bold'>");
+				out.println("<th style='font-weight:bold'>");
 					out.println("Operates");
-				out.println("</td>"); 
+				out.println("</th>"); 
 				
-				out.println("<td style='font-weight:bold'>");
+				out.println("<th style='font-weight:bold'>");
 					out.println("Aircraft Number");
-				out.println("</td>");
+				out.println("</th>");
 				
-				out.println("<td style='font-weight:bold'>");
+				out.println("<th style='font-weight:bold'>");
 					out.println("Count");
-				out.println("</td>");
+				out.println("</th>");
 	
 	//loop through result set
 	while(result.next()) {
