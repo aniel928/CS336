@@ -80,10 +80,6 @@ try {
 		response.sendRedirect("delete.jsp?user="+session.getAttribute("username"));
 		return;
 	}
-	else if(temp.equals("deleteFromList")){
-		response.sendRedirect("delete.jsp?user="+ request.getParameter("listName"));
-		return;
-	}
 	else if(temp.equals("suggest")){
 		response.sendRedirect("Suggestions.jsp");
 		return;

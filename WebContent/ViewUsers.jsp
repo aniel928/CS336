@@ -200,6 +200,7 @@ catch (SQLException e) {
 catch(NullPointerException e) {
 	out.print("tst" + e.getMessage());
 }
+
 %>
 </div>
 <br><br>
