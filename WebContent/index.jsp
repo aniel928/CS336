@@ -32,10 +32,10 @@
 						<td>Password: </td>
 						<td><input type="password" name="password"></td>
 				</table>
-				<input type="submit" value="Log In">
+				<input style="margin-top= 100xp;" type="submit" value="Log In">
 			</form>
 			<form action="register.jsp">
-			<input type="submit" value="Register">
+			<input style="margin-top=100xp;" type= "submit" value="Register">
 			</form>
 	
 		</div>

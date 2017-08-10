@@ -62,15 +62,15 @@
 
 			 		result = stmt.executeQuery(str);
 
-					out.println("<table style='width:1000'>");
+					out.println("<table class='datatable'>");
 			 		out.println("<tr>");
-					out.println("<td>");
+					out.println("<th>");
 						out.println("Account Number");
-					out.println("</td>");
+					out.println("</th>");
 					
-					out.println("<td>");
+					out.println("<th>");
 						out.println("Revenue");  
-					out.println("</td>");
+					out.println("</th>");
 					
 					out.println("</tr>");
 					while(result.next()) {
@@ -99,15 +99,15 @@
 
 			 		result = stmt.executeQuery(str);
 
-					out.println("<table style='width:1000'>");
+					out.println("<table class='datatable'>");
 			 		out.println("<tr>");
-					out.println("<td>");
+					out.println("<th>");
 						out.println("Airport");
-					out.println("</td>");
+					out.println("</th>");
 					
-					out.println("<td>");
+					out.println("<th>");
 						out.println("Revenue");  
-					out.println("</td>");
+					out.println("</th>");
 					
 					out.println("</tr>");
 					while(result.next()) {

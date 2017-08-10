@@ -4,8 +4,9 @@
 <title>Dashboard</title>
 <style>
 button.accordion {
-	background-color: #eee;
-	color: #444;
+	background-color: #3465a4;
+	color: white;
+	font-style: bold;
 	cursor: pointer;
 	padding: 18px;
 	width: 100%;
@@ -29,7 +30,7 @@ button.expand {
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 button.accordion.active, button.accordion:hover {
-	background-color: #ddd;
+	background-color: #3465a4;
 }
 
 /* Style the accordion panel. Note: hidden by default */

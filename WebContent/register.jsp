@@ -8,7 +8,7 @@
 		<h1>Please register below</h1>
 		<br>
 		<p>
-			Choose registration type: <select id="acctType">
+			Choose registration type: <select id="acctType" required>
 				<option selected disabled> ... </option>
 				<option value="Customer"> Customer </option>
 				<option value="Employee"> Employee </option>
@@ -32,33 +32,32 @@
 
 						}
 			%>
-<!-- Employee Registration -->
+			<!-- Employee Registration -->
 			<div id="Employee" class="inv">
 				<h3>Employee Information</h3>
-				
-				<label>SSN: (9 digits)</label>
-				<input id="field" type="text"
+
+				<label>SSN: (9 digits)</label> <input type="text"
 					pattern='\d{9}' name='ssn' />
 			</div>
-<!-- Customer Registration -->
+			<!-- Customer Registration -->
 			<div id="Customer" class="inv">
 				<h3>Customer Information</h3>
-	
+
 				<div>
-					<label>Account Number: (10 digits)</label><input type="text"
+					<label>Account Number: (10 digits)</label> <input type="text"
 						pattern='\d{10}' name='account_no' />
 				</div>
-	
+
 				<div>
 					<label>Seat Preference:</label><input type="text"
-						name='seat_preference' required />
+						name='seat_preference' />
 				</div>
-	
+
 				<div>
 					<label>Meal Preference:</label><input type="text"
-						name='meal_preference' required />
+						name='meal_preference' />
 				</div>
-			
+
 				<div>
 					<label>Credit Card Number: (16 digits)</label> <input type="text"
 						pattern='\d{16}' name='CC_number' />
@@ -127,7 +126,7 @@
 			</div>
 
 
-<!-- script for hiding employee/customer info until selected -->
+			<!-- script for hiding employee/customer info until selected -->
 			<script>
 				document
 						.getElementById('acctType')
@@ -135,8 +134,7 @@
 								'change',
 								function() {
 									'use strict';
-									var vis = document
-											.querySelector('.vis'), acctType = document
+									var vis = document.querySelector('.vis'), acctType = document
 											.getElementById(this.value);
 									if (vis !== null) {
 										vis.className = 'inv';
@@ -150,6 +148,6 @@
 			<div style="margin-top: 1cm">
 				<input type="submit" value="Register">
 			</div>
-	</form>
+		</form>
 
 	</div>

@@ -6,7 +6,7 @@
 
 
 <div class="trans">
-<h1>View Revenue</h1>
+<h1>Monthly Revenue</h1>
 <% try{
 //declare variables
 Connection con;
