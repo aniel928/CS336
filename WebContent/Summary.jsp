@@ -1,16 +1,12 @@
 <%@ include file = "header.jsp" %>
 <%@ include file = "functions.jsp" %>
-
+<!-- Author: Catherine Yeager -->
 <title>Revenue Summary</title>
 <body>
+
+
+<div class="trans">
 <h1>Revenue Summary</h1>
-<style>
-table, th, td {
-	border: 1px solid black;
-}
-td {
-	width:10%;
-}</style>
 <% try{
 	//declare variables
 	Connection con;
@@ -34,15 +30,15 @@ td {
 
 			 		result = stmt.executeQuery(str);
 
-					out.println("<table style='width:1000'>");
+					out.println("<table class='datatable'>");
 			 		out.println("<tr>");
-					out.println("<td>");
+					out.println("<th>");
 						out.println("Flight Number");
-					out.println("</td>");
+					out.println("</th>");
 					
-					out.println("<td>");
+					out.println("<th>");
 						out.println("Revenue");  
-					out.println("</td>");
+					out.println("</th>");
 					
 					out.println("</tr>");
 					while(result.next()) {
@@ -53,7 +49,9 @@ td {
 						out.println("</td>");
 						
 						out.println("<td>");
-						out.print(result.getString(2));
+						NumberFormat formatter = NumberFormat.getCurrencyInstance();
+						
+						out.print(formatter.format(result.getDouble(2)));
 						out.println("</td>");
 						
 						
@@ -66,15 +64,15 @@ td {
 
 			 		result = stmt.executeQuery(str);
 
-					out.println("<table style='width:1000'>");
+					out.println("<table class='datatable'>");
 			 		out.println("<tr>");
-					out.println("<td>");
+					out.println("<th>");
 						out.println("Account Number");
-					out.println("</td>");
+					out.println("</th>");
 					
-					out.println("<td>");
+					out.println("<th>");
 						out.println("Revenue");  
-					out.println("</td>");
+					out.println("</th>");
 					
 					out.println("</tr>");
 					while(result.next()) {
@@ -85,7 +83,9 @@ td {
 						out.println("</td>");
 						
 						out.println("<td>");
-						out.print(result.getString(2));
+						NumberFormat formatter = NumberFormat.getCurrencyInstance();
+						
+						out.print(formatter.format(result.getDouble(2)));
 						out.println("</td>");
 						
 						
@@ -103,15 +103,15 @@ td {
 
 			 		result = stmt.executeQuery(str);
 
-					out.println("<table style='width:1000'>");
+					out.println("<table class='datatable'>");
 			 		out.println("<tr>");
-					out.println("<td>");
+					out.println("<th>");
 						out.println("Airport");
-					out.println("</td>");
+					out.println("</th>");
 					
-					out.println("<td>");
+					out.println("<th>");
 						out.println("Revenue");  
-					out.println("</td>");
+					out.println("</th>");
 					
 					out.println("</tr>");
 					while(result.next()) {
@@ -122,7 +122,9 @@ td {
 						out.println("</td>");
 						
 						out.println("<td>");
-						out.print(result.getString(2));
+						NumberFormat formatter = NumberFormat.getCurrencyInstance();
+						
+						out.print(formatter.format(result.getDouble(2)));
 						out.println("</td>");
 						
 						
@@ -145,5 +147,6 @@ td {
 	out.println("Uh oh");
 }
 %>
+</div>
 </body>
 </html>

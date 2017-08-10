@@ -1,8 +1,10 @@
 <%@ include file = "header.jsp" %>
 <%@ include file = "functions.jsp" %>
+
 	<title>View My Reservations</title>
 	</head>
 	<body>
+	<div id="trans">
 	
 	<% 
 	
@@ -42,5 +44,6 @@
 	
 	
 	%>
+	</div>
 	</body>
 	</html>

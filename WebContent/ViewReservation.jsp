@@ -3,6 +3,7 @@
 
 <title>Dashboard</title>
 <body>
+<div class="trans">
 <h1>View Reservation</h1>
 <%
 	String filter = "all";
@@ -112,6 +113,7 @@
 
 
 %>
+</div>
 </body>
 <button type='button' name='back' onclick='history.back()''>Go Back</button>
 

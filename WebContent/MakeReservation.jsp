@@ -3,6 +3,7 @@
 
 <title>Make Reservation</title>
 <body>
+<div class="trans">
 <h1>Make Reservation</h1>
 			<h4>Receive a 20% discount when booking 30 days in advance!</h4>
 
@@ -383,6 +384,7 @@
 		out.println(e.getMessage());
 	}
 	%>
+</div>
 <br><br><a href="dashboard.jsp">Back to Dashboard</a>
 </body>
 

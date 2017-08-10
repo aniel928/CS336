@@ -1,8 +1,9 @@
 <%@ include file = "header.jsp" %>
 <%@ include file = "functions.jsp" %>
-
+<!-- Author: Catherine Yeager -->
 <title>Mail List</title>
 <body>
+<div class="trans">
 <h1>Customer Mail List</h1>
 <style>
 table, th, td {
@@ -40,31 +41,31 @@ try {
 	type=session.getAttribute("type").toString();
 	
 	
-	out.println("<table style='width:1000'>");
+	out.println("<table class = 'datatable'>");
 
 	//manager page
 	
 	//Top labels
 	out.println("<tr>");
-	out.println("<td>");
+	out.println("<th>");
 		out.println("UserName");
-	out.println("</td>");
+	out.println("</th");
 	
-	out.println("<td>");
+	out.println("<th>");
 		out.println("Name");  
-	out.println("</td>");
+	out.println("</th>");
 		
-	out.println("<td>");
+	out.println("<th>");
 		out.println("Address");
-	out.println("</td>");
+	out.println("</th>");
 	
-	out.println("<td>");
+	out.println("<th>");
 		out.println("Email");
-	out.println("</td>");
+	out.println("</th>");
 	
-	out.println("<td>");
+	out.println("<th>");
 		out.println("Phone");
-	out.println("</td>");
+	out.println("</th>");
 out.println("</tr>");
 
 while(result.next()) {
@@ -114,6 +115,7 @@ con.close();
 	out.println("Uh oh");
 }
 %>
+</div>
 </body>
 </html>
 </body>

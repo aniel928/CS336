@@ -1,6 +1,6 @@
 <%@ include file = "header.jsp" %>
 <%@ include file = "functions.jsp" %>
-
+<!-- Author: Catherine Yeager -->
 <title> Flight Customers</title>
 <body>
 <style>
@@ -23,31 +23,31 @@ td {
 	stmt = con.createStatement();
 		
 	//build sql query
-	
+	out.println("<div class='trans'");
 			String showby = request.getParameter("num").toString();
 			out.println("<h1> Customers Reserved for Flight " + showby + "</h1>");
 					 str="SELECT * FROM airline.has h, airline.makes m, airline.users u WHERE h.ResNumber=m.ResNumber AND m.account_no=u.account_no;";
 		
 			 		result = stmt.executeQuery(str);
 		
-					out.println("<table style='width:1000'>");
+			 		out.println("<table class= 'datatable'>");
 			 		out.println("<tr>");
-					out.println("<td>");
+					out.println("<th>");
 						out.println("Account Number");
-					out.println("</td>");
+					out.println("</th>");
 					
-					out.println("<td>");
+					out.println("<th>");
 						out.println("Username");  
-					out.println("</td>");
+					out.println("</th>");
 					
-					out.println("<td>");
+					out.println("<th>");
 					out.println("Name");  
-					out.println("</td>");
+					out.println("</th>");
 					
 					
-					out.println("<td>");
+					out.println("<th>");
 					out.println("Reservation Number");  
-					out.println("</td>");
+					out.println("</th>");
 				
 					
 					out.println("</tr>");
@@ -77,6 +77,7 @@ td {
 					}
 					 out.println("</table>");
 			 con.close();
+			 out.println("</div>");
 		
 		
 } catch (SQLException e) {

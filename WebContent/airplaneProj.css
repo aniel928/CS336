@@ -1,6 +1,5 @@
 
 form {
- /*width: 500px;*/
  overflow:hidden;}
  
 label {
@@ -11,29 +10,37 @@ label {
 field {
  float: left;
  width: 55%;}
- 
+
 body {
- 	margin: 50px; 
-    background-color: powderblue;
+    background-image: url("background.png");
+    background-attachment: fixed;
+    background-color: white;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
+
 .datatable {
-	background-color: #80c1ca;
- 	border-style: ridge;
-	border-color: black;
+	background-color: white;
 	width: 100%;
+	opacity: 1.00;
+	border-collapse: collapse;
+	border:none;
  }
 
 table.datatable td{
 	padding: 10px;
-	border-style: solid;
-	border-width: 1px;
+	text-align: center;
 }
 
 table.datatable th{
+	background-color: #3465a4;
+	color:white;
 	padding: 10px;
-	border-style: solid;
-	border-width: 1px;
+	font-style: bold;
+}
+
+table.datatable tr:nth-child(even) {
+	background-color: #f2f2f2;
 }
 
 .inv {
@@ -43,11 +50,19 @@ table.datatable th{
 .sub {
 	font-size: 16px;
 }
+div.trans {
+  margin: 100px;
+  padding: 50px;
+  background: rgb(255, 255, 255);
+  background: rgba(255, 255, 255, .83);
+}
 
 div.reservations {
-	background-color: #ddf5f8;
+	background-color: #3465a4;
+	color: white;
 	padding: 10px;
 	border-style: solid;
 	border-width: 1px;
 	width: 50%;
+	opacity: 1.00;
 }

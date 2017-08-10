@@ -12,6 +12,7 @@ td {
 </style>
 
 <body>
+<div class="trans">
 <h1> View Customer Suggestions</h1>
 <% 
 if(request.getParameter("acc") == null) {
@@ -35,41 +36,41 @@ else {
 	//build header
 	out.println("<table class=datatable>");
 	out.println("<tr>");
-				out.println("<td style='font-weight:bold'>");
+				out.println("<th style='font-weight:bold'>");
 					out.println("Flight Number");
-				out.println("</td>");
+				out.println("</th>");
 				
-				out.println("<td style='font-weight:bold'>");
+				out.println("<th style='font-weight:bold'>");
 					out.println("Flight Fare");
-				out.println("</td>");
+				out.println("</th>");
 				
-				out.println("<td style='font-weight:bold'>");
+				out.println("<th style='font-weight:bold'>");
 					out.println("Departs");  
-				out.println("</td>");
+				out.println("</th>");
 					
-				out.println("<td style='font-weight:bold'>");
+				out.println("<th style='font-weight:bold'>");
 					out.println("Arrives");
-				out.println("</td>");
+				out.println("</th>");
 				
-				out.println("<td style='font-weight:bold'>");
+				out.println("<th style='font-weight:bold'>");
 					out.println("Time Departs");
-				out.println("</td>");
+				out.println("</th>");
 	
-				out.println("<td style='font-weight:bold'>");
+				out.println("<th style='font-weight:bold'>");
 					out.println("Time Arrives");
-				out.println("</td>");
+				out.println("</th>");
 				
-				out.println("<td style='font-weight:bold'>");
+				out.println("<th style='font-weight:bold'>");
 					out.println("Operates");
-				out.println("</td>"); 
+				out.println("</th>"); 
 				
-				out.println("<td style='font-weight:bold'>");
+				out.println("<th style='font-weight:bold'>");
 					out.println("Aircraft Number");
-				out.println("</td>");
+				out.println("</th>");
 				
-				out.println("<td style='font-weight:bold'>");
+				out.println("<th style='font-weight:bold'>");
 					out.println("Count");
-				out.println("</td>");
+				out.println("</th>");
 	
 	//loop through result set
 	while(result.next()) {
@@ -129,6 +130,7 @@ else {
 
 
 %>
+</div>
 <br> <br>
 <button type='button' name='back'><a href='dashboard.jsp'>Back to Dashboard</a></button>
 </body>

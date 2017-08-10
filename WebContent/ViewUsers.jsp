@@ -11,6 +11,7 @@ td {
 }
 </style>
 <body>
+<div class="trans">
 <h1>View User Profile</h1>
 
 <%
@@ -207,6 +208,8 @@ catch(NullPointerException e) {
 	out.print("tst" + e.getMessage());
 }
 %>
+</div>
+=======
 <br><br>
 <button type='button' name='back'><a href='dashboard.jsp'>Back to Dashboard</a></button>
 </body>

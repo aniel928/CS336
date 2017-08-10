@@ -3,6 +3,7 @@
 	<title>View/Edit</title>
 	</head>
 	<body>
+	<div class="trans">
 		<h1>View and Edit User Information</h1>
 		<br>
 		<div>
@@ -100,5 +101,7 @@
 	       			
 				<div style= "margin-top: 1cm"><input type="submit" value="Update"></div>
 			</form>
+			</div>
+=======
 			<button type='button' name='back'><a href='dashboard.jsp'>Back to Dashboard</a></button>
 		</div>

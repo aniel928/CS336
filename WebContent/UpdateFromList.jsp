@@ -5,6 +5,7 @@
 <style>
 </style>
 <body>
+
 <%try{
 String ssn=null;
 String acc=null;
@@ -290,7 +291,8 @@ else {
 //stmt.close();
 //con.close();
 %>
-<h1> Changes made succesfully</h1>
+<div class="trans">
+<h1> Changes made successfully</h1>
 <button type='button' name='back'><a href='dashboard.jsp'>Back to Dashboard</a></button>
-
+</div>
 </body>

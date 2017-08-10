@@ -1,16 +1,12 @@
 <%@ include file = "header.jsp" %>
 <%@ include file = "functions.jsp" %>
-
+<!-- Author: Catherine Yeager-->
 <title>View Revenue</title>
 <body>
-<h1>View Revenue</h1>
-<style>
-table, th, td {
-	border: 1px solid black;
-}
-td {
-	width:10%;
-}</style>
+
+
+<div class="trans">
+<h1>Monthly Revenue</h1>
 <% try{
 //declare variables
 Connection con;
@@ -30,24 +26,24 @@ stmt = con.createStatement();
 		str = "SELECT * FROM airline.reservations where MONTH(ResDate)= " + sortMon + " AND YEAR(ResDate)= " + sortYear + ";";
 		result = stmt.executeQuery(str);
 		
-		out.println("<table style='width:1000'>");
+		out.println("<table class= 'datatable'>");
 
 		
 		//manager page
 		
 		//Top labels
 		out.println("<tr>");
-		out.println("<td>");
+		out.println("<th>");
 			out.println("Reservation Nunber");
-		out.println("</td>");
+		out.println("</th>");
 		
-		out.println("<td>");
+		out.println("<th>");
 			out.println("Date");  
-		out.println("</td>");
+		out.println("</th>");
 			
-		out.println("<td>");
+		out.println("<th>");
 			out.println("Fare");
-		out.println("</td>");
+		out.println("</th>");
 	
 		while(result.next()) {
 			
@@ -63,7 +59,8 @@ stmt = con.createStatement();
 			out.println("</td>");
 			
 			out.println("<td>");
-			out.print(""+cost);
+			NumberFormat formatter = NumberFormat.getCurrencyInstance();
+			out.print(""+formatter.format(cost));
 			out.println("</td>");
 			
 			out.println("</tr>");
@@ -75,5 +72,6 @@ stmt = con.createStatement();
 	out.println("Uh oh");
 }
 %>
+</div>
 </body>
 </html>

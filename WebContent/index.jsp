@@ -3,6 +3,7 @@
 <title>Airline Reservations</title>
 </head>
 	<body>
+	<div class="trans">
 		<h1>Welcome!</h1> 
 		<br> <br> 
 		<h2>Please sign in! </h2>
@@ -31,12 +32,13 @@
 						<td>Password: </td>
 						<td><input type="password" name="password"></td>
 				</table>
-				<input type="submit" value="Log In">
+				<input style="margin-top= 100xp;" type="submit" value="Log In">
 			</form>
 			<form action="register.jsp">
-			<input type="submit" value="Register">
+			<input style="margin-top=100xp;" type= "submit" value="Register">
 			</form>
 	
+		</div>
 		</div>
 	</body>
 </html>

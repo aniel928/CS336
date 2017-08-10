@@ -5,7 +5,7 @@
 <style>
 </style>
 <body>
-
+<div class="trans">
 <%
 //get values from ViewUsers
 String acc=null;

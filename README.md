@@ -56,7 +56,6 @@ Peter
 # JSP Credit #
 airplaneProj.css
 Catherine
-Anne
 
 book.jsp
 Anne
