@@ -11,6 +11,7 @@
 	String str = "select FLNumber, DateOfFlight, FIDeparts, FIDptTime, FIArrives, FIArrTime, ResTotalFare, ResFareRestrictions, account_no from flightinfo, reservations, makes, has where reservations.ResNumber='"+res_no+"' AND reservations.ResNumber = makes.ResNumber AND makes.ResNumber = has.ResNumber AND has.ResNumber = reservations.ResNumber AND has.FLNumber = flightinfo.FInumber order by DateOfFlight;";
 
 	DecimalFormat decim = new DecimalFormat("0.00");
+	NumberFormat nm = NumberFormat.getCurrencyInstance();
 	
 	ResultSet rs = selectRequest(str);
 	
@@ -19,7 +20,7 @@
 	if(!session.getAttribute("type").equals("customer")){
 		out.println("<h4>Account Number: "+rs.getString(9));
 	}
-	out.println("<h4>Total Fare: $"+Double.parseDouble(decim.format(rs.getDouble(7)))+"</h4>");
+	out.println("<h4>Total Fare: " + nm.format(rs.getDouble(7)) + "</h4>");
 	out.println("<h4>Restrictions Applied: "+rs.getString(8)+"</h4>");
 	
 	out.println("<table class = 'datatable'><tr><th>Flight Number</th><th>Date of Flight</th><th>Depart Airport</th><th>Departure Time</th><th>Arrival Airport</th><th>Arrival Time</th></tr>");
@@ -56,9 +57,9 @@ str = "select PassName, PassSeat, PassMeal from passenger where ResNumber='"+res
 	//go thorugh and print passengers
 	
 	ResultSet s = selectRequest(str);
-	out.println("<br><div style='border-style:solid;width:500px;padding:20px;background-color: #80c1ca;'><b>Passengers on this flight:</b><br>");
+	out.println("<br><div style='border-style:solid;width:500px;padding:20px;background-color: #3465a4;'><b>Passengers on this flight:</b><br>");
 	while(s.next()){
-		out.println("<br><div style='padding:10px;border-style:solid;background-color: #ddf5f8;'>Passenger Name: "+s.getString(1)+"<br>Preferred Seat: "+s.getString(2)+"<br>Preferred Meal: "+s.getString(3)+"<br></div>");	
+		out.println("<br><div style='padding:10px;border-style:solid;background-color:#fff;'>Passenger Name: "+s.getString(1)+"<br>Preferred Seat: "+s.getString(2)+"<br>Preferred Meal: "+s.getString(3)+"<br></div>");	
 	}
 	out.println("</div><br><br>");
 	

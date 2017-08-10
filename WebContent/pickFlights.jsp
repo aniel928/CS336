@@ -373,7 +373,7 @@ else if(tripType.equals("multi")){
 	times[0] = timeOfDay(request.getParameter("startTime"));
 	
 	if(getDate(dates[0]).compareTo(new java.util.Date())<0){
-		response.sendRedirect("MakeReservation.jsp?error=prior&tripType=round&domintl="+request.getParameter("domintl"));
+		response.sendRedirect("MakeReservation.jsp?error=prior&tripType=multi&domintl="+request.getParameter("domintl"));
 		return;
 	}
 	

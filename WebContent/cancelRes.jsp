@@ -34,8 +34,8 @@
 	con.close();
 	
 	out.println("<h3>Reservation has been cancelled.</h3>");
-	out.println("<a href='ViewMine.jsp'>Back to My Reservations</a>");
-	out.println("<br><br><a href='dashboard.jsp'>Back to Dashboard</a>");
+	out.println("<button><a href='ViewMine.jsp'>Back to My Reservations</a></button>");
+	out.println("<button><br><br><a href='dashboard.jsp'>Back to Dashboard</a></button");
 	}
 	catch(SQLException e){
 		out.println(e.getMessage());

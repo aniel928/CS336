@@ -51,61 +51,61 @@ try {
 
 	//manager page
 		out.println("<tr>");
-			out.println("<td style='font-weight:bold'>");
+			out.println("<th>");
 				out.println("UserName");
-			out.println("</td>");
+			out.println("</th>");
 			
 			//insert password???
 					
-			out.println("<td style='font-weight:bold'>");
+			out.println("<th>");
 				out.println("Account Number or SSN");
-			out.println("</td>");
+			out.println("</th>");
 			
-			out.println("<td style='font-weight:bold'>");
+			out.println("<th>");
 				out.println("Name");  //sperate into First name and last name???
-			out.println("</td>");
+			out.println("</th>");
 				
-			out.println("<td style='font-weight:bold'>");
+			out.println("<th>");
 				out.println("Address");
-			out.println("</td>");
+			out.println("</th>");
 			
-			out.println("<td style='font-weight:bold'>");
+			out.println("<th>");
 				out.println("Email");
-			out.println("</td>");
+			out.println("</th>");
 			
-			out.println("<td style='font-weight:bold'>");
+			out.println("<th>");
 				out.println("Phone");
-			out.println("</td>");
+			out.println("</th>");
 			
-			out.println("<td style='font-weight:bold'>");
+			out.println("<th>");
 				out.println("Seat Prefrence");
-			out.println("</td>");
+			out.println("</th>");
 			
-			out.println("<td style='font-weight:bold'>");
+			out.println("<th>");
 				out.println("Meal Prefrence");
-			out.println("</td>");
+			out.println("</th>");
 		
 			 if(session.getAttribute("type").equals("manager")) {
-				 out.println("<td style='font-weight:bold'>");
+				 out.println("<th>");
 					out.println("Hourly Rate");
-				out.println("</td>");
+				out.println("</th>");
 			 }
 			
-			out.println("<td style='font-weight:bold'>");
+			out.println("<th>");
 				out.println("Type");
-			out.println("</td>");
+			out.println("</th>");
 			
-			out.println("<td style='font-weight:bold'>");
+			out.println("<th>");
 				out.println("Start Date");
-			out.println("</td>");
+			out.println("</th>");
 			
-			out.println("<td style='font-weight:bold'>");
+			out.println("<th>");
 				out.println("Link");
-			out.println("</td>");
+			out.println("</th>");
 		
-			out.println("<td style='font-weight:bold'>");
+			out.println("<th>");
 				out.println("Delete");
-			out.println("</td>");
+			out.println("</th>");
 		out.println("</tr>");
 		
 		while(result.next()) {
@@ -172,21 +172,33 @@ try {
 							"</form>" +
 			              "</td>");
 			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			if(session.getAttribute("type").equals("manager")) {
 				out.print("<td>");
 					out.print("<form method='post' action='delete.jsp'>");
-					out.print("<button class= 'expand' name='delete' value='delete'>Delete Account</button>");
-					out.print("<input type='hidden' name = 'user' value='listName'" + result.getString(1)  + "'></input>");
-					out.print("</form>");
+					out.print("<button class= 'expand' name='deleteFromList' value='deleteFromList'>Delete Account</button>");
+					out.print("<input type='hidden' name = 'user' value='" + result.getString(1)  + "'></input>");
+				out.print("</form>");
 				out.print("</td>");
 				out.print("</tr>");
 			}
-			else if(session.getAttribute("post").equals("employee")) {
+			else if(session.getAttribute("type").equals("employee")) {
 				if(result.getString(18).equals("customer")) {
 					out.print("<td>");
-					out.print("<form method='get' action='delete.jsp'>");
-					out.print("<button class= 'expand' name='delete' value='delete'>Delete Account</button>");
-					out.print("<input type='hidden' name = 'user' value='"+ result.getString(1)  + "'></input>");
+					out.print("<form method='post' action='delete.jsp'>");
+					out.print("<button class= 'expand' name='deleteFromList' value='deleteFromList'>Delete Account</button>");
+					out.print("<input type='hidden' name = 'user' value='" + result.getString(1)  + "'></input>");
 					out.print("</form>");
 				out.print("</td>");
 				out.print("</tr>");
@@ -195,8 +207,24 @@ try {
 					out.print("<td>");
 					out.print("Not Available");
 					out.print("</td>");
+					out.print("</tr>");
 				}
 			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		}
 		out.print("</table>");
 } 

@@ -120,14 +120,14 @@ else {
 
 <%
 if(session.getAttribute("type").equals("manager")){
-	out.print("<h3>Manger Information</h3>");
+	out.print("<h3>Manager Information</h3>");
 	if(!type.equals("customer")) {
 		out.print("<div>");
-			out.print("<label>Hourly Rate: </label><input id = 'field'  type='text'  name='rate' required value='" + result.getString(17) + "'>");
+			out.print("<label>Hourly Rate: </label><input id = 'field'  type='text'  name='rate' required value='" + result.getString(17) + "'/>");
 		out.print("<div>");
 	}
 	out.print("<div>");
-		out.print("<label>User Type: </label><input id = 'field'  type='text'  name='type' required value='" + result.getString(18) + "'>");
+		out.print("<label>User Type: </label><input id = 'field'  type='text'  name='type' required value='" + result.getString(18) + "'/>");
 	out.print("<div>");
 }
 %>
