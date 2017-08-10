@@ -383,7 +383,7 @@
 		out.println(e.getMessage());
 	}
 	%>
-<br><br><a href="dashboard.jsp">Back to Dashboard</a>
+<br><br><button><a href="dashboard.jsp">Back to Dashboard</a></button>
 </body>
 
 </html>
