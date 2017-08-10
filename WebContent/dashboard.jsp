@@ -47,7 +47,7 @@ div.panel {
 	<%
 
 		try {
-			if(session.getAttribute("type")== null){
+			if(request.getParameter("userID")!=null){
 					
 				//store userName
 				String uname=request.getParameter("userID");
@@ -78,9 +78,9 @@ div.panel {
 					session.setAttribute("zip", result.getString(10));
 					session.setAttribute("phone", result.getString(12));
 					session.setAttribute("type", result.getString(18));
+					session.setAttribute("email", result.getString(11));
 					if(session.getAttribute("type").equals("customer")){
 						session.setAttribute("account_no", result.getString(3));
-						session.setAttribute("email", result.getString(11));
 						session.setAttribute("acctDate", result.getString(13));
 						session.setAttribute("ccnum", result.getString(14));
 						session.setAttribute("seat", result.getString(15));
@@ -141,6 +141,7 @@ div.panel {
 				if(session.getAttribute("type").equals("employee")){
 					out.println("<button class= 'expand' name='mailList' value='mailList'>Mail List</button> <br> <br>");
 					out.println("<button class= 'expand' name='viewUsers' value='viewUsers'>View Users </button> <br> <br>");
+					out.println("<button class= 'expand' name='suggest' value='suggest'>View Customer Suggestions</button> <br> <br>");
 				}
 				if(session.getAttribute("type").equals("manager")) {
 					out.println("<button class= 'expand' name='addUser' value='addUser'>Add User </button> <br> <br>");
@@ -161,9 +162,6 @@ div.panel {
 					}
 					else if(session.getAttribute("type").equals("manager") || session.getAttribute("type").equals("manager")){
 						out.println("<button class= 'expand' name='viewFlights' value='viewFlights'>View Flight Info </button> <br> <br>");
-					}
-					else{
-						out.println("<button class= 'expand' name='viewFlights' value='viewFlights'>Recommended Flights by User</button> <br> <br>");						
 					}
 					
 					out.println("</form>");

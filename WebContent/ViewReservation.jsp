@@ -56,7 +56,7 @@
 		if(request.getParameter("acctnum") != null){
 			
 			out.println("<table class='datatable'><tr><th>Reservation Number</th><th>Reservation Made</th><th>account Number</th><th>Number Of Passengers</th><th>Date Of Flight</th><th> Flight Number</th><th>Customer Itinerary</th></tr>");
-			String str = "SELECT reservations.ResNumber, ResDate, account_no, count(PassName), DateOfFlight, FLNumber FROM reservations, has, makes, passenger where reservations.ResNumber = has.ResNumber AND reservations.ResNumber = makes.ResNumber AND reservations.ResNumber = passenger.ResNumber group by reservations.ResNumber, FLNumber, DateOFFlight order by ResNumber, DateOfFlight";
+			String str = "SELECT reservations.ResNumber, ResDate, account_no, count(PassName), DateOfFlight, FLNumber FROM reservations, has, makes, passenger where reservations.ResNumber = has.ResNumber AND reservations.ResNumber = makes.ResNumber AND reservations.ResNumber = passenger.ResNumber and account_no='"+request.getParameter("acctnum")+"' group by reservations.ResNumber, FLNumber, DateOFFlight order by ResNumber, DateOfFlight";
 			ResultSet rs = selectRequest(str);
 			String resno = "";
 			String color = "#80c1ca";

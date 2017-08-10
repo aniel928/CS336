@@ -30,10 +30,9 @@ try{
 		response.sendRedirect("delete.jsp?delete=delete");
 	}
 	
-	
 }
 catch(Exception e){
-	out.println("something happened");
+	out.println("error= " + e.getMessage());
 }
 
  %>
