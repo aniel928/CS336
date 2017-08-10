@@ -3,6 +3,7 @@
 	<title>View My Reservations</title>
 	</head>
 	<body>
+	<div id="trans">
 	
 	<% 
 	
@@ -42,5 +43,6 @@
 	
 	
 	%>
+	</div>
 	</body>
 	</html>

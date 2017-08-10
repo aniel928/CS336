@@ -43,7 +43,7 @@ div.panel {
 
 </head>
 <body>
-<div id="trans">
+<div class="trans">
 	<%
 
 		try {

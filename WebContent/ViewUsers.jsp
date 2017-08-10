@@ -11,6 +11,7 @@ td {
 }
 </style>
 <body>
+<div class="trans">
 <h1>View User Profile</h1>
 
 <%
@@ -182,5 +183,6 @@ catch(NullPointerException e) {
 }
 
 %>
+</div>
 </body>
 </html>

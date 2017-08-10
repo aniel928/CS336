@@ -11,6 +11,7 @@ td {
 	width:10%;
 }</style>
 <body>
+<div class="trans">
 
 	<%if(request.getParameter("showby")==null){
 
@@ -155,8 +156,8 @@ td {
 				str="SELECT FInumber, FIDeparts, FIDptTime, FIArrives, FIArrTime FROM airline.flightinfo;";
 	
 		 		result = stmt.executeQuery(str);
-	
-				out.println("<table style='width:1000'>");
+		 		out.println("<h1> All Flights </h1>");
+				out.println("<table class = 'datatable'>");
 		 		out.println("<tr>");
 				out.println("<td>");
 					out.println("Flight Number");
@@ -224,8 +225,8 @@ td {
 					"WHERE h.ResNumber=p.ResNumber AND f.FInumber=h.FLNumber GROUP BY FLNumber HAVING COUNT(FLNumber)>3;";
 			
 	 		result = stmt.executeQuery(str);
-
-			out.println("<table style='width:1000'>");
+	 		out.println("<h1> Best Selling Flights </h1>");
+	 		out.println("<table class = 'datatable'>");
 	 		out.println("<tr>");
 			out.println("<td>");
 				out.println("Flight Number");
@@ -289,9 +290,10 @@ td {
 		else if(view.equals("airport")){
 			str="SELECT FInumber, FIDeparts, FIDptTime, FIArrives, FIArrTime FROM airline.flightinfo WHERE FIDeparts= '"+ request.getParameter("airport")+ "';";
 			
+			out.println("<h1> Flights by airport</h1>");
 	 		result = stmt.executeQuery(str);
 
-			out.println("<table style='width:1000'>");
+	 		out.println("<table class = 'datatable'>");
 	 		out.println("<tr>");
 			out.println("<td>");
 				out.println("Flight Number");
@@ -364,7 +366,6 @@ td {
 	}
 
 %>
-
 
 </div>
 </body>

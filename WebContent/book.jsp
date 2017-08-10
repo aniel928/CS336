@@ -3,6 +3,7 @@
 
 <title>Book Reservation</title>
 <body>
+<div class='trans'>
 <h1>Book Reservation</h1>
 <%
 
@@ -558,4 +559,5 @@ else if(request.getParameter("tripType").equals("oneway")){
 	
 }
  %>
+ </div>
  <br><br><button type='button'> <a href="dashboard.jsp">Back to Dashboard</a></button></body></html>

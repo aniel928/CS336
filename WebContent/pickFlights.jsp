@@ -3,6 +3,7 @@
 
 <title>Flight Options</title>
 <body>
+<div class="trans">
 <h1>Flight Options</h1>
 
 <% Connection con = dbConnect();
@@ -503,5 +504,5 @@ out.println("<br><br><a href='dashboard.jsp'>Back to Dashboard</a>");
 con.close();
 %>
 
-
+</div>
 </body>

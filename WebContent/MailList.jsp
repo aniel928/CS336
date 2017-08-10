@@ -3,6 +3,7 @@
 
 <title>Mail List</title>
 <body>
+<div class="trans">
 <h1>Customer Mail List</h1>
 <style>
 table, th, td {
@@ -114,6 +115,7 @@ con.close();
 	out.println("Uh oh");
 }
 %>
+</div>
 </body>
 </html>
 </body>

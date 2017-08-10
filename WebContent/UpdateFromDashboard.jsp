@@ -5,6 +5,7 @@
 <style>
 </style>
 <body>
+<div class="trans">
 <%
 //string builder for the query
 StringBuilder str=new StringBuilder();
@@ -153,4 +154,6 @@ out.print("<h3> Information Updated</h3>");
 
 out.print("<form method=get action='temp.jsp'>");
 out.println("<button name='backToDash' value='backToDash'>Go Back to Dashboard </button> <br> <br>");
+
 %>
+</div>

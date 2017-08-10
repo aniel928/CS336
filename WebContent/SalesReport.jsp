@@ -3,6 +3,7 @@
 
 <title>View Sales Report</title>
 <body>
+<div class="trans">
 <h1>View Sales Report</h1>
 <form method="post" action="ViewRevenue.jsp">
 
@@ -32,6 +33,6 @@
 	<div style= "margin-top: 1cm"><input type="submit" value="Submit"></div>
 
 </form>
-
+</div>
 </body>
 </html>

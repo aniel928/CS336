@@ -3,6 +3,7 @@
 	<title>View My Reservations</title>
 	</head>
 	<body>
+	<div class="trans">
 	<h1> My Reservations</h1>
 	<% 
 	java.util.Date today = new java.util.Date(); 
@@ -95,7 +96,7 @@
 	}
 	
 	%>
-	 
+	 </div>
 	 <button type='button' name='back' onclick='history.back()''>Go Back</button>
 	
 	<br><br><button type='button' name='back'><a href='dashboard.jsp'>Back to Dashboard</a></button>

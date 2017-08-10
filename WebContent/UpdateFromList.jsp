@@ -5,6 +5,7 @@
 <style>
 </style>
 <body>
+<div class="trans">
 <%try{
 String ssn=null;
 String acc=null;
@@ -272,5 +273,5 @@ else {
 //stmt.close();
 //con.close();
 %>
-
+</div>
 </body>
