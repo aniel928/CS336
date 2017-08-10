@@ -1,5 +1,6 @@
 <%@ include file = "header.jsp" %>
 <%@ include file = "functions.jsp" %>
+
 	<title>View My Reservations</title>
 	</head>
 	<body>

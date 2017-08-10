@@ -1,6 +1,6 @@
 <%@ include file = "header.jsp" %>
 <%@ include file = "functions.jsp" %>
-
+<!-- Author: Catherine Yeager -->
 <title>Mail List</title>
 <body>
 <div class="trans">
@@ -41,31 +41,31 @@ try {
 	type=session.getAttribute("type").toString();
 	
 	
-	out.println("<table style='width:1000'>");
+	out.println("<table class = 'datatable'>");
 
 	//manager page
 	
 	//Top labels
 	out.println("<tr>");
-	out.println("<td>");
+	out.println("<th>");
 		out.println("UserName");
-	out.println("</td>");
+	out.println("</th");
 	
-	out.println("<td>");
+	out.println("<th>");
 		out.println("Name");  
-	out.println("</td>");
+	out.println("</th>");
 		
-	out.println("<td>");
+	out.println("<th>");
 		out.println("Address");
-	out.println("</td>");
+	out.println("</th>");
 	
-	out.println("<td>");
+	out.println("<th>");
 		out.println("Email");
-	out.println("</td>");
+	out.println("</th>");
 	
-	out.println("<td>");
+	out.println("<th>");
 		out.println("Phone");
-	out.println("</td>");
+	out.println("</th>");
 out.println("</tr>");
 
 while(result.next()) {

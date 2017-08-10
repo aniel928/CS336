@@ -12,6 +12,7 @@ td {
 </style>
 
 <body>
+<div class="trans">
 <h1> View Customer Suggestions</h1>
 <% 
 if(request.getParameter("acc") == null) {
@@ -129,6 +130,7 @@ else {
 
 
 %>
+</div>
 <br> <br>
 <button type='button' name='back'><a href='dashboard.jsp'>Back to Dashboard</a></button>
 </body>

@@ -1,6 +1,6 @@
 <%@ include file = "header.jsp" %>
 <%@ include file = "functions.jsp" %>
-
+<!-- Author: Catherine Yeager -->
 <title> Flight Customers</title>
 <body>
 <style>
@@ -30,24 +30,24 @@ td {
 		
 			 		result = stmt.executeQuery(str);
 		
-					out.println("<table style='width:1000'>");
+			 		out.println("<table class= 'datatable'>");
 			 		out.println("<tr>");
-					out.println("<td>");
+					out.println("<th>");
 						out.println("Account Number");
-					out.println("</td>");
+					out.println("</th>");
 					
-					out.println("<td>");
+					out.println("<th>");
 						out.println("Username");  
-					out.println("</td>");
+					out.println("</th>");
 					
-					out.println("<td>");
+					out.println("<th>");
 					out.println("Name");  
-					out.println("</td>");
+					out.println("</th>");
 					
 					
-					out.println("<td>");
+					out.println("<th>");
 					out.println("Reservation Number");  
-					out.println("</td>");
+					out.println("</th>");
 				
 					
 					out.println("</tr>");

@@ -1,17 +1,12 @@
 <%@ include file = "header.jsp" %>
 <%@ include file = "functions.jsp" %>
-
+<!-- Author: Catherine Yeager -->
 <title>Revenue Summary</title>
 <body>
-<h1>Revenue Summary</h1>
-<style>
-table, th, td {
-	border: 1px solid black;
-}
-td {
-	width:10%;
-}</style>
+
+
 <div class="trans">
+<h1>Revenue Summary</h1>
 <% try{
 	//declare variables
 	Connection con;
@@ -35,15 +30,15 @@ td {
 
 			 		result = stmt.executeQuery(str);
 
-					out.println("<table style='width:1000'>");
+					out.println("<table class='datatable'>");
 			 		out.println("<tr>");
-					out.println("<td>");
+					out.println("<th>");
 						out.println("Flight Number");
-					out.println("</td>");
+					out.println("</th>");
 					
-					out.println("<td>");
+					out.println("<th>");
 						out.println("Revenue");  
-					out.println("</td>");
+					out.println("</th>");
 					
 					out.println("</tr>");
 					while(result.next()) {
@@ -67,15 +62,15 @@ td {
 
 			 		result = stmt.executeQuery(str);
 
-					out.println("<table style='width:1000'>");
+					out.println("<table class='datatable'>");
 			 		out.println("<tr>");
-					out.println("<td>");
+					out.println("<th>");
 						out.println("Account Number");
-					out.println("</td>");
+					out.println("</th>");
 					
-					out.println("<td>");
+					out.println("<th>");
 						out.println("Revenue");  
-					out.println("</td>");
+					out.println("</th>");
 					
 					out.println("</tr>");
 					while(result.next()) {
@@ -104,15 +99,15 @@ td {
 
 			 		result = stmt.executeQuery(str);
 
-					out.println("<table style='width:1000'>");
+					out.println("<table class='datatable'>");
 			 		out.println("<tr>");
-					out.println("<td>");
+					out.println("<th>");
 						out.println("Airport");
-					out.println("</td>");
+					out.println("</th>");
 					
-					out.println("<td>");
+					out.println("<th>");
 						out.println("Revenue");  
-					out.println("</td>");
+					out.println("</th>");
 					
 					out.println("</tr>");
 					while(result.next()) {

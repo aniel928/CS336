@@ -291,9 +291,8 @@ else {
 //stmt.close();
 //con.close();
 %>
-=======
 <div class="trans">
-<h1> Changes made succesfully</h1>
+<h1> Changes made successfully</h1>
 <button type='button' name='back'><a href='dashboard.jsp'>Back to Dashboard</a></button>
 </div>
 </body>
