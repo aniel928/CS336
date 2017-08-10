@@ -15,7 +15,6 @@ td {
 
 <%
 //declare variables
-final int USER_COL=19;
 Connection con;
 Statement stmt;
 String str;
@@ -175,7 +174,8 @@ try {
 			if(session.getAttribute("type").equals("manager")) {
 				out.print("<td>");
 					out.print("<form method='post' action='temp.jsp'>");
-					out.print("<button class= 'expand' name='delete' value='delete'>Delete Account</button>");
+					out.print("<button class= 'expand' name='deleteFromList' value='deleteFromList'>Delete Account</button>");
+					out.print("<input type='hidden' name = 'listName' value='listName'" + result.getString(1)  + "'></input>");
 					out.print("</form>");
 				out.print("</td>");
 				out.print("</tr>");
@@ -184,7 +184,8 @@ try {
 				if(result.getString(18).equals("customer")) {
 					out.print("<td>");
 					out.print("<form method='post' action='temp.jsp'>");
-					out.print("<button class= 'expand' name='delete' value='delete'>Delete Account</button>");
+					out.print("<button class= 'expand' name='deleteFromList' value='deleteFromList'>Delete Account</button>");
+					out.print("<input type='hidden' name = 'listName' value='listName'" + result.getString(1)  + "'></input>");
 					out.print("</form>");
 				out.print("</td>");
 				out.print("</tr>");
