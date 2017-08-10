@@ -276,7 +276,7 @@ else {
 	}
 	if(!request.getParameter("type").equals(type)){
 		out.print("changed type");
-		str.append("type= " + "'" + request.getParameter("type") + "' ");
+		str.append("usertype= " + "'" + request.getParameter("type") + "' ");
 		str.append("WHERE ssn= " + "'" + ssn + "' ;");
 		stmt.executeUpdate(str.toString());
 		str.replace(0, str.length(), "UPDATE users SET ");

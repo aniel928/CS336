@@ -30,16 +30,16 @@
 		String str = "SELECT reservations.ResNumber, ResDate, account_no, count(PassName), DateOfFlight, FLNumber FROM reservations, has, makes, passenger where reservations.ResNumber = has.ResNumber AND reservations.ResNumber = makes.ResNumber AND reservations.ResNumber = passenger.ResNumber group by reservations.ResNumber, FLNumber, DateOFFlight order by ResNumber, DateOfFlight";
 		ResultSet rs = selectRequest(str);
 		String resno = "";
-		String color = "#80c1ca";
+		String color = "#fff";
 		while(rs.next()){
 			if(resno.equals(rs.getString(1))){
 				out.println("<tr style='background-color:"+color+"'><td></td><td></td><td></td><td></td><td>"+rs.getString(5)+"</td><td>"+rs.getString(6)+"</td><td></td></tr>");
 			}
 			else{
-				if(color.equals("#80c1ca")){
-					color = "#ddf5f8";
+				if(color.equals("#f2f2f2")){
+					color = "#fff";
 				}else{
-					color = "#80c1ca";
+					color = "#f2f2f2";
 				}
 				out.println("<tr style='background-color:"+color+"'><td>"+rs.getString(1)+"</td><td>"+rs.getString(2)+"</td><td>"+rs.getString(3)+"</td><td>"+rs.getString(4)+"</td><td>"+rs.getString(5)+"</td><td>"+rs.getString(6)+"</td>");
 				out.println("<td><a href='itinerary.jsp?num="+rs.getString(1)+"'>View Itinerary</a></td></tr>");
@@ -59,16 +59,16 @@
 			String str = "SELECT reservations.ResNumber, ResDate, account_no, count(PassName), DateOfFlight, FLNumber FROM reservations, has, makes, passenger where reservations.ResNumber = has.ResNumber AND reservations.ResNumber = makes.ResNumber AND reservations.ResNumber = passenger.ResNumber and account_no='"+request.getParameter("acctnum")+"' group by reservations.ResNumber, FLNumber, DateOFFlight order by ResNumber, DateOfFlight";
 			ResultSet rs = selectRequest(str);
 			String resno = "";
-			String color = "#80c1ca";
+			String color = "#fff";
 			while(rs.next()){
 				if(resno.equals(rs.getString(1))){
 					out.println("<tr style='background-color:"+color+"'><td></td><td></td><td></td><td></td><td>"+rs.getString(5)+"</td><td>"+rs.getString(6)+"</td><td></td></tr>");
 				}
 				else{
-					if(color.equals("#80c1ca")){
-						color = "#ddf5f8";
+					if(color.equals("#f2f2f2")){
+						color = "#fff";
 					}else{
-						color = "#80c1ca";
+						color = "#f2f2f2";
 					}
 					out.println("<tr style='background-color:"+color+"'><td>"+rs.getString(1)+"</td><td>"+rs.getString(2)+"</td><td>"+rs.getString(3)+"</td><td>"+rs.getString(4)+"</td><td>"+rs.getString(5)+"</td><td>"+rs.getString(6)+"</td>");
 					out.println("<td><a href='itinerary.jsp?num="+rs.getString(1)+"'>View Itinerary</a></td></tr>");
@@ -90,16 +90,16 @@
 			String str = "SELECT reservations.ResNumber, ResDate, account_no, count(PassName), DateOfFlight, FLNumber FROM reservations, has, makes, passenger where reservations.ResNumber = has.ResNumber AND reservations.ResNumber = makes.ResNumber AND reservations.ResNumber = passenger.ResNumber AND FLNumber="+request.getParameter("flight")+" group by reservations.ResNumber, FLNumber, DateOFFlight order by ResNumber, DateOfFlight";
 			ResultSet rs = selectRequest(str);
 			String resno = "";
-			String color = "#80c1ca";
+			String color = "#fff";
 			while(rs.next()){
 				if(resno.equals(rs.getString(1))){
 					out.println("<tr style='background-color:"+color+"'><td></td><td></td><td></td><td></td><td>"+rs.getString(5)+"</td><td>"+rs.getString(6)+"</td><td></td></tr>");
 				}
 				else{
-					if(color.equals("#80c1ca")){
-						color = "#ddf5f8";
+					if(color.equals("#f2f2f2")){
+						color = "#fff";
 					}else{
-						color = "#80c1ca";
+						color = "#f2f2f2";
 					}
 					out.println("<tr style='background-color:"+color+"'><td>"+rs.getString(1)+"</td><td>"+rs.getString(2)+"</td><td>"+rs.getString(3)+"</td><td>"+rs.getString(4)+"</td><td>"+rs.getString(5)+"</td><td>"+rs.getString(6)+"</td>");
 					out.println("<td><a href='itinerary.jsp?num="+rs.getString(1)+"'>View Itinerary</a></td></tr>");
