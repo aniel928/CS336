@@ -11,11 +11,11 @@ td {
 }
 </style>
 <body>
+<div class="trans">
 <h1>View User Profile</h1>
 
 <%
 //declare variables
-final int USER_COL=19;
 Connection con;
 Statement stmt;
 String str;
@@ -102,6 +102,10 @@ try {
 			out.println("<td style='font-weight:bold'>");
 				out.println("Link");
 			out.println("</td>");
+		
+			out.println("<td style='font-weight:bold'>");
+				out.println("Delete");
+			out.println("</td>");
 		out.println("</tr>");
 		
 		while(result.next()) {
@@ -168,8 +172,31 @@ try {
 							"</form>" +
 			              "</td>");
 			}
-			
-			out.print("</tr>");
+			if(session.getAttribute("type").equals("manager")) {
+				out.print("<td>");
+					out.print("<form method='post' action='temp.jsp'>");
+					out.print("<button class= 'expand' name='deleteFromList' value='deleteFromList'>Delete Account</button>");
+					out.print("<input type='hidden' name = 'listName' value='listName'" + result.getString(1)  + "'></input>");
+					out.print("</form>");
+				out.print("</td>");
+				out.print("</tr>");
+			}
+			else if(session.getAttribute("type").equals("employee")) {
+				if(result.getString(18).equals("customer")) {
+					out.print("<td>");
+					out.print("<form method='post' action='temp.jsp'>");
+					out.print("<button class= 'expand' name='deleteFromList' value='deleteFromList'>Delete Account</button>");
+					out.print("<input type='hidden' name = 'listName' value='listName'" + result.getString(1)  + "'></input>");
+					out.print("</form>");
+				out.print("</td>");
+				out.print("</tr>");
+				}
+				else {
+					out.print("<td>");
+					out.print("Not Available");
+					out.print("</td>");
+				}
+			}
 		}
 		out.print("</table>");
 } 
@@ -181,6 +208,8 @@ catch(NullPointerException e) {
 	out.print("tst" + e.getMessage());
 }
 %>
+</div>
+=======
 <br><br>
 <button type='button' name='back'><a href='dashboard.jsp'>Back to Dashboard</a></button>
 </body>

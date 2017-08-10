@@ -5,6 +5,7 @@
 <title>Registered</title>
 </head>
 <body>
+<div class="trans">
 	<%
 		if(!request.getParameter("password").equals(request.getParameter("password2"))){
 			out.println("<form method='post'><input type='hidden' id='errormsg' name = 'error' value='error'></input></form>");
@@ -105,5 +106,5 @@
 			}
 		}
 			%>
-
+	</div>
 	</body>

@@ -11,6 +11,7 @@ table, th, td {
 td {
 	width:10%;
 }</style>
+<div class="trans">
 <% try{
 	//declare variables
 	Connection con;
@@ -145,5 +146,6 @@ td {
 	out.println("Uh oh");
 }
 %>
+</div>
 </body>
 </html>

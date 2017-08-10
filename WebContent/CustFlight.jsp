@@ -23,7 +23,7 @@ td {
 	stmt = con.createStatement();
 		
 	//build sql query
-	
+	out.println("<div class='trans'");
 			String showby = request.getParameter("num").toString();
 			out.println("<h1> Customers Reserved for Flight " + showby + "</h1>");
 					 str="SELECT * FROM airline.has h, airline.makes m, airline.users u WHERE h.ResNumber=m.ResNumber AND m.account_no=u.account_no;";
@@ -77,6 +77,7 @@ td {
 					}
 					 out.println("</table>");
 			 con.close();
+			 out.println("</div>");
 		
 		
 } catch (SQLException e) {

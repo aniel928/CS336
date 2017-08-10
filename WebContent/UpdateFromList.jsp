@@ -5,6 +5,7 @@
 <style>
 </style>
 <body>
+
 <%try{
 String ssn=null;
 String acc=null;
@@ -24,10 +25,6 @@ else{
 	acc=request.getParameter("old_acc");
 	temp="SELECT * FROM users WHERE account_no='" + acc + "'";
 }
-
-out.print("temp= " + temp);
-out.print("<br>");
-
 
 //make initial query to DB
 ResultSet result = stmt.executeQuery(temp);
@@ -67,6 +64,7 @@ str.append("SET ");
 if(type.equals("customer")) {
 	if(!request.getParameter("account_no").equals(acc)){
 		out.print("changed account no");
+		out.print("<br> <br>");
 		str.append("account_no= " + "'" + request.getParameter("account_no") + "' ");
 		str.append("WHERE account_no= " + "'" + acc + "' ;");
 		stmt.executeUpdate(str.toString());
@@ -75,6 +73,7 @@ if(type.equals("customer")) {
 	
 	if(!request.getParameter("seat_preference").equals(seat)){
 		out.print("changed seat preference");
+		out.print("<br> <br>");
 		str.append("seat_preference= " + "'" + request.getParameter("seat_preference") + "' ");
 		str.append("WHERE account_no= " + "'" + acc + "' ;");
 		stmt.executeUpdate(str.toString());
@@ -83,6 +82,7 @@ if(type.equals("customer")) {
 	
 	if(!request.getParameter("meal_preference").equals(meal)){
 		out.print("changed meal preference");
+		out.print("<br> <br>");
 		str.append("meal_preference= " + "'" + request.getParameter("meal_preference") + "' ");
 		str.append("WHERE account_no= " + "'" + acc + "' ;");
 		stmt.executeUpdate(str.toString());
@@ -92,6 +92,7 @@ if(type.equals("customer")) {
 	
 	if(!request.getParameter("CC_number").equals(ccNumber)){
 		out.print("changed credit card");
+		out.print("<br> <br>");
 		str.append("CC_number= " + "'" + request.getParameter("CC_number") + "' ");
 		str.append("WHERE account_no= " + "'" + acc + "' ;");
 		stmt.executeUpdate(str.toString());
@@ -99,6 +100,7 @@ if(type.equals("customer")) {
 	}
 	if(!request.getParameter("username").equals(username)){
 		out.print("changed username");
+		out.print("<br> <br>");
 		str.append("username= " + "'" + request.getParameter("username") + "' ");
 		str.append("WHERE account_no= " + "'" + acc + "' ;");
 		stmt.executeUpdate(str.toString());
@@ -108,6 +110,7 @@ if(type.equals("customer")) {
 	
 	if(!request.getParameter("first_name").equals(fName)){
 		out.print("changed first name");
+		out.print("<br> <br>");
 		str.append("first_name= " + "'" + request.getParameter("first_name") + "' ");
 		str.append("WHERE account_no= " + "'" + acc + "' ;");
 		stmt.executeUpdate(str.toString());
@@ -116,6 +119,7 @@ if(type.equals("customer")) {
 	}
 	if(!request.getParameter("last_name").equals(lName)){
 		out.print("changed last name");
+		out.print("<br> <br>");
 		str.append("last_name= " + "'" + request.getParameter("last_name") + "' ");
 		str.append("WHERE account_no= " + "'" + acc + "' ;");
 		stmt.executeUpdate(str.toString());
@@ -124,6 +128,7 @@ if(type.equals("customer")) {
 	}
 	if(!request.getParameter("street_address").equals(address)){
 		out.print("changed street address");
+		out.print("<br> <br>");
 		str.append("street_address= " + "'" + request.getParameter("street_address") + "' ");
 		str.append("WHERE account_no= " + "'" + acc + "' ;");
 		stmt.executeUpdate(str.toString());
@@ -131,6 +136,7 @@ if(type.equals("customer")) {
 	}
 	if(!request.getParameter("city").equals(city)){
 		out.print("changed city");
+		out.print("<br> <br>");
 		str.append("city= " + "'" + request.getParameter("city") + "' ");
 		str.append("WHERE account_no= " + "'" + acc + "' ;");
 		stmt.executeUpdate(str.toString());
@@ -138,6 +144,7 @@ if(type.equals("customer")) {
 	}
 	if(!request.getParameter("state").equals(state)){
 		out.print("changed state");
+		out.print("<br> <br>");
 		str.append("state= " + "'" + request.getParameter("state") + "' ");
 		str.append("WHERE account_no= " + "'" + acc + "' ;");
 		stmt.executeUpdate(str.toString());
@@ -146,6 +153,7 @@ if(type.equals("customer")) {
 	
 	if(!request.getParameter("zipcode").equals(zip)){
 		out.print("changed zip");
+		out.print("<br> <br>");
 		str.append("zipcode= " + "'" + request.getParameter("zipcode") + "' ");
 		str.append("WHERE account_no= " + "'" + acc + "' ;");
 		stmt.executeUpdate(str.toString());
@@ -154,6 +162,7 @@ if(type.equals("customer")) {
 	
 	if(!request.getParameter("phone").equals(phone)){
 		out.print("changed phone");
+		out.print("<br> <br>");
 		str.append("phone= " + "'" + request.getParameter("phone") + "' ");
 		str.append("WHERE account_no= " + "'" + acc + "' ;");
 		stmt.executeUpdate(str.toString());
@@ -161,6 +170,7 @@ if(type.equals("customer")) {
 	}
 	if(!request.getParameter("email").equals(email)){
 		out.print("changed email");
+		out.print("<br> <br>");
 		str.append("email= " + "'" + request.getParameter("email") + "' ");
 		str.append("WHERE account_no= " + "'" + acc + "' ;");
 		stmt.executeUpdate(str.toString());
@@ -168,6 +178,7 @@ if(type.equals("customer")) {
 	}
 	if(!request.getParameter("type").equals(type)){
 		out.print("changed credit card");
+		out.print("<br> <br>");
 		str.append("type= " + "'" + request.getParameter("type") + "' ");
 		str.append("WHERE account_no= " + "'" + acc + "' ;");
 		stmt.executeUpdate(str.toString());
@@ -178,7 +189,8 @@ if(type.equals("customer")) {
 
 else {
 	if(!request.getParameter("ssn").equals(ssn)){
-		out.print("ssn");
+		out.print("changed ssn");
+		out.print("<br> <br>");
 		str.append("ssn= " + "'" + request.getParameter("ssn") + "' ");
 		str.append("WHERE ssn= " + "'" + ssn + "' ;");
 		stmt.executeUpdate(str.toString());
@@ -187,6 +199,7 @@ else {
 	
 	if(!request.getParameter("rate").equals(rate)){
 		out.print("changed rate");
+		out.print("<br> <br>");
 		str.append("hourly_rate= " + "'" + request.getParameter("rate") + "' ");
 		str.append("WHERE ssn= " + "'" + ssn + "' ;");
 		stmt.executeUpdate(str.toString());
@@ -194,6 +207,7 @@ else {
 	}
 	if(!request.getParameter("username").equals(username)){
 		out.print("changed username");
+		out.print("<br> <br>");
 		str.append("username= " + "'" + request.getParameter("username") + "' ");
 		str.append("WHERE ssn= " + "'" + ssn + "' ;");
 		stmt.executeUpdate(str.toString());
@@ -201,6 +215,7 @@ else {
 	}
 	if(!request.getParameter("first_name").equals(fName)){
 		out.print("changed first name");
+		out.print("<br> <br>");
 		str.append("first_name= " + "'" + request.getParameter("first_name") + "' ");
 		str.append("WHERE ssn= " + "'" + ssn + "' ;");
 		stmt.executeUpdate(str.toString());
@@ -208,6 +223,7 @@ else {
 	}
 	if(!request.getParameter("last_name").equals(lName)){
 		out.print("changed last name");
+		out.print("<br> <br>");
 		str.append("last_name= " + "'" + request.getParameter("last_name") + "' ");
 		str.append("WHERE ssn= " + "'" + ssn + "' ;");
 		stmt.executeUpdate(str.toString());
@@ -215,6 +231,7 @@ else {
 	}
 	if(!request.getParameter("street_address").equals(address)){
 		out.print("changed street address");
+		out.print("<br> <br>");
 		str.append("street_address= " + "'" + request.getParameter("street_address") + "' ");
 		str.append("WHERE ssn= " + "'" + ssn + "' ;");
 		stmt.executeUpdate(str.toString());
@@ -222,6 +239,7 @@ else {
 	}
 	if(!request.getParameter("city").equals(city)){
 		out.print("changed city");
+		out.print("<br> <br>");
 		str.append("city= " + "'" + request.getParameter("city") + "' ");
 		str.append("WHERE ssn= " + "'" + ssn + "' ;");
 		stmt.executeUpdate(str.toString());
@@ -229,6 +247,7 @@ else {
 	}
 	if(!request.getParameter("state").equals(state)){
 		out.print("changed state");
+		out.print("<br> <br>");
 		str.append("state= " + "'" + request.getParameter("state") + "' ");
 		str.append("WHERE ssn= " + "'" + ssn + "' ;");
 		stmt.executeUpdate(str.toString());
@@ -272,5 +291,9 @@ else {
 //stmt.close();
 //con.close();
 %>
-
+=======
+<div class="trans">
+<h1> Changes made succesfully</h1>
+<button type='button' name='back'><a href='dashboard.jsp'>Back to Dashboard</a></button>
+</div>
 </body>

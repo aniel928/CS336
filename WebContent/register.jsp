@@ -3,6 +3,7 @@
 	<title>Registration</title>
 	</head>
 	<body>
+	<div class="trans">
 		<h1>Please register below </h1>
 		<br>
 		<p> Choose registration type: 
@@ -124,4 +125,5 @@
 	       			
 				<div style= "margin-top: 1cm"><input type="submit" value="Register"></div>
 			</form>
+			</div>
 		</div>

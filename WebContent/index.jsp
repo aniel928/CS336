@@ -3,6 +3,7 @@
 <title>Airline Reservations</title>
 </head>
 	<body>
+	<div class="trans">
 		<h1>Welcome!</h1> 
 		<br> <br> 
 		<h2>Please sign in! </h2>
@@ -37,6 +38,7 @@
 			<input type="submit" value="Register">
 			</form>
 	
+		</div>
 		</div>
 	</body>
 </html>

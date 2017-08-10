@@ -3,7 +3,7 @@
 	<title>Itinerary</title>
 	</head>
 	<body>
-	
+	<div class="trans">
 	<%
 	
 	String res_no = request.getParameter("num");
@@ -70,5 +70,6 @@ str = "select PassName, PassSeat, PassMeal from passenger where ResNumber='"+res
 	
 	
 	%>
+	</div>
 	</body>
 	</html>
