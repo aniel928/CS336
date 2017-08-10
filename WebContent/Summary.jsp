@@ -49,7 +49,9 @@
 						out.println("</td>");
 						
 						out.println("<td>");
-						out.print(result.getString(2));
+						NumberFormat formatter = NumberFormat.getCurrencyInstance();
+						
+						out.print(formatter.format(result.getDouble(2)));
 						out.println("</td>");
 						
 						
@@ -81,7 +83,9 @@
 						out.println("</td>");
 						
 						out.println("<td>");
-						out.print(result.getString(2));
+						NumberFormat formatter = NumberFormat.getCurrencyInstance();
+						
+						out.print(formatter.format(result.getDouble(2)));
 						out.println("</td>");
 						
 						
@@ -118,7 +122,9 @@
 						out.println("</td>");
 						
 						out.println("<td>");
-						out.print(result.getString(2));
+						NumberFormat formatter = NumberFormat.getCurrencyInstance();
+						
+						out.print(formatter.format(result.getDouble(2)));
 						out.println("</td>");
 						
 						

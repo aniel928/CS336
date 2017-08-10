@@ -59,7 +59,8 @@ stmt = con.createStatement();
 			out.println("</td>");
 			
 			out.println("<td>");
-			out.print(""+cost);
+			NumberFormat formatter = NumberFormat.getCurrencyInstance();
+			out.print(""+formatter.format(cost));
 			out.println("</td>");
 			
 			out.println("</tr>");
