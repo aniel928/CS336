@@ -4,13 +4,6 @@
 ec2-13-58-6-109.us-east-2.compute.amazonaws.com:8080/airlineProj
 
 
-# Credentials #
-username:  aniel928
-password: mookie1015
-
-(These are the username and password for all logins we've used in the project.)
-
-
 # Table Credit #
 
 aircraft
